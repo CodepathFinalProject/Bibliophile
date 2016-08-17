@@ -69,6 +69,6 @@ Transactions history activity
 	
 * [ ] About page in the menu
 
-
+## Mock - Up Link:
+https://popapp.in/projects/57b3a53562e5f4df209ee1e2/preview
   
-![alt tag] (https://popapp.in/projects/57b3a53562e5f4df209ee1e2/preview)
