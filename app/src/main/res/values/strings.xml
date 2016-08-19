@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Book_Bees</string>
+    <string name="app_name">Bibliophile</string>
     <string name="fragment_search">Search</string>
     <string name="fragment_bookshelf">Bookshelf</string>
     <string name="fragment_post">Post</string>

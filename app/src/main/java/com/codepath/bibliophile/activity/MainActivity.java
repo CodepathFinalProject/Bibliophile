@@ -1,4 +1,4 @@
-package com.codepath.book_bees.activity;
+package com.codepath.bibliophile.activity;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-import com.codepath.book_bees.R;
-import com.codepath.book_bees.fragment.PostFragment;
+import com.codepath.bibliophile.R;
+import com.codepath.bibliophile.fragment.PostFragment;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
@@ -41,10 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Setup drawer view
         setupDrawerContent(nvDrawer);
-
-        // Inflate navigation header
-        nvDrawer.inflateHeaderView(R.layout.nav_header);
-
     }
 
     @Override

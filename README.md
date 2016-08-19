@@ -69,8 +69,6 @@ Transactions history activity
 	
 * [ ] About page in the menu
 
-
+## Mock - Up Link:
+https://popapp.in/projects/57b3a53562e5f4df209ee1e2/preview
   
-![alt tag] (https://github.com/CodepathFinalProject/Book_Bees/blob/master/2016-08-15T18-37-03-516.jpeg)
-![alt tag] (https://github.com/CodepathFinalProject/Book_Bees/blob/master/2016-08-15T18-37-03-518.jpeg)
-![alt tag] (https://github.com/CodepathFinalProject/Book_Bees/blob/master/2016-08-15T18-37-03-519.jpeg)

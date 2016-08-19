@@ -1,4 +1,4 @@
-package com.codepath.book_bees.fragment;
+package com.codepath.bibliophile.fragment;
 
 
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.codepath.book_bees.R;
+import com.codepath.bibliophile.R;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -1,4 +1,4 @@
-package com.codepath.book_bees;
+package com.codepath.bibliophile;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
