@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Book_Bees</string>
+    <string name="fragment_search">Search</string>
+    <string name="fragment_bookshelf">Bookshelf</string>
+    <string name="fragment_post">Post</string>
+    <string name="fragment_profile">Profile</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
