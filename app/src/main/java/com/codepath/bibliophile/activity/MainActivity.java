@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +13,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.codepath.bibliophile.R;
+import com.codepath.bibliophile.fragment.AddBookFragment;
 import com.codepath.bibliophile.fragment.PostFragment;
+import com.codepath.bibliophile.model.Book;
 
-public class MainActivity extends AppCompatActivity {
+import org.parceler.Parcels;
+
+public class MainActivity extends AppCompatActivity implements PostFragment.OnSearchBookListener {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
@@ -122,4 +127,17 @@ public class MainActivity extends AppCompatActivity {
         return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
     }
 
+    @Override
+    public void onSearchBookClicked(Book book) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+        // Add a book as a fragment argument
+        AddBookFragment addBookFragment = new AddBookFragment();
+        Bundle args = new Bundle();
+        args.putParcelable("book", Parcels.wrap(book));
+        addBookFragment.setArguments(args);
+
+        ft.replace(R.id.flContent, addBookFragment);
+        ft.commit();
+    }
 }
