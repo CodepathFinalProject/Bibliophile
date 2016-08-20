@@ -1,5 +1,6 @@
 package com.codepath.bibliophile.activity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -13,6 +14,9 @@ import android.view.MenuItem;
 
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.fragment.PostFragment;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
@@ -24,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
         // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -45,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -96,6 +102,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.nav_profile:
                 fragmentClass = PostFragment.class;
                 break;
+            case R.id.nav_logout:
+                logout();
+                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
+
             default:
                 fragmentClass = PostFragment.class;
         }
@@ -116,6 +127,10 @@ public class MainActivity extends AppCompatActivity {
         setTitle(menuItem.getTitle());
         // Close the navigation drawer
         mDrawer.closeDrawers();
+    }
+
+    private void logout() {
+        LoginManager.getInstance().logOut();
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
