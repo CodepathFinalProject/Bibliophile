@@ -7,7 +7,7 @@ Bibliophile is a P2P marketplace for books for Android users.
 The following **required** functionality is completed:
 
 Authentication and onboarding
-* [ ]	User can sign in using Facebook OAuth
+* [X]	User can sign in using Facebook OAuth
 * [ ]	Upon first-time login, User must enter his home address
 * [ ] After entering in address, User must enter in his Venmo information
 
@@ -33,7 +33,7 @@ Purchase
 
 Profile
 * [ ] Clicking the Profile tab will take you to the Profile activity
-* [ ] User can sign out of Facebook
+* [X] User can sign out of Facebook
 * [ ] User can view and change his home address
 * [ ] User can connect or disconnect his Venmo account
 
