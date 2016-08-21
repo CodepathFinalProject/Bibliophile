@@ -2,6 +2,7 @@ package com.codepath.bibliophile.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,10 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.codepath.bibliophile.R;
+import com.codepath.bibliophile.camera.BarcodeCaptureActivity;
 import com.codepath.bibliophile.client.GoogleBooksClient;
 import com.codepath.bibliophile.model.Book;
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONObject;
@@ -26,11 +31,15 @@ import cz.msebera.android.httpclient.Header;
  */
 public class PostFragment extends Fragment {
 
+    private static final int RC_BARCODE_CAPTURE = 9001;
+    private static final String TAG = "BarcodeMain";
+
     private Button btnSearchByISBN;
     private Button btnSearchBarcode;
     private EditText etISBN;
 
     private GoogleBooksClient client;
+
 
     public PostFragment() {
         // Required empty public constructor
@@ -89,6 +98,39 @@ public class PostFragment extends Fragment {
             }
         });
 
+        btnSearchBarcode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), BarcodeCaptureActivity.class);
+                intent.putExtra(BarcodeCaptureActivity.AutoFocus, true);
+                intent.putExtra(BarcodeCaptureActivity.UseFlash, false);
+
+                startActivityForResult(intent, RC_BARCODE_CAPTURE);
+            }
+        });
+
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == RC_BARCODE_CAPTURE) {
+            if (resultCode == CommonStatusCodes.SUCCESS) {
+                if (data != null) {
+                    Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
+                    etISBN.setText(barcode.displayValue);
+                    Toast.makeText(getActivity(), R.string.scan_barcode_success, Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "Barcode read: " + barcode.displayValue);
+                } else {
+                    Toast.makeText(getActivity(), R.string.scan_barcode_failure, Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "No barcode captured, intent data is null");
+                }
+            } else {
+                Toast.makeText(getActivity(), R.string.scan_barcode_error, Toast.LENGTH_SHORT).show();
+                Log.d(TAG, "Error scanning barcode");
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }
