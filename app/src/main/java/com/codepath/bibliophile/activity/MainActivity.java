@@ -1,5 +1,6 @@
 package com.codepath.bibliophile.activity;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -16,6 +17,9 @@ import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.fragment.AddBookFragment;
 import com.codepath.bibliophile.fragment.PostFragment;
 import com.codepath.bibliophile.model.Book;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
 
 import org.parceler.Parcels;
 
@@ -29,7 +33,8 @@ public class MainActivity extends AppCompatActivity implements PostFragment.OnSe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
         // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -50,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements PostFragment.OnSe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
@@ -101,6 +107,11 @@ public class MainActivity extends AppCompatActivity implements PostFragment.OnSe
             case R.id.nav_profile:
                 fragmentClass = PostFragment.class;
                 break;
+            case R.id.nav_logout:
+                logout();
+                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(intent);
+
             default:
                 fragmentClass = PostFragment.class;
         }
@@ -121,6 +132,10 @@ public class MainActivity extends AppCompatActivity implements PostFragment.OnSe
         setTitle(menuItem.getTitle());
         // Close the navigation drawer
         mDrawer.closeDrawers();
+    }
+
+    private void logout() {
+        LoginManager.getInstance().logOut();
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
