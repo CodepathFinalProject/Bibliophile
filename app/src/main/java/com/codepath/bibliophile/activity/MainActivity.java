@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements PostFragment.OnSe
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass;
-        switch(menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
             case R.id.nav_search:
                 fragmentClass = PostFragment.class;
                 break;
@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements PostFragment.OnSe
                 break;
             case R.id.nav_logout:
                 logout();
-                Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
 
             default:
@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements PostFragment.OnSe
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     @Override

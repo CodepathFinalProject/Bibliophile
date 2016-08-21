@@ -54,7 +54,8 @@ public class Book {
         return ratingsCount;
     }
 
-    private Book() {}
+    private Book() {
+    }
 
     public static Book fromJson(JSONObject volumeInfo) {
         Book book = new Book();

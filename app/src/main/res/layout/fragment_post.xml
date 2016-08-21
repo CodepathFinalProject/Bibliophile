@@ -7,32 +7,32 @@
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
+        android:id="@+id/tvSearchInstructions"
         android:layout_width="match_parent"
         android:layout_height="196dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_gravity="left|top"
         android:text="@string/search_instructions"
-        android:id="@+id/tvSearchInstructions"
-        android:layout_gravity="left|top" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
+        android:id="@+id/btnSearchISBN"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_search_ISBN"
-        android:id="@+id/btnSearchISBN"
         android:layout_gravity="right|bottom"
-        android:onClick="findBookByISBN"/>
+        android:onClick="findBookByISBN"
+        android:text="@string/button_search_ISBN" />
 
     <EditText
+        android:id="@+id/etISBN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/etISBN"
         android:layout_gravity="left|center_vertical"
         android:hint="@string/hint_ISBN" />
 
     <Button
+        android:id="@+id/btnSearchBarcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_scan_barcode"
-        android:id="@+id/btnSearchBarcode"
-        android:layout_gravity="left|bottom" />
+        android:layout_gravity="left|bottom"
+        android:text="@string/button_scan_barcode" />
 </FrameLayout>

@@ -24,7 +24,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PostFragment extends Fragment{
+public class PostFragment extends Fragment {
 
     private Button btnSearchByISBN;
     private Button btnSearchBarcode;
@@ -78,7 +78,6 @@ public class PostFragment extends Fragment{
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                         Book book = Book.fromJsonResponse(response);
-                        Log.d("debug", "got network response");
                         listener.onSearchBookClicked(book);
                     }
 

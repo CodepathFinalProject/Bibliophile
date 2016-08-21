@@ -17,7 +17,8 @@ public class GoogleBooksClient extends AsyncHttpClient {
     private static final String PARAM_KEY_Q = "q";
     private static final String FORMAT_Q = "isbn:%s";
 
-    private GoogleBooksClient() { }
+    private GoogleBooksClient() {
+    }
 
     public static GoogleBooksClient getClient() {
         return client;

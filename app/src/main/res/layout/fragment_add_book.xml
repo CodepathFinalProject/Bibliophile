@@ -6,10 +6,10 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/tvBookTitle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment"
-        android:id="@+id/tvBookTitle"
-        android:textSize="30sp"/>
+        android:textSize="30sp" />
 
 </FrameLayout>
