@@ -84,7 +84,7 @@ public class PostFragment extends Fragment{
 
                     @Override
                     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                        Log.d("failure", errorResponse.toString());
+                        Log.d("failure", Integer.toString(statusCode));
                     }
                 });
             }
