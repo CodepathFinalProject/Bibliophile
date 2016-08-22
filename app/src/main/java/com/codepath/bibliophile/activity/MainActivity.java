@@ -12,18 +12,20 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.fragment.AddBookFragment;
 import com.codepath.bibliophile.fragment.PostFragment;
 import com.codepath.bibliophile.model.Book;
+import com.codepath.bibliophile.model.BookListing;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 
 import org.parceler.Parcels;
 
-public class MainActivity extends AppCompatActivity implements PostFragment.OnSearchBookListener {
+public class MainActivity extends AppCompatActivity implements PostFragment.OnSearchBookListener, AddBookFragment.OnPostBookListener {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
@@ -153,6 +155,28 @@ public class MainActivity extends AppCompatActivity implements PostFragment.OnSe
         addBookFragment.setArguments(args);
 
         ft.replace(R.id.flContent, addBookFragment);
+        ft.addToBackStack("post");
         ft.commit();
+    }
+
+    @Override
+    public void onPostClicked(BookListing listing) {
+        // TODO save book to database
+        Toast.makeText(this, "Saving " + listing.getBook().getTitle() + " to the database", Toast.LENGTH_SHORT).show(); // TODO remove
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack();
+        }
+    }
+
+    @Override
+    public void onCancelClicked() {
+        Toast.makeText(this, "Cancelled this post", Toast.LENGTH_SHORT).show(); // TODO remove
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack();
+        }
     }
 }

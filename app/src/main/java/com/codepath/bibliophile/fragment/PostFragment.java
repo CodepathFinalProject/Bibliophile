@@ -51,7 +51,7 @@ public class PostFragment extends Fragment {
             listener = (OnSearchBookListener) context;
         } else {
             throw new ClassCastException(context.toString()
-                    + " must implement MyListFragment.OnItemSelectedListener");
+                    + " must implement PostFragment.OnSearchBookListener");
         }
     }
 

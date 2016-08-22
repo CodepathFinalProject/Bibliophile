@@ -59,6 +59,7 @@ public class Book {
 
     public static Book fromJson(JSONObject volumeInfo) {
         Book book = new Book();
+        book.authors = new ArrayList<>();
 
         try {
             book.title = volumeInfo.getString("title");
@@ -69,7 +70,6 @@ public class Book {
             book.averageRating = volumeInfo.getDouble("averageRating");
             book.ratingsCount = volumeInfo.getInt("ratingsCount");
 
-            book.authors = new ArrayList<>();
             JSONArray authors = volumeInfo.getJSONArray("authors");
             for (int i = 0; i < authors.length(); i++) {
                 book.authors.add(authors.getString(i));
