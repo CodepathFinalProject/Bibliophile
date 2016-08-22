@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,9 +33,10 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-             //   loginButton.setVisibility(View.INVISIBLE);
-             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                loginButton.setVisibility(View.INVISIBLE);
+                Intent intent = new Intent(LoginActivity.this,AddressActivity.class);
                 startActivity(intent);
+                finish();
             }
 
             @Override
@@ -47,12 +49,12 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("111", "onError: " + e.toString());
             }
         });
-
-
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 }
