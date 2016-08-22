@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onSuccess(LoginResult loginResult) {
              //   loginButton.setVisibility(View.INVISIBLE);
-             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+             Intent intent = new Intent(LoginActivity.this,HomeMainActivity.class);
                 startActivity(intent);
             }
 

@@ -3,17 +3,17 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_search"
-            android:icon="@drawable/ic_one"
-            android:title="@string/fragment_search" />
+            android:id="@+id/nav_home"
+            android:icon="@drawable/home"
+            android:title="@string/fragment_home" />
         <item
             android:id="@+id/nav_bookshelf"
             android:icon="@drawable/ic_one"
             android:title="@string/fragment_bookshelf" /> <!-- TODO replace with new icons -->
         <item
-            android:id="@+id/nav_post"
+            android:id="@+id/nav_transaction"
             android:icon="@drawable/ic_one"
-            android:title="@string/fragment_post" />
+            android:title="@string/fragment_transaction" />
         <item
             android:id="@+id/nav_profile"
             android:icon="@drawable/ic_one"

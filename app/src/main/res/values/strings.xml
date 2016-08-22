@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">Bibliophile</string>
     <string name="fragment_search">Search</string>
+    <string name="fragment_home">Home</string>
+
     <string name="fragment_bookshelf">Bookshelf</string>
     <string name="fragment_post">Post</string>
     <string name="fragment_profile">Profile</string>
+    <string name="fragment_transaction">Transaction</string>
+
     <string name="fragment_logout">Log out</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
