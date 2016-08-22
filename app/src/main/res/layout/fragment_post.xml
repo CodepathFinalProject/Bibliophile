@@ -5,9 +5,34 @@
     tools:context=".fragment.PostFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
+    <TextView
+        android:id="@+id/tvSearchInstructions"
+        android:layout_width="match_parent"
+        android:layout_height="196dp"
+        android:layout_gravity="left|top"
+        android:text="@string/search_instructions"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/btnSearchISBN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:onClick="findBookByISBN"
+        android:text="@string/button_search_ISBN" />
+
+    <EditText
+        android:id="@+id/etISBN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center_vertical"
+        android:hint="@string/hint_ISBN" />
+
+    <Button
+        android:id="@+id/btnSearchBarcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|bottom"
+        android:text="@string/button_scan_barcode" />
 </FrameLayout>
