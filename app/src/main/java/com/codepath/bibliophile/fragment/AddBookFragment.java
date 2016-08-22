@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.model.Book;
@@ -21,6 +22,8 @@ import com.codepath.bibliophile.model.BookListing;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -99,9 +102,16 @@ public class AddBookFragment extends Fragment {
         Picasso.with(getContext()).load(book.getThumbnailUrl()).into(ivBookThumbnail);
         tvBookTitle.setText(book.getTitle());
         tvBookSubtitle.setText(book.getSubtitle());
-        tvBookAuthor.setText(book.getAuthors().get(0));
+
+        List<String> authors = book.getAuthors();
+        if (authors != null && authors.size() > 0) {
+            tvBookAuthor.setText(book.getAuthors().get(0));
+        } else {
+            tvBookAuthor.setText("");
+        }
+
         tvBookDescription.setText(book.getDescription());
-        tvBookRatingsCount.setText(Integer.toString(book.getRatingsCount()) + "ratings"); // TOOO use String.format
+        tvBookRatingsCount.setText(Integer.toString(book.getRatingsCount()) + " ratings"); // TOOO use String.format
         rbBookRating.setRating((float) book.getAverageRating());
     }
 
@@ -112,13 +122,14 @@ public class AddBookFragment extends Fragment {
                 BookListing listing = new BookListing(book);
                 listing.setCondition(spnBookCondition.getSelectedItem().toString());
 
-                String price = etBookPrice.getText().toString(); // TODO improve error handling
+                String price = etBookPrice.getText().toString();
                 if (price.equals("")) {
-                    price = "10.0";
+                    Toast.makeText(getContext(), R.string.book_add_price_prompt, Toast.LENGTH_SHORT).show();
+                } else {
+                    listing.setPrice(Double.parseDouble(price));
+                    listener.onPostClicked(listing);
                 }
 
-                listing.setPrice(Double.parseDouble(price));
-                listener.onPostClicked(listing);
             }
         });
 

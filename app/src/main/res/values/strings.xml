@@ -21,4 +21,5 @@
     <string name="book_price_placeholder">$9.99</string>
     <string name="book_post_label">Save</string>
     <string name="book_cancel_label">Cancel</string>
+    <string name="book_add_price_prompt">Please enter a book price!</string>
 </resources>
