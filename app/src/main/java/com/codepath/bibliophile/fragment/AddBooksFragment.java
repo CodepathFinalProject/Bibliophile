@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 
 import com.codepath.bibliophile.R;
 
-/**
- * Created by supriya on 8/21/16.
- */
-public class ProfileFragment extends BaseFragment {
-    public ProfileFragment(){
+
+public class AddBooksFragment extends BaseFragment {
+
+    public AddBooksFragment(){
 
     }
     @Override
@@ -20,6 +19,6 @@ public class ProfileFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         Log.d("bookshelf", "onCreateView: ");
-        return inflater.inflate(R.layout.fragment_post, container, false);
+        return inflater.inflate(R.layout.add_book, container, false);
     }
 }

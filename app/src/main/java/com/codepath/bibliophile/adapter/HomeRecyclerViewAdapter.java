@@ -2,6 +2,7 @@ package com.codepath.bibliophile.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.bibliophile.R;
+import com.codepath.bibliophile.model.BookModel;
 
-/**
- * Created by supriya on 8/22/16.
- */
+import java.util.List;
+
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private List<BookModel> mBook;
+    private Context mContext;
+
+    public Context getmContext() {
+        return mContext;
+    }
+
+    public HomeRecyclerViewAdapter(Context context, List<BookModel> model) {
+        this.mBook = model;
+        this.mContext = context;
+    }
+
     public static class BookViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView ivBookCover;
@@ -96,9 +109,14 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         BookViewHolder vh1 = (BookViewHolder) holder;
+       BookModel book = (BookModel) mBook.get(position);
+        if (book != null) {
+            vh1.getTvBookTitle().setText(book.getBody());
+            Log.d(book.toString(), "onBindViewHolder: ");
 
+            }
+        }
 
-    }
 
     @Override
     public int getItemCount() {

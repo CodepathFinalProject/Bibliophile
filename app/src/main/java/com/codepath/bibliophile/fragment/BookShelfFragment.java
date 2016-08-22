@@ -1,7 +1,6 @@
 package com.codepath.bibliophile.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,7 @@ import com.codepath.bibliophile.R;
 /**
  * Created by supriya on 8/21/16.
  */
-public class BookShelfFragment extends Fragment {
+public class BookShelfFragment extends BaseFragment {
 
     public BookShelfFragment(){
 

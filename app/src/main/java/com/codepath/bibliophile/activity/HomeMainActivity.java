@@ -27,8 +27,12 @@ import com.codepath.bibliophile.model.BookModel;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.util.List;
 
 public class HomeMainActivity extends AppCompatActivity {
     private DrawerLayout mDrawer;
@@ -58,31 +62,31 @@ public class HomeMainActivity extends AppCompatActivity {
         // Find our drawer view
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
 
+
+
         // Setup drawer view
         setupDrawerContent(nvDrawer);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new HomeFragment()).commit();
-//            rvHomePage = (RecyclerView)findViewById(R.id.rvHomePage);
-//            rvHomePage.setAdapter(new HomeRecyclerViewAdapter(getSupportFragmentManager()));
+
 
         }
-
-        // Define the class we would like to query
+// Define the class we would like to query
         ParseQuery<BookModel> query = ParseQuery.getQuery(BookModel.class);
 // Define our query conditions
-        query.whereEqualTo("owner", ParseUser.getCurrentUser());
+        query.whereEqualTo("bookTitle", ParseUser.getCurrentUser());
 // Execute the find asynchronously
-//        query.findInBackground(new FindCallback<BookModel>() {
-//            public void done(List<BookModel> itemList, ParseException e) {
-//                if (e == null) {
-//                    // Access the array of results here
-////                    String firstItemId = itemList.get(0).getObjectId();
+        query.findInBackground(new FindCallback<BookModel>() {
+            public void done(List<BookModel> itemList, ParseException e) {
+                if (e == null) {
+                    // Access the array of results here
+//                    String firstItemId = itemList.get(0).getObjectId();
 //                    Toast.makeText(HomeMainActivity.this, firstItemId, Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Log.d("item", "Error: " + e.getMessage());
-//                }
-//            }
-//        });
+                } else {
+                    Log.d("item", "Error: " + e.getMessage());
+                }
+            }
+        });
 
     }
 
@@ -208,4 +212,15 @@ public class HomeMainActivity extends AppCompatActivity {
         return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
     }
 
+//    public void addBook(View view) {
+//        FloatingActionButton myFab = (FloatingActionButton)view.findViewById(R.id.fabAdd);
+//        myFab.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new AddBooksFragment()).commit();
+//
+//
+//            }
+//        });
+//    }
 }
+

@@ -23,7 +23,7 @@
         </android.support.v7.widget.RecyclerView>
 
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fabCompose"
+            android:id="@+id/fabAdd"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentBottom="true"
@@ -31,6 +31,7 @@
             android:layout_alignParentRight="true"
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
+            android:onClick="addBook"
             android:src="@android:drawable/ic_input_add"
             app:backgroundTint="@color/colorAccent" />
 

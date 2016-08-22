@@ -12,6 +12,13 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="facebook_app_id">193595797722570</string>
+    <string name="search_instructions">You can add a book using the ISBN number. You can either manually type in the ISBN number or scan the barcode of your book.</string>
+    <string name="button_search_ISBN">Search by ISBN</string>
+    <string name="hint_ISBN">scan or type your ISBN number</string>
+    <string name="button_scan_barcode">Scan barcode</string>
+
+
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
