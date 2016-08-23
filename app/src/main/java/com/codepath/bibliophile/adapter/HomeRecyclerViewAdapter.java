@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.model.BookModel;
 
@@ -32,7 +34,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         private ImageView ivBookCover;
         private TextView tvBookTitle;
         private TextView tvBookAuthor;
-        private TextView tvRating;
+        private RatingBar tvRating;
         private TextView tvBookDescription;
         private TextView tvPrice;
 
@@ -42,7 +44,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             ivBookCover = (ImageView)itemView.findViewById(R.id.ivBookCover);
             tvBookTitle = (TextView)itemView.findViewById(R.id.tvBookTitle);
             tvBookAuthor = (TextView)itemView.findViewById(R.id.tvAuthorName);
-//            tvRating = (TextView)itemView.findViewById(R.id.rating);
+            tvRating = (RatingBar) itemView.findViewById(R.id.rating);
             tvBookDescription = (TextView)itemView.findViewById(R.id.tvDescription);
             tvPrice = (TextView)itemView.findViewById(R.id.tvPrice);
         }
@@ -71,13 +73,13 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             this.tvBookAuthor = tvBookAuthor;
         }
 
-        public TextView getTvRating() {
+        public RatingBar getTvRating() {
             return tvRating;
         }
 
-        public void setTvRating(TextView tvRating) {
-            this.tvRating = tvRating;
-        }
+//        public void setTvRating(String tvRating) {
+//            this.tvRating = tvRating;
+//        }
 
         public TextView getTvBookDescription() {
             return tvBookDescription;
@@ -111,16 +113,29 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         BookViewHolder vh1 = (BookViewHolder) holder;
        BookModel book = (BookModel) mBook.get(position);
         if (book != null) {
-            vh1.getTvBookTitle().setText(book.getBody());
+            vh1.getTvBookTitle().setText(book.getTitle());
+            vh1.getTvBookAuthor().setText(book.getAuthor());
+            vh1.getTvBookDescription().setText(book.getDescription());
+            vh1.getTvPrice().setText(book.getPrice());
+            //vh1.getTvRating().setRating(Float.parseFloat(String.valueOf(book.getRating())));
             Log.d(book.toString(), "onBindViewHolder: ");
 
+            if (book.getBookCover() != null) {
+                vh1.getIvBookCover().setVisibility(View.VISIBLE);
+                Glide.with(mContext).load(book.getBookCover()).into(vh1.ivBookCover);
+            } else {
+                vh1.ivBookCover.setVisibility(View.GONE);
             }
+
+
+
+        }
         }
 
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mBook.size();
     }
 
 

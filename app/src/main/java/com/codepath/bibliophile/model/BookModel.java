@@ -15,27 +15,69 @@ public class BookModel extends ParseObject {
     public BookModel(String bookTitle, String author, String bookCover,
                      String description, String price, String rating){
         super();
-        setBody(bookTitle);
-        setBody(author);
-        setBody(bookCover);
-        setBody(description);
-        setBody(price);
-        setBody(rating);
+        setTitle(bookTitle);
+        setAuthor(author);
+        setBookCover(bookCover);
+        setDescription(description);
+        setPrice(price);
+        setRating(rating);
 
     }
 
 
     // Use getString and others to access fields
-    public String getBody() {
+    public String getTitle() {
         return getString("bookTitle");
     }
+
+    public String getAuthor() {
+        return getString("Author");
+    }
+
+    public String getBookCover() {
+        return getString("BookCover");
+    }
+    public String getDescription() {
+        return getString("Description");
+    }
+
+
+    public String getPrice() {
+        return getString("price");
+    }
+    public String getRating() {
+        return getString("Rating");
+    }
+
+
+
+
 
 
 
     // Use put to modify field values
-    public void setBody(String value) {
+    public void setTitle(String value) {
         put("bookTitle", value);
     }
+    public void setAuthor(String value) {
+        put("Author", value);
+    }
+    public void setBookCover(String value) {
+        put("BookCover", value);
+    }
+    public void setDescription(String value) {
+        put("Description", value);
+    }
+    public void setPrice(String value) {
+        put("price", value);
+    }
+    public void setRating(String value) {
+        put("Rating", value);
+    }
+
+
+
+
 
     // Get the user for this item
     public ParseUser getUser()  {
