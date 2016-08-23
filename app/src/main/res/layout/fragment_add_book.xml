@@ -2,11 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context="com.codepath.bibliophile.fragment.AddBookFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background"
         android:layout_margin="@dimen/book_margin">
 
         <ImageView
@@ -144,6 +146,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/colorAccent"
             android:text="@string/book_cancel_label" />
 
         <Button
@@ -152,6 +155,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@id/btnCancelPost"
             android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/colorAccent"
             android:text="@string/book_post_label" />
 
     </RelativeLayout>

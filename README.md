@@ -71,4 +71,7 @@ Transactions history activity
 
 ## Mock - Up Link:
 https://popapp.in/projects/57b3a53562e5f4df209ee1e2/preview
-  
+
+Here's a walkthrough of implemented user stories:
+
+http://imgur.com/gallery/GOFnZ  
