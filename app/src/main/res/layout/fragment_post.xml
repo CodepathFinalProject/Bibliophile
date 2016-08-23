@@ -2,167 +2,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    >
+    tools:context=".fragment.PostFragment">
 
-    <RelativeLayout
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/tvSearchInstructions"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background"
-        android:layout_margin="16dp">
+        android:layout_height="196dp"
+        android:layout_gravity="left|top"
+        android:text="@string/search_instructions"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <ImageView
-            android:id="@+id/ivBookThumbnail"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:src="@mipmap/ic_launcher"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+    <Button
+        android:id="@+id/btnSearchISBN"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:onClick="findBookByISBN"
+        android:text="@string/button_search_ISBN" />
 
-        <TextView
-            android:id="@+id/tvBookTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_alignParentTop="true"
-            android:layout_alignLeft="@+id/tvBookSubtitle"
-            android:layout_alignStart="@+id/tvBookSubtitle" />
+    <EditText
+        android:id="@+id/etISBN"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center_vertical"
+        android:hint="@string/hint_ISBN" />
 
-        <TextView
-            android:id="@+id/tvBookSubtitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_below="@+id/tvBookTitle"
-            android:layout_toRightOf="@+id/ivBookThumbnail"
-            android:layout_toEndOf="@+id/ivBookThumbnail"
-            android:layout_marginLeft="25dp"
-            android:layout_marginStart="25dp" />
-
-        <TextView
-            android:id="@+id/tvBookAuthor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="Small Text"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:layout_below="@+id/ivBookThumbnail"
-            android:layout_alignLeft="@+id/tvBookSubtitle"
-            android:layout_alignStart="@+id/tvBookSubtitle" />
-
-        <LinearLayout
-            android:id="@+id/llRatingRow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvBookAuthor"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvBookRatingsCount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="New Text" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvBookDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/llRatingRow"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="16dp"
-            android:layout_marginTop="16dp"
-            android:minLines="2"
-            android:text="New Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <LinearLayout
-            android:id="@+id/llBookConditionRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvBookDescription"
-            android:weightSum="10">
-
-            <TextView
-                android:id="@+id/tvConditionLabel"
-                android:layout_width="24sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:text="Book Condition"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <Spinner
-                android:id="@+id/spnBookCondition"
-                android:layout_width="16dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:entries="@array/book_conditions"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/llBookPriceRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/llBookConditionRow"
-            android:weightSum="10">
-
-            <TextView
-                android:id="@+id/tvBookPriceLabel"
-                android:layout_width="24sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="7"
-                android:text="Price"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <EditText
-                android:id="@+id/etBookPrice"
-                android:layout_width="16dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:ems="10"
-                android:hint="$ 78.89"
-                android:inputType="numberDecimal"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnCancelPost"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:backgroundTint="@color/colorAccent"
-            android:text="Cancel" />
-
-        <Button
-            android:id="@+id/btnPostBook"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/btnCancelPost"
-            android:layout_centerHorizontal="true"
-            android:backgroundTint="@color/colorAccent"
-            android:text="Save" />
-
-        <RatingBar
-            android:id="@+id/rbBookRating"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:isIndicator="true"
-            android:numStars="5"
-            android:rating="2"
-            android:layout_below="@+id/tvBookAuthor"
-            android:layout_alignLeft="@+id/tvBookAuthor"
-            android:layout_alignStart="@+id/tvBookAuthor" />
-
-    </RelativeLayout>
-
+    <Button
+        android:id="@+id/btnSearchBarcode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|bottom"
+        android:text="@string/button_scan_barcode" />
 </FrameLayout>

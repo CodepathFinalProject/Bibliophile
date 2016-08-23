@@ -3,9 +3,11 @@ package com.codepath.bibliophile.activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -17,12 +19,18 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.codepath.bibliophile.R;
+import com.codepath.bibliophile.fragment.AddBookFragment;
 import com.codepath.bibliophile.fragment.BookShelfFragment;
 import com.codepath.bibliophile.fragment.HomeFragment;
+import com.codepath.bibliophile.fragment.PostFragment;
 import com.codepath.bibliophile.fragment.ProfileFragment;
 import com.codepath.bibliophile.fragment.TransactionFragment;
+import com.codepath.bibliophile.model.Book;
+import com.codepath.bibliophile.model.BookListing;
 import com.codepath.bibliophile.model.BookModel;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -32,9 +40,11 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import org.parceler.Parcels;
+
 import java.util.List;
 
-public class HomeMainActivity extends AppCompatActivity {
+public class HomeMainActivity extends AppCompatActivity implements PostFragment.OnSearchBookListener, AddBookFragment.OnPostBookListener {
     private DrawerLayout mDrawer;
     private Toolbar toolbar;
     private NavigationView nvDrawer;
@@ -61,7 +71,6 @@ public class HomeMainActivity extends AppCompatActivity {
 
         // Find our drawer view
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
-
 
 
         // Setup drawer view
@@ -158,7 +167,7 @@ public class HomeMainActivity extends AppCompatActivity {
         // Create a new fragment and specify the fragment to show based on nav item clicked
         Fragment fragment = null;
         Class fragmentClass;
-        switch(menuItem.getItemId()) {
+        switch (menuItem.getItemId()) {
             case R.id.nav_home:
                 fragmentClass = HomeFragment.class;
                 break;
@@ -174,7 +183,7 @@ public class HomeMainActivity extends AppCompatActivity {
                 break;
             case R.id.nav_logout:
                 logout();
-                Intent intent = new Intent(HomeMainActivity.this,LoginActivity.class);
+                Intent intent = new Intent(HomeMainActivity.this, LoginActivity.class);
                 startActivity(intent);
 
             default:
@@ -199,7 +208,7 @@ public class HomeMainActivity extends AppCompatActivity {
         mDrawer.closeDrawers();
     }
 
-    public void testParse(){
+    public void testParse() {
 
     }
 
@@ -209,18 +218,53 @@ public class HomeMainActivity extends AppCompatActivity {
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open,  R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
-//    public void addBook(View view) {
-//        FloatingActionButton myFab = (FloatingActionButton)view.findViewById(R.id.fabAdd);
-//        myFab.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new AddBooksFragment()).commit();
-//
-//
-//            }
-//        });
-//    }
+    public void addBook(View view) {
+        FloatingActionButton myFab = (FloatingActionButton) view.findViewById(R.id.fabAdd);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Toast.makeText(getBaseContext(), "pressed FAB", Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new PostFragment()).commit();
+            }
+        });
+    }
+
+    @Override
+    public void onSearchBookClicked(Book book) {
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+        // Add a book as a fragment argument
+        AddBookFragment addBookFragment = new AddBookFragment();
+        Bundle args = new Bundle();
+        args.putParcelable("book", Parcels.wrap(book));
+        addBookFragment.setArguments(args);
+
+        ft.replace(R.id.flContent, addBookFragment);
+        ft.addToBackStack("post");
+        ft.commit();
+    }
+
+    @Override
+    public void onPostClicked(BookListing listing) {
+        // TODO save book to database
+        Toast.makeText(this, "Saving " + listing.getBook().getTitle() + " to the database", Toast.LENGTH_SHORT).show(); // TODO remove
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack();
+        }
+    }
+
+    @Override
+    public void onCancelClicked() {
+        Toast.makeText(this, "Cancelled this post", Toast.LENGTH_SHORT).show(); // TODO remove
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragmentManager.getBackStackEntryCount() > 0) {
+            fragmentManager.popBackStack();
+        }
+    }
 }
 

@@ -26,7 +26,6 @@ public class BaseFragment extends Fragment {
     public void addAll(List<BookModel> tweet) {
         model.addAll(tweet);
         adapter.notifyDataSetChanged();
-
     }
 
 
