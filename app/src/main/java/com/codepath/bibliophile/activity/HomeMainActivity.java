@@ -31,18 +31,11 @@ import com.codepath.bibliophile.fragment.ProfileFragment;
 import com.codepath.bibliophile.fragment.TransactionFragment;
 import com.codepath.bibliophile.model.Book;
 import com.codepath.bibliophile.model.BookListing;
-import com.codepath.bibliophile.model.BookModel;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import org.parceler.Parcels;
-
-import java.util.List;
 
 public class HomeMainActivity extends AppCompatActivity implements PostFragment.OnSearchBookListener, AddBookFragment.OnPostBookListener {
     private DrawerLayout mDrawer;
@@ -80,23 +73,7 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
 
 
         }
-// Define the class we would like to query
-        ParseQuery<BookModel> query = ParseQuery.getQuery(BookModel.class);
-// Define our query conditions
-        query.whereEqualTo("bookTitle", ParseUser.getCurrentUser());
-// Execute the find asynchronously
-        query.findInBackground(new FindCallback<BookModel>() {
-            public void done(List<BookModel> itemList, ParseException e) {
-                if (e == null) {
-                    // Access the array of results here
-//                    String firstItemId = itemList.get(0).getObjectId();
-//                    Toast.makeText(HomeMainActivity.this, firstItemId, Toast.LENGTH_SHORT).show();
-                } else {
-                    Log.d("item", "Error: " + e.getMessage());
-                }
-            }
-        });
-
+//
     }
 
     @Override

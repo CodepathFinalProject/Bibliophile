@@ -19,27 +19,28 @@ public class LoginActivity extends AppCompatActivity {
     private TextView info;
     private LoginButton loginButton;
     private CallbackManager callbackManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout.activity_login);
+        // setContentView(R.layout.activity_login);
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_login);
-        info = (TextView)findViewById(R.id.info);
-        loginButton = (LoginButton)findViewById(R.id.login_button);
+        info = (TextView) findViewById(R.id.info);
+        loginButton = (LoginButton) findViewById(R.id.login_button);
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-             //   loginButton.setVisibility(View.INVISIBLE);
-             Intent intent = new Intent(LoginActivity.this,HomeMainActivity.class);
+                //   loginButton.setVisibility(View.INVISIBLE);
+                Intent intent = new Intent(LoginActivity.this, HomeMainActivity.class);
                 startActivity(intent);
             }
 
             @Override
             public void onCancel() {
-                Toast.makeText(getApplicationContext(),"Login attempt was cancelled",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Login attempt was cancelled", Toast.LENGTH_SHORT).show();
             }
 
             @Override
