@@ -9,11 +9,5 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.codepath.bibliophile.activity.LoginActivity">
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        />
 
 </RelativeLayout>

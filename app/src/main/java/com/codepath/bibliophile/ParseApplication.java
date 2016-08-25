@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.codepath.bibliophile.model.BookModel;
 import com.parse.Parse;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseObject;
 import com.parse.interceptors.ParseLogInterceptor;
 
@@ -26,6 +27,8 @@ public class ParseApplication extends Application {
                 .clientKey(null)  // set explicitly unless clientKey is explicitly configured on Parse server
                 .addNetworkInterceptor(new ParseLogInterceptor())
                 .server("https://bibliophile-android-app.herokuapp.com/parse/").build());
+
+        ParseFacebookUtils.initialize(getBaseContext()); // not sure if this is the right context
 //        ParseObject testObject = new ParseObject("TestObject");
 //        testObject.put("foo", "bar");
 //        testObject.saveInBackground();
