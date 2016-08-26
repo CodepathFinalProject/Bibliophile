@@ -24,7 +24,7 @@ import android.widget.Toast;
 
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.fragment.AddBookFragment;
-import com.codepath.bibliophile.fragment.BookShelfFragment;
+import com.codepath.bibliophile.fragment.BookshelfFragment;
 import com.codepath.bibliophile.fragment.HomeFragment;
 import com.codepath.bibliophile.fragment.PostFragment;
 import com.codepath.bibliophile.fragment.ProfileFragment;
@@ -161,7 +161,7 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
                 break;
             case R.id.nav_bookshelf:
                 Log.d("bookshelf", "selectDrawerItem: ");
-                fragmentClass = BookShelfFragment.class;  // TODO replace with other fragments
+                fragmentClass = BookshelfFragment.class;  // TODO replace with other fragments
                 break;
             case R.id.nav_transaction:
                 fragmentClass = TransactionFragment.class;

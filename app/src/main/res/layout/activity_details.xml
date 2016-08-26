@@ -64,4 +64,22 @@
         android:layout_alignRight="@+id/tvDAuthor"
         android:layout_alignEnd="@+id/tvDAuthor" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Condition"
+        android:id="@+id/tvCondition"
+        android:layout_below="@+id/tvDPrice"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ISBN"
+        android:id="@+id/tvISBN"
+        android:layout_below="@+id/tvCondition"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>

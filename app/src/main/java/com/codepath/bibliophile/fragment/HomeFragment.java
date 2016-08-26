@@ -100,7 +100,6 @@ public class HomeFragment extends BaseFragment {
 
     private void updateList(List<BookModel> itemList, ParseException e) {
         if (e == null) {
-            Log.d("111", "cover " + itemList.get(0).getBookCover());
             model.clear();
             addAll(itemList);
             adapter.notifyDataSetChanged();
