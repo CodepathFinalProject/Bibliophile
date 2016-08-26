@@ -24,16 +24,17 @@ import android.widget.Toast;
 
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.fragment.AddBookFragment;
-import com.codepath.bibliophile.fragment.BookShelfFragment;
+import com.codepath.bibliophile.fragment.BookshelfFragment;
 import com.codepath.bibliophile.fragment.HomeFragment;
 import com.codepath.bibliophile.fragment.PostFragment;
 import com.codepath.bibliophile.fragment.ProfileFragment;
 import com.codepath.bibliophile.fragment.TransactionFragment;
 import com.codepath.bibliophile.model.Book;
-import com.codepath.bibliophile.model.BookListing;
+import com.codepath.bibliophile.model.BookModel;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
+import com.parse.ParseUser;
 
 import org.parceler.Parcels;
 
@@ -150,7 +151,7 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
                 break;
             case R.id.nav_bookshelf:
                 Log.d("bookshelf", "selectDrawerItem: ");
-                fragmentClass = BookShelfFragment.class;  // TODO replace with other fragments
+                fragmentClass = BookshelfFragment.class;  // TODO replace with other fragments
                 break;
             case R.id.nav_transaction:
                 fragmentClass = TransactionFragment.class;
@@ -201,7 +202,7 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
     public void addBook(View view) {
         FloatingActionButton myFab = (FloatingActionButton) view.findViewById(R.id.fabAdd);
         myFab.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+            public void onClick(View v) { // TODO figure out why this doesn't work the first time you press the button
                 Toast.makeText(getBaseContext(), "pressed FAB", Toast.LENGTH_SHORT).show();
                 getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new PostFragment()).commit();
             }
@@ -224,14 +225,16 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
     }
 
     @Override
-    public void onPostClicked(BookListing listing) {
+    public void onPostClicked(Book book) {
         // TODO save book to database
-        Toast.makeText(this, "Saving " + listing.getBook().getTitle() + " to the database", Toast.LENGTH_SHORT).show(); // TODO remove
+        Toast.makeText(this, "Saving " + book.getTitle() + " to the database", Toast.LENGTH_SHORT).show(); // TODO remove
+
+        BookModel parseBook = new BookModel(book);
+        parseBook.setOwner(ParseUser.getCurrentUser());
+        parseBook.saveInBackground();
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if (fragmentManager.getBackStackEntryCount() > 0) {
-            fragmentManager.popBackStack();
-        }
+        fragmentManager.beginTransaction().replace(R.id.flContent, new HomeFragment()).commit(); // TODO would like to use Bookshelf Fragment but the POST call does not finish before the GET call
     }
 
     @Override

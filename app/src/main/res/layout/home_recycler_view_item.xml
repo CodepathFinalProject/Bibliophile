@@ -98,7 +98,7 @@
             android:layout_below="@+id/tvDescription"
             android:layout_alignLeft="@+id/tvDescription"
             android:layout_alignStart="@+id/tvDescription" />
-
+        <!--TODO currently does not adjust ratings-->
 
         <TextView
             android:id="@+id/tvLocation"

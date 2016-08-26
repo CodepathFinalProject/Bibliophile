@@ -19,12 +19,9 @@ import android.widget.Toast;
 
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.model.Book;
-import com.codepath.bibliophile.model.BookListing;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
-
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,7 +51,7 @@ public class AddBookFragment extends Fragment {
 
     // Tell the parent activity to dynamically embed a new fragment
     public interface OnPostBookListener {
-        public void onPostClicked(BookListing listing);
+        public void onPostClicked(Book listing);
 
         public void onCancelClicked();
     }
@@ -103,13 +100,7 @@ public class AddBookFragment extends Fragment {
         Picasso.with(getContext()).load(book.getThumbnailUrl()).into(ivBookThumbnail);
         tvBookTitle.setText(book.getTitle());
         tvBookSubtitle.setText(book.getSubtitle());
-
-        List<String> authors = book.getAuthors();
-        if (authors != null && authors.size() > 0) {
-            tvBookAuthor.setText(book.getAuthors().get(0));
-        } else {
-            tvBookAuthor.setText("");
-        }
+        tvBookAuthor.setText(book.getPrimaryAuthor());
 
         tvBookDescription.setText(book.getDescription());
         tvBookRatingsCount.setText(Integer.toString(book.getRatingsCount()) + " ratings"); // TOOO use String.format
@@ -120,15 +111,15 @@ public class AddBookFragment extends Fragment {
         btnPostBook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BookListing listing = new BookListing(book);
-                listing.setCondition(spnBookCondition.getSelectedItem().toString());
+
+                book.setCondition(spnBookCondition.getSelectedItem().toString());
 
                 String price = etBookPrice.getText().toString();
                 if (price.equals("")) {
                     Toast.makeText(getContext(), R.string.book_add_price_prompt, Toast.LENGTH_SHORT).show();
                 } else {
-                    listing.setPrice(Double.parseDouble(price));
-                    listener.onPostClicked(listing);
+                    book.setPrice(Double.parseDouble(price));
+                    listener.onPostClicked(book);
                 }
 
             }
