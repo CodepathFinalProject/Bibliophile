@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.codepath.bibliophile.R;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.login.widget.LoginButton;
@@ -70,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                     ParseFacebookUtils.linkWithReadPermissionsInBackground(user, LoginActivity.this, null);
                     ParseFacebookUtils.linkInBackground(user, AccessToken.getCurrentAccessToken());
                     Intent intent = new Intent(LoginActivity.this, HomeMainActivity.class);
-                startActivity(intent);
+                    startActivity(intent);
                 }
             }
         });
