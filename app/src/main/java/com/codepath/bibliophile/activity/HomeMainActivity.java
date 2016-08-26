@@ -89,6 +89,17 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
 
                 // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
                 // see https://code.google.com/p/android/issues/detail?id=24599
+
+                FragmentTransaction frameManager = getSupportFragmentManager().beginTransaction();
+
+                // Add a book as a fragment argument
+                HomeFragment homeFragment = new HomeFragment();
+                Bundle args = new Bundle();
+                args.putString("query", query);
+                Log.d("searchQuery", "onQueryTextSubmit: " + query);
+                homeFragment.setArguments(args);
+
+                frameManager.replace(R.id.flContent, homeFragment).commit();
                 searchView.clearFocus();
 
                 return true;

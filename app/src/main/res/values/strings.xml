@@ -27,6 +27,14 @@
 
 
 
+    <string name="address">Address Line 1</string>
+    <string name="addressOptional">Apt # - Optional</string>
+    <string name="city">City</string>
+    <string name="state">State</string>
+    <string name="zipcode">ZipCode</string>
+    <string name="save">SAVE</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
