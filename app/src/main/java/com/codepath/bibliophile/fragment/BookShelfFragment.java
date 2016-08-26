@@ -17,12 +17,10 @@ import com.parse.ParseUser;
 
 import java.util.List;
 
-/**
- * Created by supriya on 8/21/16.
- */
-public class BookshelfFragment extends BaseFragment {
 
-    public BookshelfFragment() {
+public class BookShelfFragment extends BaseFragment {
+
+    public BookShelfFragment() {
 
     }
 
