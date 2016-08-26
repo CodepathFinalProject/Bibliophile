@@ -15,6 +15,7 @@ import com.codepath.bibliophile.model.BookModel;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.List;
 
@@ -53,26 +54,59 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        populateTimeline();
 
+        String qValue = "";
+        if (getArguments() != null && getArguments().containsKey("query")) {
+            qValue = getArguments().getString("query");
+            Log.d("qVal", "onCreate: " + qValue);
+            populateTimelineQuery(qValue);
+        } else {
+            populateTimeline();
+        }
     }
 
     private void populateTimeline() {
-        ParseQuery<BookModel > query = ParseQuery.getQuery(BookModel.class);
-// Define our query conditions
-        //query.whereEqualTo("bookTitle", ParseUser.getCurrentUser());
-// Execute the find asynchronously
+        ParseQuery<BookModel> query = ParseQuery.getQuery(BookModel.class);
+        query.whereNotEqualTo("owner", ParseUser.getCurrentUser());
         query.findInBackground(new FindCallback<BookModel>() {
             public void done(List<BookModel> itemList, ParseException e) {
-                if (e == null) {
-                    Log.d("SUPRIYA", itemList.get(0).getBookCover());
-                    addAll(itemList);
-                } else {
-                    Log.d("item", "Error: " + e.getMessage());
-                }
+                updateList(itemList, e);
+
             }
         });
     }
 
+    private void populateTimelineQuery(String q) {
+        Log.d("populate", "populateTimeline: " + q);
+
+        ParseQuery<BookModel> query = ParseQuery.getQuery(BookModel.class);
+        query.whereEqualTo("bookTitle", q);
+      /*  ParseQuery<BookModel> query1 = ParseQuery.getQuery(BookModel.class);
+            query.whereEqualTo("Author","Tom Knox");
+
+            List<ParseQuery<BookModel>> queries = new ArrayList<ParseQuery<BookModel>>();
+            queries.add(query);
+            queries.add(query1);
+
+            ParseQuery<BookModel> mainQuery = ParseQuery.or(queries);
+*/
+        query.findInBackground(new FindCallback<BookModel>() {
+            @Override
+            public void done(List<BookModel> itemList, ParseException e) {
+                updateList(itemList, e);
+            }
+        });
+    }
+
+    private void updateList(List<BookModel> itemList, ParseException e) {
+        if (e == null) {
+            Log.d("111", "cover " + itemList.get(0).getBookCover());
+            model.clear();
+            addAll(itemList);
+            adapter.notifyDataSetChanged();
+        } else {
+            Log.d("item", "Error: " + e.getMessage());
+        }
+    }
 
 }

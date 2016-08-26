@@ -42,12 +42,15 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".activity.HomeMainActivity"></activity>
+        <activity android:name=".activity.AddressActivity" />
 
 
         <!-- activities and everything are here. meta-data is last inside application tag -->
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="myBibliophileApp" />
+
+        <activity android:name=".activity.DetailsActivity"></activity>
     </application>
 
 </manifest>
