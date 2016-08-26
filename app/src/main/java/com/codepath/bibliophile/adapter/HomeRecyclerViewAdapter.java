@@ -123,7 +123,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             vh1.getTvBookDescription().setText(book.getDescription());
             vh1.getTvPrice().setText(book.getPrice().toString());
             vh1.getTvRating().setRating((float) book.getAverageRating().doubleValue());
-            //vh1.getTvRating().setRating(Float.parseFloat(String.valueOf(book.getRating())));
             Log.d(book.toString(), "onBindViewHolder: ");
 
             if (book.getBookCover() != null) {

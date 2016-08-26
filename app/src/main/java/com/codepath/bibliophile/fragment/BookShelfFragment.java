@@ -20,9 +20,9 @@ import java.util.List;
 /**
  * Created by supriya on 8/21/16.
  */
-public class BookShelfFragment extends BaseFragment {
+public class BookshelfFragment extends BaseFragment {
 
-    public BookShelfFragment() {
+    public BookshelfFragment() {
 
     }
 
