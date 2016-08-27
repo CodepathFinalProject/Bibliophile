@@ -74,7 +74,7 @@ public class HomeFragment extends BaseFragment {
         Log.d("populate", "populateTimeline: " + q);
 
         ParseQuery<BookModel> query = ParseQuery.getQuery(BookModel.class);
-        query.whereEqualTo("bookTitle", q);
+        query.whereEqualTo("title", q);
       /*  ParseQuery<BookModel> query1 = ParseQuery.getQuery(BookModel.class);
             query.whereEqualTo("Author","Tom Knox");
 
