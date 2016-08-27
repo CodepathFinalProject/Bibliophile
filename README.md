@@ -8,17 +8,16 @@ The following **required** functionality is completed:
 
 Authentication and onboarding
 * [X]	User can sign in using Facebook OAuth
-* [ ]	Upon first-time login, User must enter his home address
-* [ ] After entering in address, User must enter in his Venmo information
+* [X]	Upon first-time login, User must enter his home address
 
 Bookshelf
 * [x] User can view books in his Bookshelf. User can also add books by pressing "ADD"
 * [x] User can add books to his bookshelf by either manually filling in ISBN or by scanning the barcode. Books without ISBN numbers will not be accepted
 * [x] After a book is recognized, information about the book is autofilled, such as book thumbnail, description, author, rating, etc... 
-* [x ] To finish adding a book, User needs to enter in mandatory information (book condition, price)
+* [x] To finish adding a book, User needs to enter in mandatory information (book condition, price)
 
 Details
-* [ ] Selecting a book on his bookshelf takes User to the Details page, which displays book name, author, ISBN, description, cover picture, rating
+* [X] Selecting a book on his bookshelf takes User to the Details page, which displays book name, author, ISBN, description, cover picture, rating
 * [x] User can edit the condition of his book or delete the book from his bookshelf
 
 Search
@@ -32,10 +31,9 @@ Purchase
 * [ ] Once Buyer has received the book, Buyer can click "CONFIRMED" and the transaction will take place
 
 Profile
-* [ ] Clicking the Profile tab will take you to the Profile activity
+* [X] Clicking the Profile tab will take you to the Profile activity
 * [X] User can sign out of Facebook
 * [ ] User can view and change his home address
-* [ ] User can connect or disconnect his Venmo account
 
 The following **stretch** functionality is completed:
 * [ ] Onboarding animation telling you how the app works
@@ -62,6 +60,8 @@ Search
 Purchase
 * [ ] Seller will receive a push notification when he gets a book Inquiry
 * [ ] Automatic removal of book from buyer's bookshelf after buyer clicks CONFIRM
+* [ ] User can connect or disconnect his Venmo account
+
 
 Transactions history activity
 * [ ] Inquiries
