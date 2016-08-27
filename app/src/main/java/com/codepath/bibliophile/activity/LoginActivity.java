@@ -64,14 +64,14 @@ public class LoginActivity extends AppCompatActivity {
                     Log.d("debug", "User signed up and logged in through Facebook!");
                     ParseFacebookUtils.linkWithReadPermissionsInBackground(user, LoginActivity.this, null);
                     ParseFacebookUtils.linkInBackground(user, AccessToken.getCurrentAccessToken());
-                    Intent intent = new Intent(LoginActivity.this, HomeMainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, AddressActivity.class);
                     startActivity(intent);
                 } else {
                     Log.d("debug", "User logged in through Facebook!");
                     ParseFacebookUtils.linkWithReadPermissionsInBackground(user, LoginActivity.this, null);
                     ParseFacebookUtils.linkInBackground(user, AccessToken.getCurrentAccessToken());
                     Intent intent = new Intent(LoginActivity.this, HomeMainActivity.class);
-                startActivity(intent);
+                    startActivity(intent);
                 }
             }
         });
