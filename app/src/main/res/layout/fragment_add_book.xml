@@ -4,12 +4,15 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     tools:context="com.codepath.bibliophile.fragment.AddBookFragment">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background"
-        android:layout_margin="@dimen/book_margin">
+        android:layout_margin="@dimen/book_margin"
+        android:background="@drawable/background">
 
         <ImageView
             android:id="@+id/ivBookThumbnail"
@@ -141,23 +144,23 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btnCancelPost"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:backgroundTint="@color/colorAccent"
-            android:text="@string/book_cancel_label" />
-
-        <Button
             android:id="@+id/btnPostBook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@id/btnCancelPost"
+            android:layout_below="@id/llBookPriceRow"
             android:layout_centerHorizontal="true"
             android:backgroundTint="@color/colorAccent"
             android:text="@string/book_post_label" />
 
+        <Button
+            android:id="@+id/btnCancelPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btnPostBook"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/book_cancel_label" />
     </RelativeLayout>
+</ScrollView>
 
 </FrameLayout>
