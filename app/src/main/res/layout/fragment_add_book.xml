@@ -2,14 +2,162 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context="com.codepath.bibliophile.fragment.AddBookFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/tvBookTitle"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment"
-        android:textSize="30sp" />
+        android:background="@drawable/background"
+        android:layout_margin="@dimen/book_margin">
+
+        <ImageView
+            android:id="@+id/ivBookThumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/book_margin"
+            android:minHeight="120dp" />
+
+        <TextView
+            android:id="@+id/tvBookTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivBookThumbnail"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:text="Large Text"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/tvBookSubtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvBookTitle"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:text="Medium Text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/tvBookAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvBookSubtitle"
+            android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
+            android:text="Small Text"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <LinearLayout
+            android:id="@+id/llRatingRow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvBookAuthor"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+
+            <RatingBar
+                android:id="@+id/rbBookRating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/book_margin"
+                android:layout_marginRight="@dimen/book_margin"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="2" />
+
+            <TextView
+                android:id="@+id/tvBookRatingsCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New Text" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvBookDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llRatingRow"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/book_margin"
+            android:layout_marginTop="@dimen/book_margin"
+            android:minLines="2"
+            android:text="New Text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <LinearLayout
+            android:id="@+id/llBookConditionRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvBookDescription"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/tvConditionLabel"
+                android:layout_width="24sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:text="@string/book_condition_label"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Spinner
+                android:id="@+id/spnBookCondition"
+                android:layout_width="@dimen/book_input"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:entries="@array/book_conditions"
+                android:prompt="@string/book_condition_prompt"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llBookPriceRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llBookConditionRow"
+            android:weightSum="10">
+
+            <TextView
+                android:id="@+id/tvBookPriceLabel"
+                android:layout_width="24sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="7"
+                android:text="@string/book_price_label"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/etBookPrice"
+                android:layout_width="@dimen/book_input"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:ems="10"
+                android:hint="@string/book_price_placeholder"
+                android:inputType="numberDecimal"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnCancelPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/book_cancel_label" />
+
+        <Button
+            android:id="@+id/btnPostBook"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/btnCancelPost"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/colorAccent"
+            android:text="@string/book_post_label" />
+
+    </RelativeLayout>
 
 </FrameLayout>

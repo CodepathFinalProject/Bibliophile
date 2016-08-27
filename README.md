@@ -12,14 +12,14 @@ Authentication and onboarding
 * [ ] After entering in address, User must enter in his Venmo information
 
 Bookshelf
-* [ ] User can view books in his Bookshelf. User can also add books by pressing "ADD"
-* [ ] User can add books to his bookshelf by either manually filling in ISBN or by scanning the barcode. Books without ISBN numbers will not be accepted
-* [ ] After a book is recognized, information about the book is autofilled, such as book thumbnail, description, author, rating, etc... 
-* [ ] To finish adding a book, User needs to enter in mandatory information (book condition, price)
+* [x] User can view books in his Bookshelf. User can also add books by pressing "ADD"
+* [x] User can add books to his bookshelf by either manually filling in ISBN or by scanning the barcode. Books without ISBN numbers will not be accepted
+* [x] After a book is recognized, information about the book is autofilled, such as book thumbnail, description, author, rating, etc... 
+* [x ] To finish adding a book, User needs to enter in mandatory information (book condition, price)
 
 Details
 * [ ] Selecting a book on his bookshelf takes User to the Details page, which displays book name, author, ISBN, description, cover picture, rating
-* [ ] User can edit the condition of his book or delete the book from his bookshelf
+* [x] User can edit the condition of his book or delete the book from his bookshelf
 
 Search
 * [ ] User can see a Search page. User can search for books by keyword or ISBN number
@@ -71,4 +71,7 @@ Transactions history activity
 
 ## Mock - Up Link:
 https://popapp.in/projects/57b3a53562e5f4df209ee1e2/preview
-  
+
+Here's a walkthrough of implemented user stories:
+
+http://imgur.com/gallery/GOFnZ  

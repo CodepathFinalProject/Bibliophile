@@ -60,7 +60,7 @@ public class PostFragment extends Fragment {
             listener = (OnSearchBookListener) context;
         } else {
             throw new ClassCastException(context.toString()
-                    + " must implement MyListFragment.OnItemSelectedListener");
+                    + " must implement PostFragment.OnSearchBookListener");
         }
     }
 
@@ -86,7 +86,8 @@ public class PostFragment extends Fragment {
                 client.getBookDetailsFromISBN(etISBN.getText().toString(), new JsonHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        Book book = Book.fromJsonResponse(response);
+                        long ISBN = Long.parseLong(etISBN.getText().toString());
+                        Book book = Book.fromJsonResponse(ISBN, response);
                         listener.onSearchBookClicked(book);
                     }
 

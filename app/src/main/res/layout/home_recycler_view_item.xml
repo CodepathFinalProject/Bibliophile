@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    card_view:cardCornerRadius="4dp">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivBookCover"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:background="@drawable/background"
+            android:maxHeight="179dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/tvBookTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/ivBookCover"
+            android:layout_toEndOf="@+id/ivBookCover"
+            android:layout_toRightOf="@+id/ivBookCover"
+            android:gravity="top"
+            android:text="Book Title"
+            android:textColor="@android:color/black"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tvBookTitle"
+            android:layout_alignStart="@+id/tvBookTitle"
+            android:layout_below="@+id/tvBookTitle"
+            android:text="Author: " />
+
+        <TextView
+            android:id="@+id/tvAuthorName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/tvAuthor"
+            android:layout_toEndOf="@+id/tvAuthor"
+            android:layout_toRightOf="@+id/tvAuthor"
+            android:text="AuthorName " />
+
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:linksClickable="true"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="New Description"
+            android:layout_below="@+id/tvAuthor"
+            android:layout_alignLeft="@+id/tvAuthor"
+            android:layout_alignStart="@+id/tvAuthor" />
+
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:linksClickable="true"
+            android:text="$ 34.00"
+            android:layout_alignBaseline="@+id/button"
+            android:layout_alignBottom="@+id/button"
+            android:layout_alignLeft="@+id/rating"
+            android:layout_alignStart="@+id/rating" />
+
+
+        <RatingBar
+            android:id="@+id/rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1.0"
+            style = "?android:attr/ratingBarStyleSmall"
+            android:rating="2.0"
+            android:layout_below="@+id/tvDescription"
+            android:layout_alignLeft="@+id/tvDescription"
+            android:layout_alignStart="@+id/tvDescription" />
+        <!--TODO currently does not adjust ratings-->
+
+        <TextView
+            android:id="@+id/tvLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:linksClickable="true"
+            android:text="1.5 miles away"
+            android:layout_below="@+id/rating"
+            android:layout_alignLeft="@+id/tvPrice"
+            android:layout_alignStart="@+id/tvPrice"
+            android:layout_marginTop="18dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buy"
+            android:id="@+id/button"
+            android:backgroundTint="@color/colorAccent"
+            android:layout_alignBottom="@+id/tvLocation"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
