@@ -12,10 +12,6 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="facebook_app_id">193595797722570</string>
-    <string name="search_instructions">You can add a book using the ISBN number. You can either manually type in the ISBN number or scan the barcode of your book.</string>
-    <string name="button_search_ISBN">Search by ISBN</string>
-    <string name="hint_ISBN">scan or type your ISBN number</string>
-    <string name="button_scan_barcode">Scan barcode</string>
 
     <string name="book_condition_label">Condition</string>
     <string name="book_condition_prompt">Pick a condition</string>
@@ -35,6 +31,23 @@
     <string name="save">SAVE</string>
 
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_ISBN">ISBN number</string>
+    <string name="button_search_ISBN">Search by ISBN</string>
+    <string name="button_scan_barcode">Scan barcode</string>
+    <string name="search_instructions">You can add a book using the ISBN number. You can either manually type in the ISBN number or scan the barcode of your book.</string>
+    <string name="scan_barcode_success">Successfully retrieved ISBN from barcode!</string>
+    <string name="scan_barcode_failure">No barcode scanned</string>
+    <string name="scan_barcode_error">Error scanning barcode</string>
+
+    <!-- Camera-related strings -->
+    <string name="ok">OK</string>
+    <string name="permission_camera_rationale">Access to the camera is needed for detection</string>
+    <string name="no_camera_permission">This application cannot run because it does not have the camera permission.  The application will now exit.</string>
+    <string name="low_storage_error">Face detector dependencies cannot be downloaded due to low device storage</string>
+    <string name="title_activity_main">Barcode Reader Sample</string>
+    <string name="barcode_header">Click &quot;Read Barcode&quot; to read a barcode</string>
+    <string name="read_barcode">Read Barcode</string>
+    <string name="auto_focus">Auto Focus</string>
+    <string name="use_flash">Use Flash</string>
 </resources>

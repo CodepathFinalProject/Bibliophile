@@ -1,6 +1,8 @@
 package com.codepath.bibliophile;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.codepath.bibliophile.model.BookModel;
 import com.parse.Parse;
@@ -32,5 +34,11 @@ public class ParseApplication extends Application {
 //        ParseObject testObject = new ParseObject("TestObject");
 //        testObject.put("foo", "bar");
 //        testObject.saveInBackground();
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }
