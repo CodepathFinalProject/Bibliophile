@@ -33,7 +33,6 @@ import com.codepath.bibliophile.model.Book;
 import com.codepath.bibliophile.model.BookModel;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
 import com.parse.ParseUser;
 
 import org.parceler.Parcels;
@@ -203,7 +202,8 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
 
 
     private void logout() {
-        LoginManager.getInstance().logOut();
+        //LoginManager.getInstance().logOut();
+        ParseUser.logOut();
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
