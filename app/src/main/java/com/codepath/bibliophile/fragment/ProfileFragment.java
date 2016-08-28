@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.codepath.bibliophile.R;
 import com.parse.ParseUser;
 
@@ -47,7 +48,9 @@ public class ProfileFragment extends BaseFragment {
         etAddress.setText(ParseUser.getCurrentUser().getString("address"));
         etAddress.setSelection(etAddress.length());
         btnSaveProfile = (Button) view.findViewById(R.id.btnSaveProfile);
+        ivProfilePic = (ImageView) view.findViewById(R.id.ivProfileImage);
 
+        Glide.with(this).load(ParseUser.getCurrentUser().getString("profilePic")).into(ivProfilePic);
         btnSaveProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
