@@ -25,6 +25,7 @@ import static com.codepath.bibliophile.utils.SharedPreferenceUtility.getAddressL
 import static com.codepath.bibliophile.utils.SharedPreferenceUtility.getCity;
 import static com.codepath.bibliophile.utils.SharedPreferenceUtility.getState;
 import static com.codepath.bibliophile.utils.SharedPreferenceUtility.getZipcode;
+import static com.codepath.bibliophile.utils.SharedPreferenceUtility.setAddress;
 
 public class AddressActivity extends AppCompatActivity {
 
@@ -80,9 +81,11 @@ public class AddressActivity extends AppCompatActivity {
         etZipcode.setText(etZipcode.getText());
         zipcode = etZipcode.getText().toString();
 
-        saveToParse();
 
-      //  setAddress(getApplicationContext(),addre1,addre2,city,state,zipcode);
+
+        setAddress(getApplicationContext(),addre1,addre2,city,state,zipcode);
+
+        saveToParse();
        // Toast.makeText(AddressActivity.this, "shared preference result : " + getAddressLine1(getApplicationContext()) + " :: " + getAddressLine2(getApplicationContext()) + " :: "  + getCity(getApplicationContext())+ " :: " + getState(getApplicationContext()) + " :: " + getZipcode(getApplicationContext()), Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(AddressActivity.this,HomeMainActivity.class);
         startActivity(intent);

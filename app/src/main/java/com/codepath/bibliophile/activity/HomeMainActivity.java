@@ -202,7 +202,7 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
 
 
     private void logout() {
-        //LoginManager.getInstance().logOut();
+       // LoginManager.getInstance().logOut();
         ParseUser.logOut();
     }
 
