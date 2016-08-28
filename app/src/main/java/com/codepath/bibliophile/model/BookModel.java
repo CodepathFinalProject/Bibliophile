@@ -64,6 +64,10 @@ public class BookModel extends ParseObject {
         return getParseUser("owner");
     }
 
+    public String getContactEmail() { return getString("email"); }
+
+    public String getBookOwner() { return getString("bookOwner"); }
+
 
     // Use put to modify field values
     public void setTitle(String value) {
@@ -105,6 +109,13 @@ public class BookModel extends ParseObject {
     public void setOwner(ParseUser user) {
         put("owner", user);
     }
+    public void setContactEmail(String email){
+        put("ownerEmail",email);
+    }
+    public void setBookOwner(String email){
+        put("bookOwner",email);
+    }
+
 }
 
 
