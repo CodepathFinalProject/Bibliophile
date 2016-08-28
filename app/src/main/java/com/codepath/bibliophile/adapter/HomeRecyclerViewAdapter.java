@@ -144,6 +144,8 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                     intent.putExtra("cover",book.getBookCover());
                     intent.putExtra("isbn",String.valueOf(book.getISBN()));
                     intent.putExtra("condition",book.getCondition());
+                    intent.putExtra("bookOwner",book.getBookOwner());
+                    intent.putExtra("ownerEmail",book.getContactEmail());
                     getmContext().startActivity(intent);
                 }
             });

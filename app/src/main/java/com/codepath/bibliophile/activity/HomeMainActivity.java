@@ -33,7 +33,10 @@ import com.codepath.bibliophile.model.Book;
 import com.codepath.bibliophile.model.BookModel;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
+import com.parse.ParseException;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
@@ -202,8 +205,8 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
 
 
     private void logout() {
-       // LoginManager.getInstance().logOut();
-        ParseUser.logOut();
+        LoginManager.getInstance().logOut();
+       // ParseUser.logOut();
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -242,7 +245,19 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
 
         BookModel parseBook = new BookModel(book);
         parseBook.setOwner(ParseUser.getCurrentUser());
-        parseBook.saveInBackground();
+        parseBook.setBookOwner(ParseUser.getCurrentUser().getString("username"));
+        parseBook.setContactEmail(ParseUser.getCurrentUser().getString("email"));
+        parseBook.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if(e == null) {
+                  //  Toast.makeText(getApplicationContext(),"saved record " + parseBook.getContactEmail() ,Toast.LENGTH_SHORT).show();
+                } else {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),"error saving : " + e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, new HomeFragment()).commit(); // TODO would like to use Bookshelf Fragment but the POST call does not finish before the GET call
