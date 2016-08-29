@@ -135,7 +135,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             vh1.getTvBookTitle().setText(book.getTitle());
             vh1.getTvBookAuthor().setText(book.getAuthor());
             vh1.getTvBookDescription().setText(book.getDescription());
-            vh1.getTvPrice().setText(book.getPrice().toString());
+            vh1.getTvPrice().setText("$" + book.getPrice().toString());
             vh1.getTvRating().setRating((float) book.getAverageRating().doubleValue());
             vh1.getTvBookOwner().setText(book.getBookOwner());
 
