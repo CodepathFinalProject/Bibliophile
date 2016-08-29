@@ -29,7 +29,7 @@ import cz.msebera.android.httpclient.Header;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PostFragment extends Fragment {
+public class PostFragment extends Fragment implements View.OnClickListener {
 
     private static final int RC_BARCODE_CAPTURE = 9001;
     private static final String TAG = "BarcodeMain";
@@ -39,7 +39,6 @@ public class PostFragment extends Fragment {
     private EditText etISBN;
 
     private GoogleBooksClient client;
-
 
     public PostFragment() {
         // Required empty public constructor
@@ -51,7 +50,6 @@ public class PostFragment extends Fragment {
     public interface OnSearchBookListener {
         public void onSearchBookClicked(Book book);
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -72,6 +70,38 @@ public class PostFragment extends Fragment {
     }
 
     @Override
+    public void onClick(View view) {
+        // If users don't enter an ISBN, complain
+        if (etISBN.getText() == null || etISBN.getText().toString().equals("")) {
+            Toast.makeText(getContext(), R.string.ISBN_validation_none, Toast.LENGTH_SHORT).show();
+
+        // If users enter a non-long ISBN, complain
+        } else if (!isParseableIntoLong(etISBN.getText().toString())) {
+            Toast.makeText(getContext(), R.string.ISBN_validation_long, Toast.LENGTH_SHORT).show();
+
+        // If ISBN is well-formed long, send API call
+        } else {
+            client.getBookDetailsFromISBN(etISBN.getText().toString(), new JsonHttpResponseHandler() {
+                @Override
+                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    long ISBN = Long.parseLong(etISBN.getText().toString());
+                    Book book = Book.fromJsonResponse(getContext(), ISBN, response);
+
+                    // If at least one book is returned, go to AddBook fragment
+                    if (book != null) {
+                        listener.onSearchBookClicked(book);
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                    Log.d("API", Integer.toString(statusCode));
+                }
+            });
+        }
+    }
+
+    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         // Get references
         client = GoogleBooksClient.getClient();
@@ -80,24 +110,7 @@ public class PostFragment extends Fragment {
         btnSearchBarcode = (Button) view.findViewById(R.id.btnSearchBarcode);
         btnSearchByISBN = (Button) view.findViewById(R.id.btnSearchISBN);
 
-        btnSearchByISBN.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                client.getBookDetailsFromISBN(etISBN.getText().toString(), new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        long ISBN = Long.parseLong(etISBN.getText().toString());
-                        Book book = Book.fromJsonResponse(ISBN, response);
-                        listener.onSearchBookClicked(book);
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                        Log.d("failure", Integer.toString(statusCode));
-                    }
-                });
-            }
-        });
+        btnSearchByISBN.setOnClickListener(this);
 
         btnSearchBarcode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -133,5 +146,17 @@ public class PostFragment extends Fragment {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private boolean isParseableIntoLong(String text) {
+        boolean isParseable = true;
+        try {
+            final long ISBN = Long.parseLong(text);
+        } catch (NumberFormatException e) {
+            isParseable = false;
+            e.printStackTrace();
+        }
+
+        return isParseable;
     }
 }
