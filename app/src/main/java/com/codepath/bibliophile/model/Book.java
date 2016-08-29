@@ -1,5 +1,10 @@
 package com.codepath.bibliophile.model;
 
+import android.content.Context;
+import android.widget.Toast;
+
+import com.codepath.bibliophile.R;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -118,10 +123,16 @@ public class Book {
         return book;
     }
 
-    public static Book fromJsonResponse(long ISBN, JSONObject response) {
+    public static Book fromJsonResponse(Context context, long ISBN, JSONObject response) {
         Book book = null;
 
         try {
+            // If Google Books API does not recognize the ISBN number, totalItems will be 0
+            if (response.getInt("totalItems") < 1) {
+                Toast.makeText(context, R.string.API_response_validation_empty, Toast.LENGTH_SHORT).show();
+                return book;
+            }
+
             JSONArray items = response.getJSONArray("items");
             JSONObject firstBookObject = items.getJSONObject(0);
             JSONObject volumeInfo = firstBookObject.getJSONObject("volumeInfo");

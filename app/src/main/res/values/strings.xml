@@ -36,6 +36,9 @@
     <string name="hint_ISBN">ISBN number</string>
     <string name="button_search_ISBN">Search by ISBN</string>
     <string name="button_scan_barcode">Scan barcode</string>
+    <string name="ISBN_validation_none">Please enter or scan an ISBN number</string>
+    <string name="ISBN_validation_long">Please remove all non-numbers from the ISBN</string>
+    <string name="API_response_validation_empty">No books in Google Books with this ISBN number</string>
     <string name="search_instructions">You can add a book using the ISBN number. You can either manually type in the ISBN number or scan the barcode of your book.</string>
     <string name="scan_barcode_success">Successfully retrieved ISBN from barcode!</string>
     <string name="scan_barcode_failure">No barcode scanned</string>
