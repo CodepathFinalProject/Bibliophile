@@ -18,6 +18,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.codepath.bibliophile.R;
@@ -85,8 +88,6 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                // perform query here
-
                 // workaround to avoid issues with some emulators and keyboard devices firing twice if a keyboard enter is used
                 // see https://code.google.com/p/android/issues/detail?id=24599
 
@@ -99,7 +100,9 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
                 Log.d("searchQuery", "onQueryTextSubmit: " + query);
                 homeFragment.setArguments(args);
 
-                frameManager.replace(R.id.flContent, homeFragment).commit();
+                frameManager.replace(R.id.flContent, homeFragment);
+                frameManager.addToBackStack("search");
+                frameManager.commit();
                 searchView.clearFocus();
 
                 return true;
@@ -110,6 +113,34 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
                 return false;
             }
         });
+
+        ImageView closeButton = (ImageView) searchView.findViewById(R.id.search_close_btn);
+
+        // Set on click listener
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText et = (EditText) findViewById(R.id.search_src_text);
+
+                //Clear the text from EditText view
+                et.setText("");
+
+                //Clear query
+                searchView.setQuery("", false);
+                //Collapse the action view
+                searchView.onActionViewCollapsed();
+                //Collapse the search widget
+
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+                // Add a book as a fragment argument
+                HomeFragment homeFragment = new HomeFragment();
+                ft.replace(R.id.flContent, homeFragment);
+                ft.addToBackStack("search");
+                ft.commit();
+            }
+        });
+
         return super.onCreateOptionsMenu(menu);
 
     }

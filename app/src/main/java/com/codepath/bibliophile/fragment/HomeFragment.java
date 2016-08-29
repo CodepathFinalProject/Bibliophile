@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,7 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,11 +25,11 @@ import java.util.List;
  */
 public class HomeFragment extends BaseFragment {
 
+    private ParseQuery<BookModel> finalQuery;
 
     public HomeFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent,
@@ -58,57 +58,66 @@ public class HomeFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
 
         String qValue = "";
-        if (getArguments() != null && getArguments().containsKey("query")) {
+        if ((getArguments() != null) && getArguments().containsKey("query")) {
             qValue = getArguments().getString("query");
-            Log.d("qVal", "onCreate: " + qValue);
-            populateTimelineQuery(qValue);
+            getBooksUsingQuery(qValue);
         } else {
-            populateTimeline();
+            getBooks();
         }
     }
 
-    private void populateTimeline() {
-        ParseQuery<BookModel> query = ParseQuery.getQuery(BookModel.class);
-        query.whereNotEqualTo("owner", ParseUser.getCurrentUser());
-        query.findInBackground(new FindCallback<BookModel>() {
+    @Override
+    public void onResume() {
+        finalQuery.findInBackground(new FindCallback<BookModel>() {
             public void done(List<BookModel> itemList, ParseException e) {
                 updateList(itemList, e);
-
             }
         });
+        super.onResume();
     }
 
-    private void populateTimelineQuery(String q) {
-        Log.d("populate", "populateTimeline: " + q);
+    private void getBooks() {
+        finalQuery = ParseQuery.getQuery(BookModel.class);
+        finalQuery.whereNotEqualTo("owner", ParseUser.getCurrentUser());
 
-        ParseQuery<BookModel> query = ParseQuery.getQuery(BookModel.class);
-        query.whereEqualTo("title", q);
-      /*  ParseQuery<BookModel> query1 = ParseQuery.getQuery(BookModel.class);
-            query.whereEqualTo("Author","Tom Knox");
+        // Final query is executed during onResume
+    }
 
-            List<ParseQuery<BookModel>> queries = new ArrayList<ParseQuery<BookModel>>();
-            queries.add(query);
-            queries.add(query1);
+    private void getBooksUsingQuery(String q) {
+        // Check if the query is contained within the title or author fields
+        ParseQuery<BookModel> queryTitle = ParseQuery.getQuery(BookModel.class);
+        queryTitle.whereContains("title", q);
+        ParseQuery<BookModel> queryAuthor = ParseQuery.getQuery(BookModel.class);
+        queryAuthor.whereContains("author", q);
 
-            ParseQuery<BookModel> mainQuery = ParseQuery.or(queries);
-*/
-        query.findInBackground(new FindCallback<BookModel>() {
-            @Override
-            public void done(List<BookModel> itemList, ParseException e) {
-                updateList(itemList, e);
-            }
-        });
+        List<ParseQuery<BookModel>> clauses = new ArrayList<>();
+        clauses.add(queryTitle);
+        clauses.add(queryAuthor);
+
+        // If query can be parsed into a long, it might be an ISBN
+        try {
+            long isbn = Long.parseLong(q);
+            ParseQuery<BookModel> queryISBN = ParseQuery.getQuery(BookModel.class);
+            queryISBN.whereEqualTo("ISBN", isbn);
+            clauses.add(queryISBN);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        // Create the final query and exclude books posted by the user
+        finalQuery = ParseQuery.or(clauses);
+        finalQuery.whereNotEqualTo("owner", ParseUser.getCurrentUser());
+
+        // Final query is executed during onResume
     }
 
     private void updateList(List<BookModel> itemList, ParseException e) {
         if (e == null) {
-            Log.d("111", "cover " + itemList.get(0).getBookCover());
-            model.clear();
+            books.clear();
             addAll(itemList);
             adapter.notifyDataSetChanged();
         } else {
-            Log.d("item", "Error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
-
 }
