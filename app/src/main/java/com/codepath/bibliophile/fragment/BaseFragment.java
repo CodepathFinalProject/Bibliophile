@@ -26,7 +26,6 @@ public class BaseFragment extends Fragment {
     }
 
     public void addAll(List<BookModel> books) {
-        Log.d("MU HU HA HA", String.valueOf(books.size()));
         model.addAll(books);
         adapter.notifyDataSetChanged();
     }

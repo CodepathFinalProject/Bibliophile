@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.HomeMainActivity" />
-        <activity android:name=".activity.AddressActivity" />
+        <activity android:name=".activity.SignUpActivity" />
         <activity android:name=".activity.DetailsActivity" />
         <activity android:name=".camera.BarcodeCaptureActivity" />
 
@@ -39,6 +39,9 @@
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="myBibliophileApp" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC5M3MqL14eChyPialhlzD-pZ48tHqKkhg"/>
     </application>
 
 </manifest>

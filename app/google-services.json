@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1016607925045",
+    "project_id": "bibliophile-141721"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016607925045:android:a656ef9323f41241",
+        "android_client_info": {
+          "package_name": "com.codepath.bibliophile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1016607925045-oe78u5g63frgjpf2qu9kgc9r9tda0jbb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codepath.bibliophile",
+            "certificate_hash": "4CC0874ABEE8F14616EB6EFD25B28824B7EE65E3"
+          }
+        },
+        {
+          "client_id": "1016607925045-duubln47t0if1dgun3vbogb81o3j9ir0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5M3MqL14eChyPialhlzD-pZ48tHqKkhg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

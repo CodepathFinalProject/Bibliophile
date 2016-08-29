@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
         ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
-    }
+    }   
 
     @Override
     public void onClick(View view) {
@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     return;
                 } else if (user.isNew()) {
                     Log.d("debug", "new facebook user!");
-                    Intent intent = new Intent(LoginActivity.this, AddressActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                     startActivity(intent);
                 } else {
                     Log.d("555", "User signed up and logged in through Facebook!");

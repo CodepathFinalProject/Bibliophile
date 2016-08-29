@@ -260,5 +260,6 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
             fragmentManager.popBackStack();
         }
     }
+
 }
 
