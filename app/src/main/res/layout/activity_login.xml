@@ -7,7 +7,30 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.codepath.bibliophile.activity.LoginActivity">
+    tools:context="com.codepath.bibliophile.activity.LoginActivity"
+    android:background="@drawable/library">
 
 
+    <TextView
+        android:id="@+id/tvLoginAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="16dp"
+        android:text="@string/app_name"
+        android:textColor="@color/abc_primary_text_material_dark"
+        android:textSize="64dp" />
+
+    <Button
+        android:id="@+id/btnFacebookLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvLoginAppName"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/com_facebook_button_icon_blue"
+        android:drawablePadding="20sp"
+        android:drawableStart="@drawable/com_facebook_button_icon_blue"
+        android:text="@string/facebook_login_text" />
 </RelativeLayout>

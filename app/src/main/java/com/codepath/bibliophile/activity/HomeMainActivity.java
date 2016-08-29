@@ -33,7 +33,6 @@ import com.codepath.bibliophile.model.Book;
 import com.codepath.bibliophile.model.BookModel;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -56,7 +55,6 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
         // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        testParse();
 
         // Find our drawer view
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -173,7 +171,7 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
                 fragmentClass = ProfileFragment.class;
                 break;
             case R.id.nav_logout:
-                logout();
+                ParseUser.logOut();
                 Intent intent = new Intent(HomeMainActivity.this, LoginActivity.class);
                 startActivity(intent);
 
@@ -197,16 +195,6 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
         setTitle(menuItem.getTitle());
         // Close the navigation drawer
         mDrawer.closeDrawers();
-    }
-
-    public void testParse() {
-
-    }
-
-
-    private void logout() {
-        LoginManager.getInstance().logOut();
-       // ParseUser.logOut();
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -250,11 +238,11 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
         parseBook.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                if(e == null) {
-                  //  Toast.makeText(getApplicationContext(),"saved record " + parseBook.getContactEmail() ,Toast.LENGTH_SHORT).show();
+                if (e == null) {
+                    //  Toast.makeText(getApplicationContext(),"saved record " + parseBook.getContactEmail() ,Toast.LENGTH_SHORT).show();
                 } else {
                     e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),"error saving : " + e.toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "error saving : " + e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
