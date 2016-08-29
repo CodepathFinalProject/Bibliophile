@@ -14,19 +14,19 @@ import java.util.List;
 
 public class BaseFragment extends Fragment {
     public HomeRecyclerViewAdapter adapter;
-    public ArrayList<BookModel> model;
+    public ArrayList<BookModel> books;
     public RecyclerView rvItem;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        model = new ArrayList<>();
+        books = new ArrayList<>();
         //construct the adapter from data source
-        adapter = new HomeRecyclerViewAdapter(getActivity(), model);
+        adapter = new HomeRecyclerViewAdapter(getActivity(), books);
     }
 
     public void addAll(List<BookModel> books) {
-        model.addAll(books);
+        this.books.addAll(books);
         adapter.notifyDataSetChanged();
     }
 
