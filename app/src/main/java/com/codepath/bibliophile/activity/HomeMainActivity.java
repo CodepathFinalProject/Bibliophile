@@ -255,6 +255,8 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
         parseBook.setOwner(ParseUser.getCurrentUser());
         parseBook.setBookOwner(ParseUser.getCurrentUser().getString("username"));
         parseBook.setContactEmail(ParseUser.getCurrentUser().getString("email"));
+        parseBook.setIsListed(true);
+        parseBook.setIsTransactionComplete(false);
         parseBook.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

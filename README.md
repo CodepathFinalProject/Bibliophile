@@ -21,11 +21,11 @@ Details
 * [ ] User can edit the condition of his book or delete the book from his bookshelf
 
 Search
-* [X] User can see a Search page. User can search for books by keyword or ISBN number
-* [X] Clicking on a book in the Search results will take User to book Details page
+* [x] User can see a Search page. User can search for books by keyword or ISBN number
+* [x] Clicking on a book in the Search results will take User to book Details page
 
 Purchase
-* [ ] Buyer can express interest in buying a book by clicking "BUY", thus creating an Inquiry.
+* [x] Buyer can express interest in buying a book by clicking "BUY", thus creating an Inquiry.
 * [ ] Sellers can find inquiries in a Transactions tab. If Seller agrees to sell the book, Seller clicks "ACCEPT"
 * [ ] After accepting an inquiry, Seller and Buyer will be taken into Facebook messenger where a conversation will be started
 * [ ] Once Buyer has received the book, Buyer can click "CONFIRMED" and the transaction will take place
@@ -62,6 +62,10 @@ Purchase
 * [ ] Automatic removal of book from buyer's bookshelf after buyer clicks CONFIRM
 * [ ] User can connect or disconnect his Venmo account
 
+Transactions Page:
+* [x] On clicking buy the book will move to the transactions page for buyer
+* [ ] When somebody else clicks seller's book will move to the transactions page for seller
+* [ ] Add appropriate transaction pending labels in buyer and seller mode
 
 Transactions history activity
 * [ ] Inquiries

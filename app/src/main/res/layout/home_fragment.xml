@@ -11,9 +11,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--<include layout="@layout/toolbar"-->
-        <!--android:id="@+id/toolbar" />-->
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvHomePage"
             android:layout_width="match_parent"

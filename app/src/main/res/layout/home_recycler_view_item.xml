@@ -81,10 +81,9 @@
             android:autoLink="all"
             android:linksClickable="true"
             android:text="$ 34.00"
-            android:layout_alignBaseline="@+id/button"
-            android:layout_alignBottom="@+id/button"
-            android:layout_alignLeft="@+id/rating"
-            android:layout_alignStart="@+id/rating" />
+            android:layout_below="@+id/rating"
+            android:layout_toLeftOf="@+id/tvBookOwner"
+            android:layout_toStartOf="@+id/tvBookOwner" />
 
 
         <RatingBar
@@ -116,7 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Buy"
-            android:id="@+id/button"
+            android:id="@+id/buyButton"
             android:backgroundTint="@color/colorAccent"
             android:layout_alignBottom="@+id/tvLocation"
             android:layout_alignParentRight="true"

@@ -48,6 +48,7 @@ public class BookModel extends ParseObject {
         return getDouble("averageRating");
     }
 
+
     public int getRatingsCount() {
         return getInt("ratingsCount");
     }
@@ -64,9 +65,25 @@ public class BookModel extends ParseObject {
         return getParseUser("owner");
     }
 
-    public String getContactEmail() { return getString("email"); }
+    public String getContactEmail() {
+        return getString("email");
+    }
 
-    public String getBookOwner() { return getString("bookOwner"); }
+    public String getBookOwner() {
+        return getString("bookOwner");
+    }
+
+
+    public String getBookId(){
+        return getString("_id");
+    }
+    public boolean getIsListed() {
+        return getBoolean("isListed");
+    }
+
+    public boolean getIsTransactionComplete() {
+        return getBoolean("isTransactionComplete");
+    }
 
 
     // Use put to modify field values
@@ -109,13 +126,26 @@ public class BookModel extends ParseObject {
     public void setOwner(ParseUser user) {
         put("owner", user);
     }
-    public void setContactEmail(String email){
-        put("ownerEmail",email);
-    }
-    public void setBookOwner(String email){
-        put("bookOwner",email);
+
+    public void setContactEmail(String email) {
+        put("ownerEmail", email);
     }
 
+    public void setBookOwner(String email) {
+        put("bookOwner", email);
+    }
+
+    public void setIsListed(boolean isListed) {
+        put("isListed", isListed);
+    }
+
+    public void setIsTransactionComplete(boolean isTransactionComplete) {
+        put("isTransactionComplete", isTransactionComplete);
+    }
+
+    public void setBuyer(ParseUser user) {
+        put("buyer", user);
+    }
 }
 
 
