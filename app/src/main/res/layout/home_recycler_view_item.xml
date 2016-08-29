@@ -121,5 +121,22 @@
             android:layout_alignBottom="@+id/tvLocation"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvSeller"
+            android:text="Seller:"
+            android:layout_below="@+id/tvLocation"
+            android:layout_toRightOf="@+id/ivBookCover"
+            android:layout_toEndOf="@+id/ivBookCover" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvBookOwner"
+            android:text="Supriya Premkumar"
+            android:layout_below="@+id/tvLocation"
+            android:layout_toRightOf="@+id/tvAuthor"
+            android:layout_toEndOf="@+id/tvAuthor" />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

@@ -3,7 +3,6 @@ package com.codepath.bibliophile.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +39,20 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         private RatingBar tvRating;
         private TextView tvBookDescription;
         private TextView tvPrice;
+        private TextView tvBookOwner;
         private View view;
+
+        public TextView getTvBookOwner() {
+            return tvBookOwner;
+        }
+
+        public void setTvBookOwner(TextView tvBookOwner) {
+            this.tvBookOwner = tvBookOwner;
+        }
+
+        public void setTvRating(RatingBar tvRating) {
+            this.tvRating = tvRating;
+        }
 
         public BookViewHolder(View itemView) {
             super(itemView);
@@ -51,6 +63,8 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             tvRating = (RatingBar) itemView.findViewById(R.id.rating);
             tvBookDescription = (TextView) itemView.findViewById(R.id.tvDescription);
             tvPrice = (TextView) itemView.findViewById(R.id.tvPrice);
+            tvBookOwner =(TextView) itemView.findViewById(R.id.tvBookOwner);
+
         }
         public View getView() { return view; }
         public ImageView getIvBookCover() {
@@ -123,7 +137,9 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             vh1.getTvBookDescription().setText(book.getDescription());
             vh1.getTvPrice().setText(book.getPrice().toString());
             vh1.getTvRating().setRating((float) book.getAverageRating().doubleValue());
-            Log.d(book.toString(), "onBindViewHolder: ");
+            vh1.getTvBookOwner().setText(book.getBookOwner());
+
+
 
             if (book.getBookCover() != null) {
                 vh1.getIvBookCover().setVisibility(View.VISIBLE);
