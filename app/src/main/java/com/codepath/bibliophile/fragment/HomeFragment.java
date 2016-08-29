@@ -2,6 +2,7 @@ package com.codepath.bibliophile.fragment;
 
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -36,6 +37,13 @@ public class HomeFragment extends BaseFragment {
         final View v = inflater.inflate(R.layout.home_fragment, parent, false);
 
         rvItem = (RecyclerView) v.findViewById(R.id.rvHomePage);
+        FloatingActionButton myFab = (FloatingActionButton) v.findViewById(R.id.fabAdd);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new PostFragment()).commit();
+            }
+        });
+
         StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         gridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);

@@ -3,7 +3,6 @@ package com.codepath.bibliophile.activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,7 +18,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.codepath.bibliophile.R;
@@ -55,6 +53,7 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
         // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
 
         // Find our drawer view
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -199,16 +198,6 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
 
     private ActionBarDrawerToggle setupDrawerToggle() {
         return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
-    }
-
-    public void addBook(View view) {
-        FloatingActionButton myFab = (FloatingActionButton) view.findViewById(R.id.fabAdd);
-        myFab.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) { // TODO figure out why this doesn't work the first time you press the button
-                Toast.makeText(getBaseContext(), "pressed FAB", Toast.LENGTH_SHORT).show();
-                getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new PostFragment()).commit();
-            }
-        });
     }
 
     @Override
