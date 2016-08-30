@@ -17,12 +17,12 @@ Bookshelf
 * [x] To finish adding a book, User needs to enter in mandatory information (book condition, price)
 
 Details
-* [X] Selecting a book on his bookshelf takes User to the Details page, which displays book name, author, ISBN, description, cover picture, rating
-* [x] User can edit the condition of his book or delete the book from his bookshelf
+* [X] Selecting a book on his bookshelf takes User to the Details page, which displays book name, author, ISBN, description, cover picture, rating, owner's name and email id
+* [ ] User can edit the condition of his book or delete the book from his bookshelf
 
 Search
-* [ ] User can see a Search page. User can search for books by keyword or ISBN number
-* [ ] Clicking on a book in the Search results will take User to book Details page
+* [X] User can see a Search page. User can search for books by keyword or ISBN number
+* [X] Clicking on a book in the Search results will take User to book Details page
 
 Purchase
 * [ ] Buyer can express interest in buying a book by clicking "BUY", thus creating an Inquiry.
@@ -33,7 +33,7 @@ Purchase
 Profile
 * [X] Clicking the Profile tab will take you to the Profile activity
 * [X] User can sign out of Facebook
-* [ ] User can view and change his home address
+* [X] User can view and change his home address
 
 The following **stretch** functionality is completed:
 * [ ] Onboarding animation telling you how the app works
