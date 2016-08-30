@@ -7,8 +7,8 @@ Bibliophile is a P2P marketplace for books for Android users.
 The following **required** functionality is completed:
 
 Authentication and onboarding
-* [X]	User can sign in using Facebook OAuth
-* [X]	Upon first-time login, User must enter his home address
+* [x]	User can sign in using Facebook OAuth
+* [x]	Upon first-time login, User must enter his home address
 
 Bookshelf
 * [x] User can view books in his Bookshelf. User can also add books by pressing "ADD"
@@ -17,8 +17,9 @@ Bookshelf
 * [x] To finish adding a book, User needs to enter in mandatory information (book condition, price)
 
 Details
-* [X] Selecting a book on his bookshelf takes User to the Details page, which displays book name, author, ISBN, description, cover picture, rating, owner's name and email id
+* [x] Selecting a book on his bookshelf takes User to the Details page, which displays book name, author, ISBN, description, cover picture, rating, owner's name and email id
 * [ ] User can edit the condition of his book or delete the book from his bookshelf
+* [x] Buyer can send an email to the seller to show interest in the book from details page
 
 Search
 * [x] User can see a Search page. User can search for books by keyword or ISBN number
@@ -31,9 +32,9 @@ Purchase
 * [ ] Once Buyer has received the book, Buyer can click "CONFIRMED" and the transaction will take place
 
 Profile
-* [X] Clicking the Profile tab will take you to the Profile activity
-* [X] User can sign out of Facebook
-* [X] User can view and change his home address
+* [x] Clicking the Profile tab will take you to the Profile activity
+* [x] User can sign out of Facebook
+* [x] User can view and change his home address
 
 The following **stretch** functionality is completed:
 * [ ] Onboarding animation telling you how the app works
