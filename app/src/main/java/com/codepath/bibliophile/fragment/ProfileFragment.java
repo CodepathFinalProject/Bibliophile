@@ -2,7 +2,9 @@ package com.codepath.bibliophile.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +15,18 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.bibliophile.R;
+import com.codepath.bibliophile.adapter.HomeRecyclerViewAdapter;
+import com.codepath.bibliophile.model.BookModel;
 import com.parse.ParseUser;
 
-public class ProfileFragment extends BaseFragment {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ProfileFragment extends Fragment {
+    public HomeRecyclerViewAdapter adapter;
+    public ArrayList<BookModel> books;
+    public RecyclerView rvItem;
+
 
     EditText etAddress;
     EditText etName;
@@ -26,6 +37,14 @@ public class ProfileFragment extends BaseFragment {
     public ProfileFragment(){
 
     }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        books = new ArrayList<>();
+        //construct the adapter from data source
+        adapter = new HomeRecyclerViewAdapter(getActivity(), books);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,5 +90,9 @@ public class ProfileFragment extends BaseFragment {
             }
         });
 
+    }
+    public void addAll(List<BookModel> books) {
+        this.books.addAll(books);
+        adapter.notifyDataSetChanged();
     }
 }

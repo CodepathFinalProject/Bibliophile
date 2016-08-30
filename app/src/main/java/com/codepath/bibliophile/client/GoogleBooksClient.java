@@ -4,9 +4,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-/**
- * Created by bobbywei on 8/19/16.
- */
 public class GoogleBooksClient extends AsyncHttpClient {
 
     private static GoogleBooksClient client = new GoogleBooksClient();
