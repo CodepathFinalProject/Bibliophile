@@ -20,6 +20,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 
 import org.json.JSONException;
@@ -50,7 +51,9 @@ public class SignUpActivity extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 autocompleteFragment.setText(place.getAddress());
-                user.setCoord(place.getLatLng());
+                double lat = place.getLatLng().latitude;
+                double lng = place.getLatLng().longitude;
+                user.setCoordinates(new ParseGeoPoint(lat, lng));
                 user.setAddress(place.getAddress().toString());
             }
 
@@ -111,7 +114,7 @@ public class SignUpActivity extends AppCompatActivity {
         parseUser.setUsername(user.getName());
         parseUser.put("address", user.getAddress());
         parseUser.put("profilePic", user.getProfilePicUrl());
-        parseUser.put("coordinates", user.getCoord().toString());
+        parseUser.put("coordinates", user.getCoordinates());
         parseUser.saveEventually();
         Intent intent = new Intent(SignUpActivity.this,HomeMainActivity.class);
         startActivity(intent);

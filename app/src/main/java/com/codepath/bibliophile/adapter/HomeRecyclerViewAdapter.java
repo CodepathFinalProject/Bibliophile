@@ -12,16 +12,19 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.activity.DetailsActivity;
 import com.codepath.bibliophile.model.BookModel;
 import com.parse.GetCallback;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.squareup.picasso.Picasso;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -39,6 +42,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     public static class BookViewHolder extends RecyclerView.ViewHolder {
 
+        private View view;
         private ImageView ivBookCover;
         private TextView tvBookTitle;
         private TextView tvBookAuthor;
@@ -46,7 +50,27 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         private TextView tvBookDescription;
         private TextView tvPrice;
         private TextView tvBookOwner;
+        private TextView tvDistance;
         private Button buttonBuy;
+
+        public BookViewHolder(View itemView) {
+            super(itemView);
+            view = itemView;
+            ivBookCover = (ImageView) itemView.findViewById(R.id.ivBookCover);
+            tvBookTitle = (TextView) itemView.findViewById(R.id.tvBookTitle);
+            tvBookAuthor = (TextView) itemView.findViewById(R.id.tvAuthorName);
+            tvRating = (RatingBar) itemView.findViewById(R.id.rating);
+            tvBookDescription = (TextView) itemView.findViewById(R.id.tvDescription);
+            tvPrice = (TextView) itemView.findViewById(R.id.tvPrice);
+            tvBookOwner = (TextView) itemView.findViewById(R.id.tvBookOwner);
+            tvDistance = (TextView) itemView.findViewById(R.id.tvDistance);
+
+            buttonBuy = (Button) itemView.findViewById(R.id.buyButton);
+        }
+
+        public View getView() {
+            return view;
+        }
 
         public Button getButtonBuy() {
             return buttonBuy;
@@ -55,8 +79,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         public void setButtonBuy(Button buttonBuy) {
             this.buttonBuy = buttonBuy;
         }
-
-        private View view;
 
         public TextView getTvBookOwner() {
             return tvBookOwner;
@@ -70,20 +92,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             this.tvRating = tvRating;
         }
 
-        public BookViewHolder(View itemView) {
-            super(itemView);
-            view = itemView;
-            ivBookCover = (ImageView) itemView.findViewById(R.id.ivBookCover);
-            tvBookTitle = (TextView) itemView.findViewById(R.id.tvBookTitle);
-            tvBookAuthor = (TextView) itemView.findViewById(R.id.tvAuthorName);
-            tvRating = (RatingBar) itemView.findViewById(R.id.rating);
-            tvBookDescription = (TextView) itemView.findViewById(R.id.tvDescription);
-            tvPrice = (TextView) itemView.findViewById(R.id.tvPrice);
-            tvBookOwner =(TextView) itemView.findViewById(R.id.tvBookOwner);
-            buttonBuy = (Button) itemView.findViewById(R.id.buyButton);
-
-        }
-        public View getView() { return view; }
         public ImageView getIvBookCover() {
             return ivBookCover;
         }
@@ -131,6 +139,14 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         public void setTvPrice(TextView tvPrice) {
             this.tvPrice = tvPrice;
         }
+
+        public TextView getTvDistance() {
+            return tvDistance;
+        }
+
+        public void setTvDistance(TextView tvDistance) {
+            this.tvDistance = tvDistance;
+        }
     }
 
     @Override
@@ -148,42 +164,72 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         BookViewHolder vh1 = (BookViewHolder) holder;
         final BookModel book = (BookModel) mBook.get(position);
+        String ownerName = null;
+        String ownerEmail = null;
+
         if (book != null) {
+            // Populate view items
             vh1.getTvBookTitle().setText(book.getTitle());
             vh1.getTvBookAuthor().setText(book.getAuthor());
             vh1.getTvBookDescription().setText(book.getDescription());
             vh1.getTvPrice().setText("$" + book.getPrice().toString());
             vh1.getTvRating().setRating((float) book.getAverageRating().doubleValue());
-            vh1.getTvBookOwner().setText(book.getBookOwner());
+
+            // Calculate book's distance from current user
+            ParseUser bookOwner = null;
+            ParseGeoPoint bookLocation = null;
+            ParseGeoPoint currentUserLocation = null;
+
+            // Fetch the ParseGeoPoint of the book's owner using fetchIfNeeded
+            try {
+                bookOwner = book.getUser().fetchIfNeeded();
+                bookLocation = (ParseGeoPoint) bookOwner.get("coordinates");
+                ownerName = (String) bookOwner.get("username");
+                ownerEmail = (String) bookOwner.get("email");
+
+                currentUserLocation = (ParseGeoPoint) ParseUser.getCurrentUser().get("coordinates");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            Double distance = round(bookLocation.distanceInMilesTo(currentUserLocation), 2);
+            final String distanceLabel = Double.toString(distance) + " miles away";
+            vh1.getTvDistance().setText(distanceLabel);
+            vh1.getTvBookOwner().setText(ownerName);
+
             vh1.getButtonBuy().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     setBuyer(book);
-                    Toast.makeText(getmContext(),"Book moved to Transactions",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getmContext(), "Book moved to Transactions", Toast.LENGTH_SHORT).show();
                 }
             });
 
             if (book.getBookCover() != null) {
                 vh1.getIvBookCover().setVisibility(View.VISIBLE);
-                Glide.with(mContext).load(book.getBookCover()).into(vh1.ivBookCover);
+                Picasso.with(mContext).load(book.getBookCover()).into(vh1.ivBookCover);
             } else {
                 vh1.ivBookCover.setVisibility(View.GONE);
             }
 
+            final String finalOwnerEmail = ownerEmail;
+            final String finalOwnerName = ownerName;
+
             vh1.getView().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getmContext(),"details",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getmContext(), "details", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getmContext(), DetailsActivity.class);
                     intent.putExtra("title", book.getTitle());
-                    intent.putExtra("author",book.getAuthor());
-                    intent.putExtra("description",book.getDescription());
-                    intent.putExtra("price",book.getPrice().toString());
-                    intent.putExtra("cover",book.getBookCover());
-                    intent.putExtra("isbn",String.valueOf(book.getISBN()));
-                    intent.putExtra("condition",book.getCondition());
-                    intent.putExtra("bookOwner",book.getBookOwner());
-                    intent.putExtra("ownerEmail",book.getContactEmail());
+                    intent.putExtra("author", book.getAuthor());
+                    intent.putExtra("description", book.getDescription());
+                    intent.putExtra("price", book.getPrice().toString());
+                    intent.putExtra("cover", book.getBookCover());
+                    intent.putExtra("isbn", String.valueOf(book.getISBN()));
+                    intent.putExtra("condition", book.getCondition());
+                    intent.putExtra("ownerName", finalOwnerName);
+                    intent.putExtra("ownerEmail", finalOwnerEmail);
+                    intent.putExtra("distance", distanceLabel);
                     getmContext().startActivity(intent);
                 }
             });
@@ -196,14 +242,14 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         return mBook.size();
     }
 
-    private void setBuyer(BookModel book){
+    private void setBuyer(BookModel book) {
 
 //        ParseQuery<ParseObject> query = ParseQuery.getQuery("BookModel");
 //        query.whereEqualTo("_id", book.getObjectId());
 
         final ParseUser user = ParseUser.getCurrentUser();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("BookModel");
-        query.whereEqualTo("objectId",book.getObjectId());
+        query.whereEqualTo("objectId", book.getObjectId());
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
             public void done(ParseObject object, ParseException e) {
@@ -213,9 +259,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             }
         });
-
-
-
 
 
 //
@@ -234,4 +277,11 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 //        Log.d("User:", user.getEmail());
     }
 
+    private double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
 }

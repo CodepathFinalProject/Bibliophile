@@ -91,9 +91,17 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/tvDistance"
+        android:layout_below="@id/tvISBN"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Seller:"
         android:id="@+id/tvOwner"
-        android:layout_below="@+id/tvISBN"
+        android:layout_below="@+id/tvDistance"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
