@@ -41,9 +41,9 @@ public class SignUpActivity extends AppCompatActivity {
         final PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
         autocompleteFragment.setHint("Enter your Address");
-        ((EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
+        ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
                 .setTextColor(Color.parseColor("#ffffff"));
-        ((EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
+        ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
                 .setTextSize(22.0f);
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -51,7 +51,9 @@ public class SignUpActivity extends AppCompatActivity {
             public void onPlaceSelected(Place place) {
                 // TODO: Get info about the selected place.
                 autocompleteFragment.setText(place.getAddress());
-                user.setCoord(place.getLatLng());
+                double lat = place.getLatLng().latitude;
+                double lng = place.getLatLng().longitude;
+                user.setCoordinates(new ParseGeoPoint(lat, lng));
                 user.setAddress(place.getAddress().toString());
             }
 
@@ -112,9 +114,9 @@ public class SignUpActivity extends AppCompatActivity {
         parseUser.setUsername(user.getName());
         parseUser.put("address", user.getAddress());
         parseUser.put("profilePic", user.getProfilePicUrl());
-        parseUser.put("coordinates", new ParseGeoPoint(user.getCoord().latitude, user.getCoord().longitude));
+        parseUser.put("coordinates", user.getCoordinates());
         parseUser.saveEventually();
-        Intent intent = new Intent(SignUpActivity.this,HomeMainActivity.class);
+        Intent intent = new Intent(SignUpActivity.this, HomeMainActivity.class);
         startActivity(intent);
     }
 }

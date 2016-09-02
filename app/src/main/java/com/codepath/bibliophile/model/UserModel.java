@@ -1,6 +1,6 @@
 package com.codepath.bibliophile.model;
 
-import com.google.android.gms.maps.model.LatLng;
+import com.parse.ParseGeoPoint;
 
 /**
  * Created by supriya on 8/28/16.
@@ -24,12 +24,12 @@ public class UserModel {
         this.emailAddress = emailAddress;
     }
 
-    public LatLng getCoord() {
-        return coord;
+    public ParseGeoPoint getCoordinates() {
+        return coordinates;
     }
 
-    public void setCoord(LatLng coord) {
-        this.coord = coord;
+    public void setCoordinates(ParseGeoPoint coordinates) {
+        this.coordinates = coordinates;
     }
 
     public String getAddress() {
@@ -49,7 +49,7 @@ public class UserModel {
     }
 
     String emailAddress;
-    LatLng coord;
+    ParseGeoPoint coordinates;
     String address;
     String name;
 

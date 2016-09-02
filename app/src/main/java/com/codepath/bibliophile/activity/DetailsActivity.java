@@ -20,6 +20,7 @@ public class DetailsActivity extends AppCompatActivity {
     TextView tvDPrice;
     TextView tvCondition;
     TextView tvISBN;
+    TextView tvDistance;
     TextView tvOwnerName;
     TextView tvOwnerEmail;
     @Override
@@ -35,6 +36,8 @@ public class DetailsActivity extends AppCompatActivity {
         tvISBN = (TextView) findViewById(R.id.tvISBN);
         tvOwnerName = (TextView) findViewById(R.id.tvDOwnerName);
         tvOwnerEmail = (TextView) findViewById(R.id.tvDOwnerEmail);
+        tvDistance = (TextView) findViewById(R.id.tvDistance);
+
         Bundle args = getIntent().getExtras();
         tvDTitle.setText(args.getString("title"));
         tvDAuthor.setText(args.getString("author"));
@@ -42,7 +45,8 @@ public class DetailsActivity extends AppCompatActivity {
         tvDPrice.setText(args.getString("price"));
         tvCondition.setText(args.getString("condition"));
         tvISBN.setText(args.getString("isbn"));
-        tvOwnerName.setText(args.getString("bookOwner"));
+        tvDistance.setText(args.getString("distance"));
+        tvOwnerName.setText(args.getString("ownerName"));
         tvOwnerEmail.setText(args.getString("ownerEmail"));
         ivCover.setImageResource(0);
         Glide.with(this).load(args.getString("cover")).into(ivCover);

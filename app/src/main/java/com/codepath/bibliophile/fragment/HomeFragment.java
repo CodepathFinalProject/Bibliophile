@@ -14,6 +14,7 @@ import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.model.BookModel;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -68,18 +69,43 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void onResume() {
-        finalQuery.findInBackground(new FindCallback<BookModel>() {
-            public void done(List<BookModel> itemList, ParseException e) {
-                updateList(itemList, e);
-            }
-        });
+        if (finalQuery != null) {
+            finalQuery.findInBackground(new FindCallback<BookModel>() {
+                public void done(List<BookModel> itemList, ParseException e) {
+                    replaceList(itemList, e);
+                }
+            });
+        }
         super.onResume();
     }
 
     private void getBooks() {
-        finalQuery = ParseQuery.getQuery(BookModel.class);
-        finalQuery.whereNotEqualTo("owner", ParseUser.getCurrentUser());
+        // Get the location coordinates from the current ParseUser
+        ParseGeoPoint currentUserLocation = (ParseGeoPoint) ParseUser.getCurrentUser().get("coordinates");
 
+        // First get the users close to the current user
+        ParseQuery userQuery = ParseUser.getQuery();
+        userQuery.whereNotEqualTo("objectId", ParseUser.getCurrentUser().getObjectId());
+        userQuery.whereNear("coordinates", currentUserLocation);
+        userQuery.findInBackground(new FindCallback<ParseUser>() {
+            public void done(List<ParseUser> users, ParseException e) {
+                books.clear();
+
+                for (int i = 0; i < users.size(); i++) {
+                    ParseUser user = users.get(i);
+                    ParseQuery bookQuery = ParseQuery.getQuery(BookModel.class);
+                    bookQuery.whereEqualTo("owner", user);
+
+                    bookQuery.findInBackground(new FindCallback<BookModel>() {
+                        public void done(List<BookModel> itemList, ParseException e) {
+                            addAll(itemList);
+                        }
+                    });
+                }
+
+                adapter.notifyDataSetChanged();
+            }
+        });
         // Final query is executed during onResume
     }
 
@@ -111,11 +137,10 @@ public class HomeFragment extends BaseFragment {
         // Final query is executed during onResume
     }
 
-    private void updateList(List<BookModel> itemList, ParseException e) {
+    private void replaceList(List<BookModel> itemList, ParseException e) {
         if (e == null) {
             books.clear();
             addAll(itemList);
-            adapter.notifyDataSetChanged();
         } else {
             e.printStackTrace();
         }
