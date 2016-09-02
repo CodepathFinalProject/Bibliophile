@@ -20,6 +20,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 
 import org.json.JSONException;
@@ -111,7 +112,7 @@ public class SignUpActivity extends AppCompatActivity {
         parseUser.setUsername(user.getName());
         parseUser.put("address", user.getAddress());
         parseUser.put("profilePic", user.getProfilePicUrl());
-        parseUser.put("coordinates", user.getCoord().toString());
+        parseUser.put("coordinates", new ParseGeoPoint(user.getCoord().latitude, user.getCoord().longitude));
         parseUser.saveEventually();
         Intent intent = new Intent(SignUpActivity.this,HomeMainActivity.class);
         startActivity(intent);
