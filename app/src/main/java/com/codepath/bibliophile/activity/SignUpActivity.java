@@ -41,9 +41,9 @@ public class SignUpActivity extends AppCompatActivity {
         final PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
         autocompleteFragment.setHint("Enter your Address");
-        ((EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
+        ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
                 .setTextColor(Color.parseColor("#ffffff"));
-        ((EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
+        ((EditText) autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
                 .setTextSize(22.0f);
 
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
@@ -116,7 +116,7 @@ public class SignUpActivity extends AppCompatActivity {
         parseUser.put("profilePic", user.getProfilePicUrl());
         parseUser.put("coordinates", user.getCoordinates());
         parseUser.saveEventually();
-        Intent intent = new Intent(SignUpActivity.this,HomeMainActivity.class);
+        Intent intent = new Intent(SignUpActivity.this, HomeMainActivity.class);
         startActivity(intent);
     }
 }
