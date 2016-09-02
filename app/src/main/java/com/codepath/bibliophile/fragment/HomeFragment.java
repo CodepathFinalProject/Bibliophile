@@ -2,6 +2,7 @@ package com.codepath.bibliophile.fragment;
 
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -95,7 +96,16 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onSwipeOptionClicked(int viewID, int position) {
                         if (viewID == R.id.seller_contact) {
-                            // Do something
+                            Intent sendIntent = new Intent(Intent.ACTION_SEND);
+                            BookModel book = books.get(position);
+                            String sellerEmail =book.getContactEmail();
+                            String bookTitle = book.getTitle();
+                            sendIntent.putExtra(Intent.EXTRA_EMAIL, sellerEmail);
+                            sendIntent.setData(Uri.parse("mailto:"));
+                            sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Interested in buying the book \"" + bookTitle + "\"");
+                            sendIntent.setType("plain/text");
+                            sendIntent.putExtra(Intent.EXTRA_TEXT, "");
+                            startActivity(sendIntent);
                         } else if (viewID == R.id.map_view) {
                             // Do something
                         }

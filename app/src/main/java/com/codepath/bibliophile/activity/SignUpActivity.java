@@ -108,8 +108,6 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     private void saveToParse(UserModel user) {
-        Log.d("MU HU HA HA", "BABY");
-        Log.d("MU HU HA HA", user.getName());
         ParseUser parseUser = ParseUser.getCurrentUser();
         parseUser.setEmail(user.getEmailAddress());
         parseUser.setUsername(user.getName());

@@ -2,6 +2,7 @@ package com.codepath.bibliophile.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +15,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.model.BookModel;
-import com.parse.GetCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.List;
@@ -203,17 +200,20 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 //        query.whereEqualTo("_id", book.getObjectId());
 
         final ParseUser user = ParseUser.getCurrentUser();
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("BookModel");
-        query.whereEqualTo("objectId",book.getObjectId());
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject object, ParseException e) {
-                object.put("isListed", false);
-                object.put("buyer", user);
-                object.saveEventually();
-
-            }
-        });
+        book.setBuyer(user);
+        Log.d("BUYER", "Setting Buyer");
+        book.saveEventually();
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("BookModel");
+//        query.whereEqualTo("objectId",book.getObjectId());
+//        query.getFirstInBackground(new GetCallback<ParseObject>() {
+//            @Override
+//            public void done(ParseObject object, ParseException e) {
+//                object.put("isListed", false);
+//                object.put("buyer", user);
+//                object.saveEventually();
+//
+//            }
+//        });
 
 
 

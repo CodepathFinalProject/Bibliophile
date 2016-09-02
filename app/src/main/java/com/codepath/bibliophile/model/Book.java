@@ -116,6 +116,9 @@ public class Book {
                 book.authors.add(authors.getString(i));
             }
             book.subtitle = volumeInfo.getString("subtitle"); // Since many books do not have subtitle, it's causing widespread parsing failures
+            if (book.subtitle == null) {
+                book.subtitle = "";
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }

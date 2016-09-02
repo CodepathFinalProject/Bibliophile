@@ -85,7 +85,7 @@ public class BookShelfFragment extends Fragment {
                     public void onSwipeOptionClicked(int viewID, int position) {
                         if (viewID == R.id.edit) {
                             Log.d("onSwipeOptionClicked: ", "Clicked edit");
-//                            final BookModel book = books.get(position);
+                            final BookModel book = books.get(position);
 //                            Intent intent = new Intent(getContext(), DetailsActivity.class);
 //                            intent.putExtra("title", book.getTitle());
 //                            intent.putExtra("author",book.getAuthor());
@@ -102,11 +102,15 @@ public class BookShelfFragment extends Fragment {
                             // Do something
                             Log.d("onSwipeOptionClicked: ", "Clicked delete");
                             books.remove(position).deleteEventually();
-                            adapter.notifyDataSetChanged();
+                            adapter.notifyItemRemoved(position);
 
                         }else if (viewID == R.id.unlist){
+
                             Log.d("onSwipeOptionClicked: ", "Clicked unlist");
-                            //removing the book from HomePage
+                            BookModel book = books.get(position);
+                            book.setIsListed(false);
+                            book.saveEventually();
+                            //Add List Toggle idea here.
 
                         }
                     }
