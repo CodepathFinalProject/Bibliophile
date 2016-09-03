@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.activity.DetailsActivity;
@@ -49,6 +50,7 @@ public class BookShelfFragment extends Fragment {
         gridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
         rvItem.setLayoutManager(gridLayoutManager);
 
+
         rvItem.setAdapter(adapter);
         onTouchListener = new RecyclerTouchListener(getActivity(), rvItem);
         onTouchListener.setSwipeOptionViews(R.id.edit, R.id.delete, R.id.unlist)
@@ -65,8 +67,12 @@ public class BookShelfFragment extends Fragment {
                         intent.putExtra("cover",book.getBookCover());
                         intent.putExtra("isbn",String.valueOf(book.getISBN()));
                         intent.putExtra("condition",book.getCondition());
-                        intent.putExtra("bookOwner",book.getBookOwner());
-                        intent.putExtra("ownerEmail",book.getContactEmail());
+                        try {
+                            intent.putExtra("bookOwner",book.getSeller().fetchIfNeeded().getUsername());
+                            intent.putExtra("ownerEmail",book.getSeller().fetchIfNeeded().getEmail());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                         getContext().startActivity(intent);
                         //RecyclerTouchListener tmp = onTouchListener;
 //                        onTouchListener.setUnSwipeableRows(position);
@@ -105,12 +111,27 @@ public class BookShelfFragment extends Fragment {
                             adapter.notifyItemRemoved(position);
 
                         }else if (viewID == R.id.unlist){
+                            Boolean isListed = true;
+                            TextView unlistText = (TextView)v.findViewById(R.id.unlist_textView);
 
-                            Log.d("onSwipeOptionClicked: ", "Clicked unlist");
-                            BookModel book = books.get(position);
-                            book.setIsListed(false);
-                            book.saveEventually();
+                            if(isListed == true){
+                                Log.d("onSwipeOptionClicked: ", "Clicked unlist");
+                                BookModel book = books.get(position);
+                                book.setIsListed(false);
+                                unlistText.setText("List");
+                                isListed = false;
+                                book.saveEventually();
+                            }else{
+                                BookModel book = books.get(position);
+                                book.setIsListed(true);
+                                unlistText.setText("Unlist");
+                                book.saveEventually();
+                                isListed = true;
+                            }
+
+
                             //Add List Toggle idea here.
+
 
                         }
                     }
@@ -146,7 +167,7 @@ public class BookShelfFragment extends Fragment {
 
     private void populateTimeline() {
         ParseQuery<BookModel> query = ParseQuery.getQuery(BookModel.class);
-        query.whereEqualTo("owner", ParseUser.getCurrentUser());
+        query.whereEqualTo("seller", ParseUser.getCurrentUser());
         query.findInBackground(new FindCallback<BookModel>() {
             public void done(List<BookModel> itemList, ParseException e) {
                 if (e == null) {

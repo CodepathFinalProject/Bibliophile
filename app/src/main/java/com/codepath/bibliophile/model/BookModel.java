@@ -11,16 +11,21 @@ public class BookModel extends ParseObject {
     public BookModel() {
     }
 
-    public BookModel(Book book) {
+    public BookModel(GoogleBookModel googleBookModel) {
         super();
-        setTitle(book.getTitle());
-        setAuthor(book.getPrimaryAuthor()); // TODO edge cases
-        setBookCover(book.getThumbnailUrl());
-        setDescription(book.getDescription());
-        setPrice(book.getPrice());
-        setAverageRating(book.getAverageRating());
-        setCondition(book.getCondition());
-        setISBN(book.getISBN());
+        setTitle(googleBookModel.getTitle());
+        setAuthor(googleBookModel.getPrimaryAuthor()); // TODO edge cases
+        setDescription(googleBookModel.getDescription());
+        setBookCover(googleBookModel.getThumbnailUrl());
+        setPrice(googleBookModel.getPrice());
+        setISBN(googleBookModel.getISBN());
+        setAverageRating(googleBookModel.getAverageRating());
+        setCondition(googleBookModel.getCondition());
+        setRatingsCount(googleBookModel.getRatingsCount());
+        setIsTransactionComplete(false);
+        setIsListed(true);
+        setBuyerConfirmed(false);
+        setSellerConfirmed(false);
     }
 
     // Use getString and others to access fields
@@ -32,25 +37,16 @@ public class BookModel extends ParseObject {
         return getString("author");
     }
 
-    public String getBookCover() {
-        return getString("cover");
-    }
-
     public String getDescription() {
         return getString("description");
     }
 
+    public String getBookCover() {
+        return getString("cover");
+    }
+
     public Double getPrice() {
         return getDouble("price");
-    }
-
-    public Double getAverageRating() {
-        return getDouble("averageRating");
-    }
-
-
-    public int getRatingsCount() {
-        return getInt("ratingsCount");
     }
 
     public long getISBN() {
@@ -61,28 +57,36 @@ public class BookModel extends ParseObject {
         return getString("condition");
     }
 
-    public ParseUser getUser() {
-        return getParseUser("owner");
+    public Double getAverageRating() {
+        return getDouble("averageRating");
     }
 
-    public String getContactEmail() {
-        return getString("email");
+    public int getRatingsCount() {
+        return getInt("ratingsCount");
     }
 
-    public String getBookOwner() {
-        return getString("bookOwner");
+    public ParseUser getSeller() {
+        return getParseUser("seller");
     }
 
-
-    public String getBookId(){
-        return getString("_id");
-    }
-    public boolean getIsListed() {
-        return getBoolean("isListed");
+    public ParseUser getBuyer() {
+        return getParseUser("buyer");
     }
 
     public boolean getIsTransactionComplete() {
         return getBoolean("isTransactionComplete");
+    }
+
+    public boolean getIsListed() {
+        return getBoolean("isListed");
+    }
+
+    public boolean getBuyerConfirmed() {
+        return getBoolean("buyerConfirmed");
+    }
+
+    public boolean getSellerConfirmed() {
+        return getBoolean("sellerConfirmed");
     }
 
 
@@ -95,24 +99,16 @@ public class BookModel extends ParseObject {
         put("author", value);
     }
 
-    public void setBookCover(String value) {
-        put("cover", value);
-    }
-
     public void setDescription(String value) {
         put("description", value);
     }
 
+    public void setBookCover(String value) {
+        put("cover", value);
+    }
+
     public void setPrice(Double value) {
         put("price", value);
-    }
-
-    public void setAverageRating(Double value) {
-        put("averageRating", value);
-    }
-
-    public void setRatingsCount(int value) {
-        put("ratingsCount", value);
     }
 
     public void setISBN(long value) {
@@ -123,29 +119,39 @@ public class BookModel extends ParseObject {
         put("condition", value);
     }
 
-    public void setOwner(ParseUser user) {
-        put("owner", user);
+    public void setAverageRating(Double value) {
+        put("averageRating", value);
     }
 
-    public void setContactEmail(String email) {
-        put("ownerEmail", email);
+    public void setRatingsCount(int value) {
+        put("ratingsCount", value);
     }
 
-    public void setBookOwner(String email) {
-        put("bookOwner", email);
+    public void setSeller(ParseUser seller) {
+        put("seller", seller);
     }
 
-    public void setIsListed(boolean isListed) {
-        put("isListed", isListed);
+    public void setBuyer(ParseUser buyer) {
+        put("buyer", buyer);
+
     }
 
     public void setIsTransactionComplete(boolean isTransactionComplete) {
         put("isTransactionComplete", isTransactionComplete);
     }
 
-    public void setBuyer(ParseUser user) {
-        put("buyer", user);
+    public void setIsListed(boolean isListed) {
+        put("isListed", isListed);
     }
+
+    public void setBuyerConfirmed(boolean buyerConfirmed) {
+        put("buyerConfirmed", buyerConfirmed);
+    }
+
+    public void setSellerConfirmed(boolean sellerConfirmed) {
+        put("sellerConfirmed", sellerConfirmed);
+    }
+
 }
 
 

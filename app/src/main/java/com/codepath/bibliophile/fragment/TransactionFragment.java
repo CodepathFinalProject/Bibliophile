@@ -58,8 +58,12 @@ public class TransactionFragment extends Fragment{
                         intent.putExtra("cover",book.getBookCover());
                         intent.putExtra("isbn",String.valueOf(book.getISBN()));
                         intent.putExtra("condition",book.getCondition());
-                        intent.putExtra("bookOwner",book.getBookOwner());
-                        intent.putExtra("ownerEmail",book.getContactEmail());
+                        try {
+                            intent.putExtra("bookOwner",book.getSeller().fetchIfNeeded().getUsername());
+                            intent.putExtra("ownerEmail",book.getSeller().fetchIfNeeded().getEmail());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                         getContext().startActivity(intent);
                         //RecyclerTouchListener tmp = onTouchListener;
 //                        onTouchListener.setUnSwipeableRows(position);

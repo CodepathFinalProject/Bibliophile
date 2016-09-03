@@ -145,7 +145,11 @@ public class BookShelfRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             vh1.getTvBookDescription().setText(book.getDescription());
             vh1.getTvPrice().setText("$" + book.getPrice().toString());
             vh1.getTvRating().setRating((float) book.getAverageRating().doubleValue());
-            vh1.getTvBookOwner().setText(book.getBookOwner());
+            try {
+                vh1.getTvBookOwner().setText(book.getSeller().fetchIfNeeded().getUsername());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             if (book.getBookCover() != null) {
                 vh1.getIvBookCover().setVisibility(View.VISIBLE);
@@ -166,8 +170,8 @@ public class BookShelfRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                     intent.putExtra("cover",book.getBookCover());
                     intent.putExtra("isbn",String.valueOf(book.getISBN()));
                     intent.putExtra("condition",book.getCondition());
-                    intent.putExtra("bookOwner",book.getBookOwner());
-                    intent.putExtra("ownerEmail",book.getContactEmail());
+                    intent.putExtra("bookOwner",book.getSeller().getUsername());
+                    intent.putExtra("ownerEmail",book.getSeller().getEmail());
                     getmContext().startActivity(intent);
                 }
             });

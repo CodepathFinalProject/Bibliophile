@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.codepath.bibliophile.R;
-import com.codepath.bibliophile.model.Book;
+import com.codepath.bibliophile.model.GoogleBookModel;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -28,7 +28,7 @@ import org.parceler.Parcels;
  */
 public class AddBookFragment extends Fragment {
 
-    private Book book;
+    private GoogleBookModel googleBookModel;
 
     private ImageView ivBookThumbnail;
     private TextView tvBookTitle;
@@ -51,7 +51,7 @@ public class AddBookFragment extends Fragment {
 
     // Tell the parent activity to dynamically embed a new fragment
     public interface OnPostBookListener {
-        public void onPostClicked(Book listing);
+        public void onPostClicked(GoogleBookModel listing);
 
         public void onCancelClicked();
     }
@@ -70,7 +70,7 @@ public class AddBookFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        book = Parcels.unwrap(getArguments().getParcelable("book"));
+        googleBookModel = Parcels.unwrap(getArguments().getParcelable("book"));
     }
 
     @Override
@@ -97,14 +97,14 @@ public class AddBookFragment extends Fragment {
         btnPostBook = (Button) view.findViewById(R.id.btnPostBook);
         setButtonListeners();
 
-        Picasso.with(getContext()).load(book.getThumbnailUrl()).into(ivBookThumbnail);
-        tvBookTitle.setText(book.getTitle());
-        tvBookSubtitle.setText(book.getSubtitle());
-        tvBookAuthor.setText(book.getPrimaryAuthor());
+        Picasso.with(getContext()).load(googleBookModel.getThumbnailUrl()).into(ivBookThumbnail);
+        tvBookTitle.setText(googleBookModel.getTitle());
+        tvBookSubtitle.setText(googleBookModel.getSubtitle());
+        tvBookAuthor.setText(googleBookModel.getPrimaryAuthor());
 
-        tvBookDescription.setText(book.getDescription());
-        tvBookRatingsCount.setText(Integer.toString(book.getRatingsCount()) + " ratings"); // TOOO use String.format
-        rbBookRating.setRating((float) book.getAverageRating());
+        tvBookDescription.setText(googleBookModel.getDescription());
+        tvBookRatingsCount.setText(Integer.toString(googleBookModel.getRatingsCount()) + " ratings"); // TOOO use String.format
+        rbBookRating.setRating((float) googleBookModel.getAverageRating());
     }
 
     private void setButtonListeners() {
@@ -112,14 +112,14 @@ public class AddBookFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                book.setCondition(spnBookCondition.getSelectedItem().toString());
+                googleBookModel.setCondition(spnBookCondition.getSelectedItem().toString());
 
                 String price = etBookPrice.getText().toString();
                 if (price.equals("")) {
                     Toast.makeText(getContext(), R.string.book_add_price_prompt, Toast.LENGTH_SHORT).show();
                 } else {
-                    book.setPrice(Double.parseDouble(price));
-                    listener.onPostClicked(book);
+                    googleBookModel.setPrice(Double.parseDouble(price));
+                    listener.onPostClicked(googleBookModel);
                 }
 
             }

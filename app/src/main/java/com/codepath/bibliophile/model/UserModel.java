@@ -6,10 +6,24 @@ import com.google.android.gms.maps.model.LatLng;
  * Created by supriya on 8/28/16.
  */
 public class UserModel {
+    String name;
+    String emailAddress;
+    LatLng coord;
+    String address;
     String profilePicUrl;
+    String coverPicUrl;
+
 
     public String getProfilePicUrl() {
         return profilePicUrl;
+    }
+
+    public String getCoverPicUrl() {
+        return coverPicUrl;
+    }
+
+    public void setCoverPicUrl(String coverPicUrl) {
+        this.coverPicUrl = coverPicUrl;
     }
 
     public void setProfilePicUrl(String profilePicUrl) {
@@ -48,9 +62,5 @@ public class UserModel {
         this.name = name;
     }
 
-    String emailAddress;
-    LatLng coord;
-    String address;
-    String name;
 
 }

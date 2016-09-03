@@ -57,9 +57,28 @@ public class DetailsActivity extends AppCompatActivity {
                 sendIntent.setType("plain/text");
                 sendIntent.putExtra(Intent.EXTRA_TEXT, "");
                 startActivity(sendIntent);
+//                IntentIntegrator integrator = new IntentIntegrator(DetailsActivity.this);
+//                integrator.setPrompt("Scan a book");
+//                integrator.setBeepEnabled(true);
+//                integrator.setBarcodeImageEnabled(true);
+//                integrator.setOrientationLocked(false);
+//                integrator.initiateScan();
             }
         });
 
     }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+//        if(result != null) {
+//            if(result.getContents() == null) {
+//                Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
+//            } else {
+//                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
+//            }
+//        } else {
+//            super.onActivityResult(requestCode, resultCode, data);
+//        }
+//    }
 }
 

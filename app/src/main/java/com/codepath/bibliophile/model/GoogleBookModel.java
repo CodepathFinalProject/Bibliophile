@@ -17,7 +17,7 @@ import java.util.List;
  * Created by bobbywei on 8/20/16.
  */
 @Parcel
-public class Book {
+public class GoogleBookModel {
     // Making all instance variables public to avoid Reflection from Parceler library
     String title; //
     String subtitle;
@@ -95,56 +95,56 @@ public class Book {
     }
 
 
-    private Book() {
+    private GoogleBookModel() {
     }
 
-    public static Book fromJson(long ISBN, JSONObject volumeInfo) {
-        Book book = new Book();
-        book.authors = new ArrayList<>();
+    public static GoogleBookModel fromJson(long ISBN, JSONObject volumeInfo) {
+        GoogleBookModel googleBookModel = new GoogleBookModel();
+        googleBookModel.authors = new ArrayList<>();
 
         try {
-            book.title = volumeInfo.getString("title");
-            book.description = volumeInfo.getString("description");
-            book.thumbnailUrl = volumeInfo.getJSONObject("imageLinks").getString("thumbnail");
-            book.googleWebUrl = volumeInfo.getString("canonicalVolumeLink");
-            book.averageRating = volumeInfo.getDouble("averageRating");
-            book.ratingsCount = volumeInfo.getInt("ratingsCount");
-            book.ISBN = ISBN;
+            googleBookModel.title = volumeInfo.getString("title");
+            googleBookModel.description = volumeInfo.getString("description");
+            googleBookModel.thumbnailUrl = volumeInfo.getJSONObject("imageLinks").getString("thumbnail");
+            googleBookModel.googleWebUrl = volumeInfo.getString("canonicalVolumeLink");
+            googleBookModel.averageRating = volumeInfo.getDouble("averageRating");
+            googleBookModel.ratingsCount = volumeInfo.getInt("ratingsCount");
+            googleBookModel.ISBN = ISBN;
 
             JSONArray authors = volumeInfo.getJSONArray("authors");
             for (int i = 0; i < authors.length(); i++) {
-                book.authors.add(authors.getString(i));
+                googleBookModel.authors.add(authors.getString(i));
             }
-            book.subtitle = volumeInfo.getString("subtitle"); // Since many books do not have subtitle, it's causing widespread parsing failures
-            if (book.subtitle == null) {
-                book.subtitle = "";
+            googleBookModel.subtitle = volumeInfo.getString("subtitle"); // Since many books do not have subtitle, it's causing widespread parsing failures
+            if (googleBookModel.subtitle == null) {
+                googleBookModel.subtitle = "";
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        return book;
+        return googleBookModel;
     }
 
-    public static Book fromJsonResponse(Context context, long ISBN, JSONObject response) {
-        Book book = null;
+    public static GoogleBookModel fromJsonResponse(Context context, long ISBN, JSONObject response) {
+        GoogleBookModel googleBookModel = null;
 
         try {
             // If Google Books API does not recognize the ISBN number, totalItems will be 0
             if (response.getInt("totalItems") < 1) {
                 Toast.makeText(context, R.string.API_response_validation_empty, Toast.LENGTH_SHORT).show();
-                return book;
+                return googleBookModel;
             }
 
             JSONArray items = response.getJSONArray("items");
             JSONObject firstBookObject = items.getJSONObject(0);
             JSONObject volumeInfo = firstBookObject.getJSONObject("volumeInfo");
-            book = fromJson(ISBN, volumeInfo);
+            googleBookModel = fromJson(ISBN, volumeInfo);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        return book;
+        return googleBookModel;
     }
 
 }

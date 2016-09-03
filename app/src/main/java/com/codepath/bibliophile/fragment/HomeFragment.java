@@ -81,8 +81,12 @@ public class HomeFragment extends Fragment {
                         intent.putExtra("cover", book.getBookCover());
                         intent.putExtra("isbn", String.valueOf(book.getISBN()));
                         intent.putExtra("condition", book.getCondition());
-                        intent.putExtra("bookOwner", book.getBookOwner());
-                        intent.putExtra("ownerEmail", book.getContactEmail());
+                        try {
+                            intent.putExtra("bookOwner", book.getSeller().fetchIfNeeded().getUsername());
+                            intent.putExtra("ownerEmail", book.getSeller().fetchIfNeeded().getEmail());
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
                         getContext().startActivity(intent);
 
                     }
@@ -98,7 +102,12 @@ public class HomeFragment extends Fragment {
                         if (viewID == R.id.seller_contact) {
                             Intent sendIntent = new Intent(Intent.ACTION_SEND);
                             BookModel book = books.get(position);
-                            String sellerEmail =book.getContactEmail();
+                            String sellerEmail = null;
+                            try {
+                                sellerEmail = book.getSeller().fetchIfNeeded().getEmail();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
                             String bookTitle = book.getTitle();
                             sendIntent.putExtra(Intent.EXTRA_EMAIL, sellerEmail);
                             sendIntent.setData(Uri.parse("mailto:"));
@@ -108,6 +117,8 @@ public class HomeFragment extends Fragment {
                             startActivity(sendIntent);
                         } else if (viewID == R.id.map_view) {
                             // Do something
+
+
                         }
                     }
                 });
@@ -143,7 +154,7 @@ public class HomeFragment extends Fragment {
 
     private void getBooks() {
         finalQuery = ParseQuery.getQuery(BookModel.class);
-        finalQuery.whereNotEqualTo("owner", ParseUser.getCurrentUser());
+        finalQuery.whereNotEqualTo("seller", ParseUser.getCurrentUser());
 
         // Final query is executed during onResume
     }

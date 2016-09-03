@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.model.BookModel;
+import com.parse.ParseException;
 import com.parse.ParseUser;
 
 import java.util.List;
@@ -150,7 +151,11 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             vh1.getTvBookDescription().setText(book.getDescription());
             vh1.getTvPrice().setText("$" + book.getPrice().toString());
             vh1.getTvRating().setRating((float) book.getAverageRating().doubleValue());
-            vh1.getTvBookOwner().setText(book.getBookOwner());
+            try {
+                vh1.getTvBookOwner().setText(book.getSeller().fetchIfNeeded().getUsername());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             vh1.getButtonBuy().setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

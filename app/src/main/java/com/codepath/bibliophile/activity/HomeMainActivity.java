@@ -30,7 +30,7 @@ import com.codepath.bibliophile.fragment.HomeFragment;
 import com.codepath.bibliophile.fragment.PostFragment;
 import com.codepath.bibliophile.fragment.ProfileFragment;
 import com.codepath.bibliophile.fragment.TransactionFragment;
-import com.codepath.bibliophile.model.Book;
+import com.codepath.bibliophile.model.GoogleBookModel;
 import com.codepath.bibliophile.model.BookModel;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -232,13 +232,13 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
     }
 
     @Override
-    public void onSearchBookClicked(Book book) {
+    public void onSearchBookClicked(GoogleBookModel googleBookModel) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 
         // Add a book as a fragment argument
         AddBookFragment addBookFragment = new AddBookFragment();
         Bundle args = new Bundle();
-        args.putParcelable("book", Parcels.wrap(book));
+        args.putParcelable("book", Parcels.wrap(googleBookModel));
         addBookFragment.setArguments(args);
 
         ft.replace(R.id.flContent, addBookFragment);
@@ -247,14 +247,14 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
     }
 
     @Override
-    public void onPostClicked(Book book) {
+    public void onPostClicked(GoogleBookModel googleBookModel) {
         // TODO save book to database
-        Toast.makeText(this, "Saving " + book.getTitle() + " to the database", Toast.LENGTH_SHORT).show(); // TODO remove
+        Toast.makeText(this, "Saving " + googleBookModel.getTitle() + " to the database", Toast.LENGTH_SHORT).show(); // TODO remove
 
-        BookModel parseBook = new BookModel(book);
-        parseBook.setOwner(ParseUser.getCurrentUser());
-        parseBook.setBookOwner(ParseUser.getCurrentUser().getString("username"));
-        parseBook.setContactEmail(ParseUser.getCurrentUser().getString("email"));
+        BookModel parseBook = new BookModel(googleBookModel);
+        parseBook.setSeller(ParseUser.getCurrentUser());
+//        parseBook.setBookOwner(ParseUser.getCurrentUser().getString("username"));
+//        parseBook.setContactEmail(ParseUser.getCurrentUser().getString("email"));
         parseBook.setIsListed(true);
         parseBook.setIsTransactionComplete(false);
         parseBook.saveInBackground(new SaveCallback() {

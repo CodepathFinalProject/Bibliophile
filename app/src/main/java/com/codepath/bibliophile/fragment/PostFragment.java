@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.camera.BarcodeCaptureActivity;
 import com.codepath.bibliophile.client.GoogleBooksClient;
-import com.codepath.bibliophile.model.Book;
+import com.codepath.bibliophile.model.GoogleBookModel;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -48,7 +48,7 @@ public class PostFragment extends Fragment implements View.OnClickListener {
 
     // Tell the parent activity to dynamically embed a new fragment
     public interface OnSearchBookListener {
-        public void onSearchBookClicked(Book book);
+        public void onSearchBookClicked(GoogleBookModel googleBookModel);
     }
 
     @Override
@@ -85,11 +85,11 @@ public class PostFragment extends Fragment implements View.OnClickListener {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                     long ISBN = Long.parseLong(etISBN.getText().toString());
-                    Book book = Book.fromJsonResponse(getContext(), ISBN, response);
+                    GoogleBookModel googleBookModel = GoogleBookModel.fromJsonResponse(getContext(), ISBN, response);
 
                     // If at least one book is returned, go to AddBook fragment
-                    if (book != null) {
-                        listener.onSearchBookClicked(book);
+                    if (googleBookModel != null) {
+                        listener.onSearchBookClicked(googleBookModel);
                     }
                 }
 
