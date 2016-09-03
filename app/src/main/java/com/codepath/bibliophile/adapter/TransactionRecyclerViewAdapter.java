@@ -146,7 +146,11 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
             vh1.getTvBookDescription().setText(book.getDescription());
             vh1.getTvPrice().setText("$" + book.getPrice().toString());
             vh1.getTvRating().setRating((float) book.getAverageRating().doubleValue());
-            vh1.getTvBookOwner().setText(book.getSeller().getUsername());
+            try {
+                vh1.getTvBookOwner().setText(book.getSeller().fetchIfNeeded().getUsername());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
             if (book.getBookCover() != null) {
                 vh1.getIvBookCover().setVisibility(View.VISIBLE);
@@ -167,8 +171,12 @@ public class TransactionRecyclerViewAdapter extends RecyclerView.Adapter<Recycle
                     intent.putExtra("cover",book.getBookCover());
                     intent.putExtra("isbn",String.valueOf(book.getISBN()));
                     intent.putExtra("condition",book.getCondition());
-                    intent.putExtra("bookOwner",book.getSeller().getUsername());
-                    intent.putExtra("ownerEmail",book.getSeller().getEmail());
+                    try {
+                        intent.putExtra("bookOwner",book.getSeller().fetchIfNeeded().getUsername());
+                        intent.putExtra("ownerEmail",book.getSeller().fetchIfNeeded().getEmail());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     getmContext().startActivity(intent);
                 }
             });

@@ -170,8 +170,12 @@ public class BookShelfRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                     intent.putExtra("cover",book.getBookCover());
                     intent.putExtra("isbn",String.valueOf(book.getISBN()));
                     intent.putExtra("condition",book.getCondition());
-                    intent.putExtra("bookOwner",book.getSeller().getUsername());
-                    intent.putExtra("ownerEmail",book.getSeller().getEmail());
+                    try {
+                        intent.putExtra("ownerEmail",book.getSeller().fetchIfNeeded().getEmail());
+                        intent.putExtra("bookOwner",book.getSeller().fetchIfNeeded().getUsername());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     getmContext().startActivity(intent);
                 }
             });

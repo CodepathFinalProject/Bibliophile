@@ -170,26 +170,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             } else {
                 vh1.ivBookCover.setVisibility(View.GONE);
             }
-
-//            vh1.getView().setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//
-//
-////                    Toast.makeText(getmContext(),"details",Toast.LENGTH_SHORT).show();
-////                    Intent intent = new Intent(getmContext(), DetailsActivity.class);
-////                    intent.putExtra("title", book.getTitle());
-////                    intent.putExtra("author",book.getAuthor());
-////                    intent.putExtra("description",book.getDescription());
-////                    intent.putExtra("price",book.getPrice().toString());
-////                    intent.putExtra("cover",book.getBookCover());
-////                    intent.putExtra("isbn",String.valueOf(book.getISBN()));
-////                    intent.putExtra("condition",book.getCondition());
-////                    intent.putExtra("bookOwner",book.getBookOwner());
-////                    intent.putExtra("ownerEmail",book.getContactEmail());
-////                    getmContext().startActivity(intent);
-//                }
-//            });
         }
     }
 
@@ -200,44 +180,11 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
     private void setBuyer(BookModel book){
-
-//        ParseQuery<ParseObject> query = ParseQuery.getQuery("BookModel");
-//        query.whereEqualTo("_id", book.getObjectId());
-
         final ParseUser user = ParseUser.getCurrentUser();
         book.setBuyer(user);
+        book.setIsListed(false);
         Log.d("BUYER", "Setting Buyer");
         book.saveEventually();
-//        ParseQuery<ParseObject> query = ParseQuery.getQuery("BookModel");
-//        query.whereEqualTo("objectId",book.getObjectId());
-//        query.getFirstInBackground(new GetCallback<ParseObject>() {
-//            @Override
-//            public void done(ParseObject object, ParseException e) {
-//                object.put("isListed", false);
-//                object.put("buyer", user);
-//                object.saveEventually();
-//
-//            }
-//        });
-
-
-
-
-
-//
-//        book.setIsListed(false);
-//        book.setIsTransactionComplete(false);
-//        book.setBuyer(user);
-//        final String currentUser = ParseUser.getCurrentUser().getEmail();
-//        user.saveInBackground(new SaveCallback() {
-//            @Override
-//            public void done(ParseException e) {
-//                Log.d("Seller: ", currentUser);
-//            }
-//        });
-
-//        Log.d("Buyer:", user.toString());
-//        Log.d("User:", user.getEmail());
     }
 
 }

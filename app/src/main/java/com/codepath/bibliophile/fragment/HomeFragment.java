@@ -102,14 +102,15 @@ public class HomeFragment extends Fragment {
                         if (viewID == R.id.seller_contact) {
                             Intent sendIntent = new Intent(Intent.ACTION_SEND);
                             BookModel book = books.get(position);
-                            String sellerEmail = null;
+
                             try {
-                                sellerEmail = book.getSeller().fetchIfNeeded().getEmail();
+                                String sellerEmail = book.getSeller().fetchIfNeeded().getEmail();
+                                sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { sellerEmail});
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
                             String bookTitle = book.getTitle();
-                            sendIntent.putExtra(Intent.EXTRA_EMAIL, sellerEmail);
+
                             sendIntent.setData(Uri.parse("mailto:"));
                             sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Interested in buying the book \"" + bookTitle + "\"");
                             sendIntent.setType("plain/text");
@@ -155,6 +156,7 @@ public class HomeFragment extends Fragment {
     private void getBooks() {
         finalQuery = ParseQuery.getQuery(BookModel.class);
         finalQuery.whereNotEqualTo("seller", ParseUser.getCurrentUser());
+        finalQuery.whereEqualTo("isListed", true);
 
         // Final query is executed during onResume
     }
