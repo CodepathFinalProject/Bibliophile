@@ -81,32 +81,36 @@ public class HomeFragment extends BaseFragment {
 
     private void getBooks() {
         // Get the location coordinates from the current ParseUser
-        ParseGeoPoint currentUserLocation = (ParseGeoPoint) ParseUser.getCurrentUser().get("coordinates");
+        if (ParseUser.getCurrentUser() != null) {
+            ParseGeoPoint currentUserLocation = (ParseGeoPoint) ParseUser.getCurrentUser().get("coordinates");
 
-        // First get the users close to the current user
-        ParseQuery userQuery = ParseUser.getQuery();
-        userQuery.whereNotEqualTo("objectId", ParseUser.getCurrentUser().getObjectId());
-        userQuery.whereNear("coordinates", currentUserLocation);
-        userQuery.findInBackground(new FindCallback<ParseUser>() {
-            public void done(List<ParseUser> users, ParseException e) {
-                books.clear();
+            // First get the users close to the current user
+            ParseQuery userQuery = ParseUser.getQuery();
+            userQuery.whereNotEqualTo("objectId", ParseUser.getCurrentUser().getObjectId());
+            userQuery.whereNear("coordinates", currentUserLocation);
+            userQuery.findInBackground(new FindCallback<ParseUser>() {
+                public void done(List<ParseUser> users, ParseException e) {
+                    books.clear();
 
-                for (int i = 0; i < users.size(); i++) {
-                    ParseUser user = users.get(i);
-                    ParseQuery bookQuery = ParseQuery.getQuery(BookModel.class);
-                    bookQuery.whereEqualTo("owner", user);
+                    if (users != null) {
+                        for (int i = 0; i < users.size(); i++) {
+                            ParseUser user = users.get(i);
+                            ParseQuery bookQuery = ParseQuery.getQuery(BookModel.class);
+                            bookQuery.whereEqualTo("owner", user);
 
-                    bookQuery.findInBackground(new FindCallback<BookModel>() {
-                        public void done(List<BookModel> itemList, ParseException e) {
-                            addAll(itemList);
+                            bookQuery.findInBackground(new FindCallback<BookModel>() {
+                                public void done(List<BookModel> itemList, ParseException e) {
+                                    addAll(itemList);
+                                }
+                            });
                         }
-                    });
-                }
 
-                adapter.notifyDataSetChanged();
-            }
-        });
-        // Final query is executed during onResume
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            });
+            // Final query is executed during onResume
+        }
     }
 
     private void getBooksUsingQuery(String q) {

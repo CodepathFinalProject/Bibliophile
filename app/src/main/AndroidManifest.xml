@@ -41,7 +41,8 @@
             android:value="myBibliophileApp" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyC5M3MqL14eChyPialhlzD-pZ48tHqKkhg"/>
+            android:value="AIzaSyBNbD2gA4MW9MN5KSvg3cyB_0PPmrqIA4Q"/>
+
     </application>
 
 </manifest>

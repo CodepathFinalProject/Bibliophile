@@ -166,6 +166,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         final BookModel book = (BookModel) mBook.get(position);
         String ownerName = null;
         String ownerEmail = null;
+        String ownerAddress = null;
 
         if (book != null) {
             // Populate view items
@@ -186,6 +187,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                 bookLocation = (ParseGeoPoint) bookOwner.get("coordinates");
                 ownerName = (String) bookOwner.get("username");
                 ownerEmail = (String) bookOwner.get("email");
+                ownerAddress = (String) bookOwner.get("address");
 
                 currentUserLocation = (ParseGeoPoint) ParseUser.getCurrentUser().get("coordinates");
             } catch (ParseException e) {
@@ -214,6 +216,8 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
             final String finalOwnerEmail = ownerEmail;
             final String finalOwnerName = ownerName;
+            final String finalOwnerAddress = ownerAddress;
+            final ParseGeoPoint finalBookLocation = bookLocation;
 
             vh1.getView().setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -229,7 +233,10 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
                     intent.putExtra("condition", book.getCondition());
                     intent.putExtra("ownerName", finalOwnerName);
                     intent.putExtra("ownerEmail", finalOwnerEmail);
+                    intent.putExtra("ownerAddress", finalOwnerAddress);
                     intent.putExtra("distance", distanceLabel);
+                    intent.putExtra("lat", finalBookLocation.getLatitude());
+                    intent.putExtra("lng", finalBookLocation.getLongitude());
                     getmContext().startActivity(intent);
                 }
             });
