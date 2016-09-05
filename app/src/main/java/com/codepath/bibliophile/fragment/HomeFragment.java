@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -20,6 +21,7 @@ import com.codepath.bibliophile.model.BookModel;
 import com.nikhilpanju.recyclerviewenhanced.RecyclerTouchListener;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -63,7 +65,7 @@ public class HomeFragment extends Fragment {
         rvItem.setAdapter(adapter);
 
         onTouchListener = new RecyclerTouchListener(getActivity(), rvItem);
-        onTouchListener.setSwipeOptionViews(R.id.seller_contact, R.id.map_view)
+        onTouchListener.setSwipeOptionViews(R.id.buy_button, R.id.seller_contact, R.id.map_view)
                 .setClickable(new RecyclerTouchListener.OnRowClickListener() {
                     @Override
                     public void onRowClicked(int position) {
@@ -96,10 +98,21 @@ public class HomeFragment extends Fragment {
                         // Do something
                     }
                 })
-                .setSwipeable(R.id.card_view, R.id.rowBG, new RecyclerTouchListener.OnSwipeOptionsClickListener() {
+                .setSwipeable(R.id.swipe_foreground, R.id.swipe_background, new RecyclerTouchListener.OnSwipeOptionsClickListener() {
                     @Override
                     public void onSwipeOptionClicked(int viewID, int position) {
-                        if (viewID == R.id.seller_contact) {
+                        if (viewID == R.id.buy_button){
+                            BookModel book = books.get(position);
+                            book.setBuyer(ParseUser.getCurrentUser());
+                            book.setIsListed(false);
+                            book.setIsTransactionComplete(false);
+                            book.saveEventually();
+                            books.remove(position);
+                            adapter.notifyItemRemoved(position);
+
+
+                        }
+                        else if (viewID == R.id.seller_contact) {
                             Intent sendIntent = new Intent(Intent.ACTION_SEND);
                             BookModel book = books.get(position);
 
@@ -118,6 +131,22 @@ public class HomeFragment extends Fragment {
                             startActivity(sendIntent);
                         } else if (viewID == R.id.map_view) {
                             // Do something
+                            BookModel book = books.get(position);
+                            try {
+
+                                String address = book.getSeller().fetchIfNeeded().getString("address");
+                                String title = book.getTitle();
+                                ParseGeoPoint location = book.getSeller().fetchIfNeeded().getParseGeoPoint("coordinates");
+                                FragmentManager fm = getFragmentManager();
+                                MapViewFragment mapView = MapViewFragment.newInstance(title, address, location.getLatitude(), location.getLongitude());
+                                mapView.show(fm, "map_view");
+
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+
+//                            editTask.show(fm, "fragment_alert");
 
 
                         }
@@ -133,6 +162,7 @@ public class HomeFragment extends Fragment {
         //construct the adapter from data source
         adapter = new HomeRecyclerViewAdapter(getActivity(), books);
 
+
         String qValue = "";
         if ((getArguments() != null) && getArguments().containsKey("query")) {
             qValue = getArguments().getString("query");
@@ -144,6 +174,8 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onResume() {
+
+
         finalQuery.findInBackground(new FindCallback<BookModel>() {
             public void done(List<BookModel> itemList, ParseException e) {
                 updateList(itemList, e);
@@ -197,7 +229,8 @@ public class HomeFragment extends Fragment {
     private void updateList(List<BookModel> itemList, ParseException e) {
         if (e == null) {
             books.clear();
-            addAll(itemList);
+            books.addAll(itemList);
+            Log.d("BLAH1", books.toString());
             adapter.notifyDataSetChanged();
         } else {
             e.printStackTrace();
@@ -210,5 +243,17 @@ public class HomeFragment extends Fragment {
         super.onPause();
     }
 
+//    private void fetchBooks(){
+//        ParseQuery query = ParseQuery.getQuery(BookModel.class);
+//        query.whereEqualTo("isListed", true);
+//        query.whereNotEqualTo("seller", ParseUser.getCurrentUser());
+//        query.findInBackground(new FindCallback<BookModel>() {
+//            public void done(List<BookModel> itemList, ParseException e) {
+//                updateList(itemList, e);
+//            }
+//        });
+//
+//
+//    }
 
 }

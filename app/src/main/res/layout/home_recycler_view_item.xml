@@ -1,67 +1,125 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="4dp">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.CardView
+
+            android:id="@+id/item_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="4dp">
 
             <LinearLayout
-                android:id="@+id/rowBG"
+                android:id="@+id/swipe_background"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignParentEnd="true">
-
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:id="@+id/seller_contact"
+                    android:id="@+id/buy_button"
                     android:layout_width="90dp"
                     android:layout_height="match_parent"
-                    android:background="@color/colorPrimaryDark"
+
+                    android:background="@color/colorsSwipeItem0"
                     android:clickable="true"
-                    android:focusable="true"
-                    android:orientation="vertical">
+                    android:focusable="true">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:background="?android:selectableItemBackground"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <ImageView
+
+                            android:id="@+id/buy"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/ic_shopping_cart_white_24dp"
+                            android:tint="@color/colorAccent" />
+
+                        <TextView
+                            android:id="@+id/buy_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:src="@android:drawable/ic_dialog_email" />
+                            android:text="Buy"
+                            android:textColor="@color/colorCardView"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/seller_contact"
+                    android:layout_width="90dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorsSwipeItem1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="?android:selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/seller_image"
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:src="@android:mipmap/sym_def_app_icon"
+                            app:civ_border_color="@color/colorCardView"
+                            app:civ_border_width="2dp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_marginTop="6dp"
-                            android:ellipsize="end"
                             android:gravity="center"
                             android:maxLines="1"
                             android:text="Contact"
-                            android:textColor="@android:color/white"
-                            android:textSize="12sp" />
+                            android:textColor="@color/colorCardView"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
+                            android:id="@+id/seller_name"
                             android:ellipsize="end"
-                            android:gravity="center"
                             android:maxLines="1"
-                            android:text="Seller"
-                            android:textColor="@android:color/white"
-                            android:textSize="12sp" />
+                            android:text="Seller Name"
+                            android:textColor="@color/colorCardView"
+                            android:textStyle="bold" />
+
+                        <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:layout_marginLeft="8dp"-->
+                        <!--android:layout_marginRight="8dp"-->
+                        <!--android:ellipsize="end"-->
+                        <!--android:gravity="center"-->
+                        <!--android:maxLines="1"-->
+                        <!--android:text="Seller"-->
+                        <!--android:textColor="@android:color/white"-->
+                        <!--android:textSize="12sp" />-->
                     </LinearLayout>
                 </RelativeLayout>
 
@@ -69,198 +127,219 @@
                     android:id="@+id/map_view"
                     android:layout_width="90dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/map_view"
+                    android:background="@color/colorsSwipeItem2"
                     android:clickable="true"
                     android:focusable="true"
                     android:orientation="vertical">
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:background="?android:selectableItemBackground"
 
                         android:gravity="center"
                         android:orientation="vertical">
 
+                        <ImageView
+
+                            android:id="@+id/map_icon"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/ic_map_white_24dp"
+                            android:tint="@color/colorCardView" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
-                            android:layout_marginTop="10dp"
-                            android:ellipsize="end"
+                            android:layout_gravity="center"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="View"
-                            android:textColor="@android:color/black"
-                            android:textSize="12sp" />
+                            android:text="Map View"
+                            android:textColor="@color/colorCardView"
+                            android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginLeft="8dp"
-                            android:layout_marginRight="8dp"
-                            android:ellipsize="end"
-                            android:gravity="center"
-                            android:maxLines="1"
-                            android:text="in Map"
-                            android:textColor="@android:color/black"
-                            android:textSize="12sp" />
+
                     </LinearLayout>
                 </RelativeLayout>
 
             </LinearLayout>
 
-            <android.support.v7.widget.CardView
-
-                android:id="@+id/card_view"
+            <LinearLayout
+                android:id="@+id/swipe_foreground"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
 
-                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal">
 
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:id="@+id/book_image_container"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:background="@android:color/white"
-                    android:clickable="true"
-                    android:elevation="4dp"
-                    android:focusable="true"
-                    android:visibility="visible">
-
+                    android:layout_weight="0.75"
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:id="@+id/ivBookCover"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:adjustViewBounds="true"
                         android:background="@drawable/background"
-                        android:maxHeight="179dp"
+                        android:maxHeight="128dp"
+                        android:maxWidth="72dp"
+
                         android:scaleType="fitXY"
                         android:src="@mipmap/ic_launcher" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:id="@+id/book_details_container"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="6dp"
+                    android:layout_weight="2"
+                    android:background="@android:color/white"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
                     <TextView
                         android:id="@+id/tvBookTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@id/ivBookCover"
-                        android:layout_toEndOf="@+id/ivBookCover"
-                        android:layout_toRightOf="@+id/ivBookCover"
+                        android:layout_marginTop="4dp"
                         android:gravity="top"
                         android:text="Book Title"
                         android:textColor="@android:color/black"
+                        android:textSize="18sp"
                         android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/tvAuthor"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/tvBookTitle"
-                        android:layout_alignStart="@+id/tvBookTitle"
-                        android:layout_below="@+id/tvBookTitle"
-                        android:text="Author: " />
 
                     <TextView
                         android:id="@+id/tvAuthorName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/tvAuthor"
-                        android:layout_toEndOf="@+id/tvAuthor"
-                        android:layout_toRightOf="@+id/tvAuthor"
-                        android:text="AuthorName " />
-
-                    <TextView
-                        android:id="@+id/tvDescription"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/tvAuthor"
-                        android:layout_alignStart="@+id/tvAuthor"
-                        android:layout_below="@+id/tvAuthor"
-                        android:autoLink="all"
-                        android:ellipsize="end"
-                        android:linksClickable="true"
-                        android:maxLines="2"
-                        android:text="New Description" />
+                        android:text="@string/authorname"
+                        android:textColor="@color/colorTextLight" />
 
                     <TextView
                         android:id="@+id/tvPrice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/rating"
-                        android:layout_toLeftOf="@+id/tvBookOwner"
-                        android:layout_toStartOf="@+id/tvBookOwner"
-                        android:autoLink="all"
-                        android:linksClickable="true"
-                        android:text="$ 34.00" />
+                        android:layout_marginTop="4dp"
+                        android:text="$34.00"
+                        android:textColor="@color/colorPrimary" />
 
-
-                    <RatingBar
-                        android:id="@+id/rating"
-                        style="?android:attr/ratingBarStyleSmall"
+                    <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/tvDescription"
-                        android:layout_alignStart="@+id/tvDescription"
-                        android:layout_below="@+id/tvDescription"
-                        android:numStars="5"
-                        android:rating="2.0"
-                        android:stepSize="1.0" />
-                    <!--TODO currently does not adjust ratings-->
+                        android:layout_marginTop="4dp">
 
-                    <TextView
-                        android:id="@+id/tvLocation"
+                        <ImageView
+                            android:id="@+id/distance_marker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_place_white_24dp"
+                            android:tint="@color/colorIcon" />
+
+                        <TextView
+                            android:id="@+id/tvLocation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/distance_marker"
+                            android:text="1.5 miles away"
+                            android:textColor="@color/colorTextLight" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/ratings_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/tvPrice"
-                        android:layout_alignStart="@+id/tvPrice"
-                        android:layout_below="@+id/rating"
-                        android:layout_marginTop="18dp"
-                        android:autoLink="all"
-                        android:linksClickable="true"
-                        android:text="1.5 miles away" />
+                        android:layout_marginTop="4dp">
 
-                    <Button
-                        android:id="@+id/buyButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/tvLocation"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true"
-                        android:backgroundTint="@color/colorAccent"
-                        android:text="Buy" />
+                        <RatingBar
+                            android:id="@+id/rating"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:numStars="5"
+                            android:rating="2.0"
+                            android:stepSize="1.0" />
 
-                    <TextView
-                        android:id="@+id/tvSeller"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tvLocation"
-                        android:layout_toEndOf="@+id/ivBookCover"
-                        android:layout_toRightOf="@+id/ivBookCover"
-                        android:text="Seller:" />
+                        <TextView
+                            android:id="@+id/ratings_count"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/rating"
+                            android:text="(25)"
+                            android:textColor="@color/colorTextLight" />
 
-                    <TextView
-                        android:id="@+id/tvBookOwner"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tvLocation"
-                        android:layout_toEndOf="@+id/tvAuthor"
-                        android:layout_toRightOf="@+id/tvAuthor"
-                        android:text="Supriya Premkumar" />
-                </RelativeLayout>
+                    </RelativeLayout>
+
+                    <!--<TextView-->
+                    <!--android:id="@+id/tvDescription"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="4dp"-->
+                    <!--android:layout_marginTop="4dp"-->
+                    <!--android:autoLink="all"-->
+                    <!--android:ellipsize="end"-->
+                    <!--android:maxLines="2"-->
+                    <!--android:text="New Description"-->
+                    <!--android:textColor="@color/colorTextLight" />-->
 
 
-            </android.support.v7.widget.CardView>
+                </LinearLayout>
+
+
+                <!--&lt;!&ndash;TODO currently does not adjust ratings&ndash;&gt;-->
+
+
+                <!--<Button-->
+                <!--android:id="@+id/buyButton"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignBottom="@+id/tvLocation"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:backgroundTint="@color/colorAccent"-->
+                <!--android:text="Buy" />-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tvSeller"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/tvLocation"-->
+                <!--android:layout_toEndOf="@+id/ivBookCover"-->
+                <!--android:layout_toRightOf="@+id/ivBookCover"-->
+                <!--android:text="Seller:" />-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tvBookOwner"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/tvLocation"-->
+                <!--android:layout_toEndOf="@+id/tvAuthor"-->
+                <!--android:layout_toRightOf="@+id/tvAuthor"-->
+                <!--android:text="Supriya Premkumar" />-->
+                <!--</RelativeLayout>-->
+
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+    </RelativeLayout>
+
+
 
 </RelativeLayout>

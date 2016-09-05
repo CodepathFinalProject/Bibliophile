@@ -50,6 +50,17 @@ public class BookShelfRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         private TextView tvBookOwner;
         private View view;
 
+        public TextView getSellerName() {
+            return sellerName;
+        }
+
+        public void setSellerName(TextView sellerName) {
+            this.sellerName = sellerName;
+        }
+
+        private TextView sellerName;
+
+
         public TextView getTvBookOwner() {
             return tvBookOwner;
         }
@@ -69,7 +80,7 @@ public class BookShelfRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             tvBookTitle = (TextView) itemView.findViewById(R.id.tvBookTitle);
             tvBookAuthor = (TextView) itemView.findViewById(R.id.tvAuthorName);
             tvRating = (RatingBar) itemView.findViewById(R.id.rating);
-            tvBookDescription = (TextView) itemView.findViewById(R.id.tvDescription);
+//            tvBookDescription = (TextView) itemView.findViewById(R.id.tvDescription);
             tvPrice = (TextView) itemView.findViewById(R.id.tvPrice);
             tvBookOwner =(TextView) itemView.findViewById(R.id.tvBookOwner);
 
@@ -141,15 +152,20 @@ public class BookShelfRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         final BookModel book = (BookModel) mBook.get(position);
         if (book != null) {
             vh1.getTvBookTitle().setText(book.getTitle());
-            vh1.getTvBookAuthor().setText(book.getAuthor());
-            vh1.getTvBookDescription().setText(book.getDescription());
-            vh1.getTvPrice().setText("$" + book.getPrice().toString());
+            String author = "by " + book.getAuthor();
+            vh1.getTvBookAuthor().setText(author);
+            String price = "$" + book.getPrice().toString();
+            vh1.getTvPrice().setText(price);
             vh1.getTvRating().setRating((float) book.getAverageRating().doubleValue());
-            try {
-                vh1.getTvBookOwner().setText(book.getSeller().fetchIfNeeded().getUsername());
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+//            try {
+//                vh1.getSellerName().setText(book.getSeller().fetchIfNeeded().getUsername());
+//                Glide.with(mContext)
+//                        .load(book.getSeller().fetchIfNeeded().getString("profilePic"))
+//                        .into(vh1.getCvSeller());
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+
 
             if (book.getBookCover() != null) {
                 vh1.getIvBookCover().setVisibility(View.VISIBLE);
@@ -165,7 +181,7 @@ public class BookShelfRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
                     Intent intent = new Intent(getmContext(), DetailsActivity.class);
                     intent.putExtra("title", book.getTitle());
                     intent.putExtra("author",book.getAuthor());
-                    intent.putExtra("description",book.getDescription());
+//                    intent.putExtra("description",book.getDescription());
                     intent.putExtra("price",book.getPrice().toString());
                     intent.putExtra("cover",book.getBookCover());
                     intent.putExtra("isbn",String.valueOf(book.getISBN()));

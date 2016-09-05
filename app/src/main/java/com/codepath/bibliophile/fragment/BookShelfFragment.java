@@ -86,7 +86,7 @@ public class BookShelfFragment extends Fragment {
                         // Do something
                     }
                 })
-                .setSwipeable(R.id.card_view, R.id.rowBG, new RecyclerTouchListener.OnSwipeOptionsClickListener() {
+                .setSwipeable(R.id.swipe_foreground, R.id.swipe_background, new RecyclerTouchListener.OnSwipeOptionsClickListener() {
                     @Override
                     public void onSwipeOptionClicked(int viewID, int position) {
                         if (viewID == R.id.edit) {

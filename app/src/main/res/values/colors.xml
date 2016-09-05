@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#594691</color>
-    <color name="colorPrimaryDark">#3e2d70</color>
-    <color name="colorAccent">#ffbf12</color>
+    <!--<color name="colorPrimary">#594691</color>-->
+    <!--<color name="colorPrimaryDark">#3e2d70</color>-->
+    <!--<color name="colorAccent">#ffbf12</color>-->
+    <color name="colorPrimary">#aa2200</color>
+    <color name="colorPrimaryDark">#01161E</color>
+    <!--<color name="colorAccent">#0fc5a4</color>-->
+    <color name="colorAccent">#f49303</color>
+
+    <color name="colorTextLight">#555555</color>
+    <color name="colorCardView">#FFFFFF</color>
+    <color name="colorIcon">#01161E</color>
+    <color name="colorsSwipeItem0">#1e2939</color>
+    <color name="colorsSwipeItem1">#124559</color>
+    <color name="colorsSwipeItem2">#598392</color>
+    <!--<color name="colorMenuItem">#ffffff</color>-->
+    <!--<color name="colorFragmentBackground">#eeeeee</color>-->
 </resources>

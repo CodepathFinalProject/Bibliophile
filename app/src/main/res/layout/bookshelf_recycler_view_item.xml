@@ -1,279 +1,344 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
-    android:orientation="vertical">
+    android:layout_margin="4dp">
 
-    <LinearLayout
-        android:id="@+id/rowBG"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:orientation="horizontal">
-
-
-        <RelativeLayout
-            android:id="@+id/edit"
-            android:layout_width="90dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorPrimaryDark"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:background="?android:selectableItemBackground"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@android:drawable/ic_menu_edit" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="4dp"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="Edit"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/delete"
-            android:layout_width="90dp"
-            android:layout_height="match_parent"
-            android:background="@android:color/holo_red_light"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:background="?android:selectableItemBackground"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@android:drawable/ic_menu_delete"
-                    android:tint="@android:color/white" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="4dp"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="Delete"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/unlist"
-            android:layout_width="90dp"
-            android:layout_height="match_parent"
-            android:background="@color/colorAccent"
-            android:clickable="true"
-            android:focusable="true"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:background="?android:selectableItemBackground"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@android:drawable/ic_menu_send"
-                    android:tint="@android:color/white" />
-
-                <TextView
-                    android:id="@+id/unlist_textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginTop="4dp"
-                    android:ellipsize="end"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:text="Unlist"
-                    android:textColor="@android:color/white"
-                    android:textSize="12sp" />
-            </LinearLayout>
-        </RelativeLayout>
-
-
-    </LinearLayout>
-
-    <android.support.v7.widget.CardView
-
-        android:id="@+id/card_view"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <android.support.v7.widget.CardView
 
+            android:id="@+id/item_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@android:color/white"
-            android:clickable="true"
-            android:elevation="4dp"
-            android:focusable="true"
-            android:visibility="visible">
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="4dp">
 
-
-            <ImageView
-                android:id="@+id/ivBookCover"
+            <LinearLayout
+                android:id="@+id/swipe_background"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:adjustViewBounds="true"
-                android:background="@drawable/background"
-                android:maxHeight="179dp"
-                android:scaleType="fitXY"
-                android:src="@mipmap/ic_launcher" />
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvBookTitle"
-                android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:id="@+id/buy_button"
+                    android:layout_width="90dp"
+                    android:layout_height="match_parent"
+
+                    android:background="@color/colorsSwipeItem0"
+                    android:clickable="true"
+                    android:focusable="true">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="?android:selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+
+                            android:id="@+id/edit"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@android:drawable/ic_menu_edit"
+                            android:tint="@color/colorAccent" />
+
+                        <TextView
+                            android:id="@+id/buy_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Edit"
+                            android:textColor="@color/colorCardView"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/delete"
+                    android:layout_width="90dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorPrimary"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="?android:selectableItemBackground"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@android:drawable/ic_menu_delete"
+                             />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text="Delete"
+                            android:textColor="@color/colorCardView"
+                            android:textStyle="bold" />
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_gravity="center"-->
+                            <!--android:id="@+id/seller_name"-->
+                            <!--android:ellipsize="end"-->
+                            <!--android:maxLines="1"-->
+                            <!--android:text="Seller Name"-->
+                            <!--android:textColor="@color/colorCardView"-->
+                            <!--android:textStyle="bold" />-->
+
+                        <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_gravity="center"-->
+                        <!--android:layout_marginLeft="8dp"-->
+                        <!--android:layout_marginRight="8dp"-->
+                        <!--android:ellipsize="end"-->
+                        <!--android:gravity="center"-->
+                        <!--android:maxLines="1"-->
+                        <!--android:text="Seller"-->
+                        <!--android:textColor="@android:color/white"-->
+                        <!--android:textSize="12sp" />-->
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/unlist"
+                    android:layout_width="90dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorsSwipeItem2"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:background="?android:selectableItemBackground"
+
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <ImageView
+
+                            android:id="@+id/map_icon"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@drawable/ic_map_white_24dp"
+                            android:tint="@color/colorCardView" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:id="@+id/unlist_textView"
+                            android:text="Unlist"
+                            android:textColor="@color/colorCardView"
+                            android:textStyle="bold" />
+
+
+                    </LinearLayout>
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/swipe_foreground"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@id/ivBookCover"
-                android:layout_toEndOf="@+id/ivBookCover"
-                android:layout_toRightOf="@+id/ivBookCover"
-                android:gravity="top"
-                android:text="Book Title"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvAuthor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tvBookTitle"
-                android:layout_alignStart="@+id/tvBookTitle"
-                android:layout_below="@+id/tvBookTitle"
-                android:text="Author: " />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvAuthorName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/tvAuthor"
-                android:layout_toEndOf="@+id/tvAuthor"
-                android:layout_toRightOf="@+id/tvAuthor"
-                android:text="AuthorName " />
+                <LinearLayout
+                    android:id="@+id/book_image_container"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.75"
+                    android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tvDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tvAuthor"
-                android:layout_alignStart="@+id/tvAuthor"
-                android:layout_below="@+id/tvAuthor"
-                android:autoLink="all"
-                android:ellipsize="end"
-                android:linksClickable="true"
-                android:maxLines="2"
-                android:text="New Description" />
+                    <ImageView
+                        android:id="@+id/ivBookCover"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/background"
+                        android:maxHeight="128dp"
+                        android:maxWidth="72dp"
 
-            <TextView
-                android:id="@+id/tvPrice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rating"
-                android:layout_toLeftOf="@+id/tvBookOwner"
-                android:layout_toStartOf="@+id/tvBookOwner"
-                android:autoLink="all"
-                android:linksClickable="true"
-                android:text="$ 34.00" />
+                        android:scaleType="fitXY"
+                        android:src="@mipmap/ic_launcher" />
 
 
-            <RatingBar
-                android:id="@+id/rating"
-                style="?android:attr/ratingBarStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tvDescription"
-                android:layout_alignStart="@+id/tvDescription"
-                android:layout_below="@+id/tvDescription"
-                android:numStars="5"
-                android:rating="2.0"
-                android:stepSize="1.0" />
-            <!--TODO currently does not adjust ratings-->
+                </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/tvPrice"
-                android:layout_alignStart="@+id/tvPrice"
-                android:layout_below="@+id/rating"
-                android:layout_marginTop="18dp"
-                android:autoLink="all"
-                android:linksClickable="true"
-                android:text="1.5 miles away" />
+                <LinearLayout
 
-            <TextView
-                android:id="@+id/tvSeller"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvLocation"
-                android:layout_toEndOf="@+id/ivBookCover"
-                android:layout_toRightOf="@+id/ivBookCover"
-                android:text="Seller:" />
+                    android:id="@+id/book_details_container"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="6dp"
+                    android:layout_weight="2"
+                    android:background="@android:color/white"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
-            <TextView
-                android:id="@+id/tvBookOwner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvLocation"
-                android:layout_toEndOf="@+id/tvAuthor"
-                android:layout_toRightOf="@+id/tvAuthor"
-                android:text="Supriya Premkumar" />
-        </RelativeLayout>
+                    <TextView
+                        android:id="@+id/tvBookTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:gravity="top"
+                        android:text="Book Title"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvAuthorName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/authorname"
+                        android:textColor="@color/colorTextLight" />
+
+                    <TextView
+                        android:id="@+id/tvPrice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="$34.00"
+                        android:textColor="@color/colorPrimary" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp">
+
+                        <ImageView
+                            android:id="@+id/distance_marker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/ic_place_white_24dp"
+                            android:tint="@color/colorIcon" />
+
+                        <TextView
+                            android:id="@+id/tvLocation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/distance_marker"
+                            android:text="1.5 miles away"
+                            android:textColor="@color/colorTextLight" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/ratings_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp">
+
+                        <RatingBar
+                            android:id="@+id/rating"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:numStars="5"
+                            android:rating="2.0"
+                            android:stepSize="1.0" />
+
+                        <TextView
+                            android:id="@+id/ratings_count"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/rating"
+                            android:text="(25)"
+                            android:textColor="@color/colorTextLight" />
+
+                    </RelativeLayout>
+
+                    <!--<TextView-->
+                    <!--android:id="@+id/tvDescription"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="4dp"-->
+                    <!--android:layout_marginTop="4dp"-->
+                    <!--android:autoLink="all"-->
+                    <!--android:ellipsize="end"-->
+                    <!--android:maxLines="2"-->
+                    <!--android:text="New Description"-->
+                    <!--android:textColor="@color/colorTextLight" />-->
 
 
-    </android.support.v7.widget.CardView>
+                </LinearLayout>
+
+
+                <!--&lt;!&ndash;TODO currently does not adjust ratings&ndash;&gt;-->
+
+
+                <!--<Button-->
+                <!--android:id="@+id/buyButton"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignBottom="@+id/tvLocation"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:backgroundTint="@color/colorAccent"-->
+                <!--android:text="Buy" />-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tvSeller"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/tvLocation"-->
+                <!--android:layout_toEndOf="@+id/ivBookCover"-->
+                <!--android:layout_toRightOf="@+id/ivBookCover"-->
+                <!--android:text="Seller:" />-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tvBookOwner"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/tvLocation"-->
+                <!--android:layout_toEndOf="@+id/tvAuthor"-->
+                <!--android:layout_toRightOf="@+id/tvAuthor"-->
+                <!--android:text="Supriya Premkumar" />-->
+                <!--</RelativeLayout>-->
+
+
+            </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+
+    </RelativeLayout>
+
+
 
 </RelativeLayout>
-
-

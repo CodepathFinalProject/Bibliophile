@@ -54,4 +54,7 @@
     <string name="auto_focus">Auto Focus</string>
     <string name="use_flash">Use Flash</string>
     <string name="emailAddress">Email Address</string>
+    <string name="by">by</string>
+    <string name="authorname">AuthorName</string>
+    <string name="map_view_close">Close</string>
 </resources>

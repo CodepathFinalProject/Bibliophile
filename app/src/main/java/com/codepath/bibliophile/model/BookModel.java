@@ -5,7 +5,7 @@ import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 @ParseClassName("BookModel")
-public class BookModel extends ParseObject {
+public class BookModel extends ParseObject{
 
     // Add a constructor that contains core properties
     public BookModel() {
