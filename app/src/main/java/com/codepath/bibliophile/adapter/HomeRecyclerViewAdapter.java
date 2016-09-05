@@ -39,7 +39,6 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
         private TextView tvBookTitle;
         private TextView tvBookAuthor;
         private RatingBar tvRating;
-        private TextView tvBookDescription;
         private TextView tvPrice;
         private TextView tvRatingsCount;
         private TextView tvDistance;
@@ -74,7 +73,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
             tvBookTitle = (TextView) itemView.findViewById(R.id.tvBookTitle);
             tvBookAuthor = (TextView) itemView.findViewById(R.id.tvAuthorName);
             tvRating = (RatingBar) itemView.findViewById(R.id.rating);
-            tvBookDescription = (TextView) itemView.findViewById(R.id.tvDescription);
+
             tvPrice = (TextView) itemView.findViewById(R.id.tvPrice);
             cvSeller = (CircleImageView) itemView.findViewById(R.id.seller_image);
             sellerName = (TextView) itemView.findViewById(R.id.seller_name);

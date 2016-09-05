@@ -19,20 +19,23 @@ import com.nikhilpanju.recyclerviewenhanced.RecyclerTouchListener;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionFragment extends Fragment{
+public class TransactionFragment extends Fragment {
     private RecyclerTouchListener onTouchListener;
     private OnActivityTouchListener onActivityTouchListener;
     public TransactionRecyclerViewAdapter adapter;
     public ArrayList<BookModel> books;
     public RecyclerView rvItem;
 
-    public TransactionFragment(){
+    public TransactionFragment() {
 
-}   @Override
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.home_fragment, container, false);
@@ -44,32 +47,27 @@ public class TransactionFragment extends Fragment{
         rvItem.setLayoutManager(gridLayoutManager);
         rvItem.setAdapter(adapter);
         onTouchListener = new RecyclerTouchListener(getActivity(), rvItem);
-        onTouchListener.setSwipeOptionViews(R.id.mark_complete, R.id.cancel)
-                .setClickable(new RecyclerTouchListener.OnRowClickListener(){
+        onTouchListener.setSwipeOptionViews(R.id.confirm_transaction, R.id.decline_transaction)
+                .setClickable(new RecyclerTouchListener.OnRowClickListener() {
                     @Override
                     public void onRowClicked(int position) {
                         Log.d("SUPRIYA", "ROW Clickesh");
                         final BookModel book = books.get(position);
                         Intent intent = new Intent(getContext(), DetailsActivity.class);
                         intent.putExtra("title", book.getTitle());
-                        intent.putExtra("author",book.getAuthor());
-                        intent.putExtra("description",book.getDescription());
-                        intent.putExtra("price",book.getPrice().toString());
-                        intent.putExtra("cover",book.getBookCover());
-                        intent.putExtra("isbn",String.valueOf(book.getISBN()));
-                        intent.putExtra("condition",book.getCondition());
+                        intent.putExtra("author", book.getAuthor());
+                        intent.putExtra("description", book.getDescription());
+                        intent.putExtra("price", book.getPrice().toString());
+                        intent.putExtra("cover", book.getBookCover());
+                        intent.putExtra("isbn", String.valueOf(book.getISBN()));
+                        intent.putExtra("condition", book.getCondition());
                         try {
-                            intent.putExtra("bookOwner",book.getSeller().fetchIfNeeded().getUsername());
-                            intent.putExtra("ownerEmail",book.getSeller().fetchIfNeeded().getEmail());
+                            intent.putExtra("bookOwner", book.getSeller().fetchIfNeeded().getUsername());
+                            intent.putExtra("ownerEmail", book.getSeller().fetchIfNeeded().getEmail());
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
                         getContext().startActivity(intent);
-                        //RecyclerTouchListener tmp = onTouchListener;
-//                        onTouchListener.setUnSwipeableRows(position);
-
-                        //rvItem.addOnItemTouchListener(tmp);
-
                     }
 
                     @Override
@@ -77,18 +75,34 @@ public class TransactionFragment extends Fragment{
                         // Do something
                     }
                 })
-                .setSwipeable(R.id.card_view, R.id.rowBG, new RecyclerTouchListener.OnSwipeOptionsClickListener() {
+                .setSwipeable(R.id.swipe_foreground, R.id.swipe_background, new RecyclerTouchListener.OnSwipeOptionsClickListener() {
                     @Override
                     public void onSwipeOptionClicked(int viewID, int position) {
-                        if (viewID == R.id.mark_complete) {
-                            // Do something
-                            books.remove(position).deleteEventually();
-                            adapter.notifyDataSetChanged();
+                        BookModel book = books.get(position);
 
-                        } else if (viewID == R.id.cancel) {
+                        if (viewID == R.id.confirm_transaction) {
+                            try {
+
+                                ParseUser me = ParseUser.getCurrentUser();
+                                book = book.fetch();
+                                if (me.getEmail().equals(book.getSeller().fetchIfNeeded().getEmail())) {
+                                    book.setSellerConfirmed(true);
+                                } else if (me.getEmail().equals(book.getBuyer().fetchIfNeeded().getEmail())) {
+                                    book.setBuyerConfirmed(true);
+                                }
+                                book.saveEventually();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                        } else if (viewID == R.id.decline_transaction) {
                             // Do something
-                            books.remove(position);
-                            adapter.notifyDataSetChanged();
+
+                            book.setIsListed(true);
+                            book.setBuyer(null);
+                            book.saveEventually();
+
+
                         }
                     }
                 });
@@ -102,15 +116,17 @@ public class TransactionFragment extends Fragment{
         //construct the adapter from data source
         adapter = new TransactionRecyclerViewAdapter(getActivity(), books);
 
-       populateTransaction();
+        populateTransaction();
     }
+
     @Override
     public void onResume() {
         rvItem.addOnItemTouchListener(onTouchListener);
         super.onResume();
     }
+
     @Override
-    public void onPause(){
+    public void onPause() {
         rvItem.removeOnItemTouchListener(onTouchListener);
         super.onPause();
     }
@@ -126,11 +142,25 @@ public class TransactionFragment extends Fragment{
         ParseQuery<BookModel> query = ParseQuery.getQuery(BookModel.class);
         query.whereEqualTo("isListed", false);
         query.whereNotEqualTo("buyer", null);
+        query.whereEqualTo("isTransactionComplete", false);
+        final ArrayList<BookModel> transactionsList = new ArrayList<>();
+        final ParseUser me = ParseUser.getCurrentUser();
 
         query.findInBackground(new FindCallback<BookModel>() {
             public void done(List<BookModel> itemList, ParseException e) {
                 if (e == null) {
-                    addAll(itemList);
+                    for (BookModel book : itemList) {
+                        try {
+                            if (book.getBuyer().fetchIfNeeded().getEmail().equals(me.getEmail())) {
+                                transactionsList.add(book);
+                            } else if (book.getSeller().fetchIfNeeded().getEmail().equals(me.getEmail())) {
+                                transactionsList.add(book);
+                            }
+                        } catch (ParseException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                    addAll(transactionsList);
                 } else {
                     Log.d("item", "Error: " + e.getMessage());
                 }

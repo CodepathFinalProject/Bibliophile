@@ -60,6 +60,8 @@
     <string name="price">Price $:</string>
     <string name="new_price">New Price</string>
     <string name="condition">Condition:</string>
+    <string name="confirm_transaction">Confirm Transaction</string>
+    <string name="decline_transaction">Decline Transaction</string>
 
     <string-array name="condition_array">
         <item>New</item>
