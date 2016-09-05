@@ -78,8 +78,6 @@ public class SignUpActivity extends AppCompatActivity {
         final UserModel user = new UserModel();
         final Bundle parameters = new Bundle();
         parameters.putString("fields", "id,name,email,picture.type(large)");
-        if(Utils.isNetworkAvailable(this)) {
-
             new GraphRequest(AccessToken.getCurrentAccessToken(), "/me", parameters, HttpMethod.GET, new GraphRequest.Callback() {
             @Override
             public void onCompleted(final GraphResponse response) {
@@ -106,26 +104,7 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         }).executeAsync();
-        } else {
-            final Context context = this;
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
-            alertDialog.setTitle("");
-            alertDialog
-                    .setMessage("NO INTERNET CONNECTION")
-                    .setCancelable(true)
-                    .setPositiveButton("OK",new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,int id) {
-                            // if this button is clicked, close
-                            // current activity
-                            dialog.cancel();
-                        }
-                    });
-            // create alert dialog
-            AlertDialog   dialog = alertDialog.create();
 
-            dialog.show();
-
-        }
         return user;
 
     }
