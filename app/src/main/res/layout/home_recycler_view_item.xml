@@ -98,10 +98,10 @@
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/seller_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:id="@+id/seller_name"
                             android:ellipsize="end"
                             android:maxLines="1"
                             android:text="Seller Name"
@@ -184,10 +184,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
-                        android:background="@drawable/background"
-                        android:maxHeight="128dp"
-                        android:maxWidth="72dp"
-
                         android:scaleType="fitXY"
                         android:src="@mipmap/ic_launcher" />
 
@@ -214,9 +210,8 @@
                         android:layout_marginTop="4dp"
                         android:gravity="top"
                         android:text="Book Title"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tvAuthorName"
@@ -247,7 +242,7 @@
                             android:tint="@color/colorIcon" />
 
                         <TextView
-                            android:id="@+id/tvLocation"
+                            android:id="@+id/tv_location"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -261,6 +256,7 @@
                         android:id="@+id/ratings_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
                         android:layout_marginTop="4dp">
 
                         <RatingBar
@@ -339,7 +335,6 @@
 
 
     </RelativeLayout>
-
 
 
 </RelativeLayout>

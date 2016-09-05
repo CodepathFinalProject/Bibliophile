@@ -1,7 +1,6 @@
 package com.codepath.bibliophile.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,18 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.codepath.bibliophile.R;
-import com.codepath.bibliophile.activity.DetailsActivity;
 import com.codepath.bibliophile.model.BookModel;
-import com.nikhilpanju.recyclerviewenhanced.RecyclerTouchListener;
-import com.parse.GetCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.List;
 
@@ -28,7 +19,6 @@ import java.util.List;
 public class BookShelfRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     private List<BookModel> mBook;
     private Context mContext;
-    private RecyclerTouchListener onTouchListener;
 
     public Context getmContext() {
         return mContext;
@@ -45,33 +35,33 @@ public class BookShelfRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
         private TextView tvBookTitle;
         private TextView tvBookAuthor;
         private RatingBar tvRating;
-        private TextView tvBookDescription;
         private TextView tvPrice;
-        private TextView tvBookOwner;
+        private TextView tvRatingsCount;
+        private TextView tvListingStatus;
+        private ImageView ivListingIcon;
+
+        public ImageView getIvListingIcon() {
+            return ivListingIcon;
+        }
+
+        public void setIvListingIcon(ImageView ivListingIcon) {
+            this.ivListingIcon = ivListingIcon;
+        }
+
+        public TextView getTvListingStatus() {
+            return tvListingStatus;
+        }
+
+        public void setTvListingStatus(TextView tvListingStatus) {
+            this.tvListingStatus = tvListingStatus;
+        }
+
+        public TextView getTvRatingsCount() {
+            return tvRatingsCount;
+        }
+
+
         private View view;
-
-        public TextView getSellerName() {
-            return sellerName;
-        }
-
-        public void setSellerName(TextView sellerName) {
-            this.sellerName = sellerName;
-        }
-
-        private TextView sellerName;
-
-
-        public TextView getTvBookOwner() {
-            return tvBookOwner;
-        }
-
-        public void setTvBookOwner(TextView tvBookOwner) {
-            this.tvBookOwner = tvBookOwner;
-        }
-
-        public void setTvRating(RatingBar tvRating) {
-            this.tvRating = tvRating;
-        }
 
         public BookViewHolder(View itemView) {
             super(itemView);
@@ -80,65 +70,44 @@ public class BookShelfRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             tvBookTitle = (TextView) itemView.findViewById(R.id.tvBookTitle);
             tvBookAuthor = (TextView) itemView.findViewById(R.id.tvAuthorName);
             tvRating = (RatingBar) itemView.findViewById(R.id.rating);
-//            tvBookDescription = (TextView) itemView.findViewById(R.id.tvDescription);
             tvPrice = (TextView) itemView.findViewById(R.id.tvPrice);
-            tvBookOwner =(TextView) itemView.findViewById(R.id.tvBookOwner);
+            tvRatingsCount = (TextView) itemView.findViewById(R.id.ratings_count);
+            tvListingStatus = (TextView) itemView.findViewById(R.id.tv_listing_status);
+            ivListingIcon = (ImageView) itemView.findViewById(R.id.listing_icon);
 
         }
-        public View getView() { return view; }
+
+        public View getView() {
+            return view;
+        }
+
         public ImageView getIvBookCover() {
             return ivBookCover;
         }
 
-        public void setIvBookCover(ImageView ivBookCover) {
-            this.ivBookCover = ivBookCover;
-        }
 
         public TextView getTvBookTitle() {
             return tvBookTitle;
-        }
-
-        public void setTvBookTitle(TextView tvBookTitle) {
-            this.tvBookTitle = tvBookTitle;
         }
 
         public TextView getTvBookAuthor() {
             return tvBookAuthor;
         }
 
-        public void setTvBookAuthor(TextView tvBookAuthor) {
-            this.tvBookAuthor = tvBookAuthor;
-        }
-
         public RatingBar getTvRating() {
             return tvRating;
-        }
-
-//        public void setTvRating(String tvRating) {
-//            this.tvRating = tvRating;
-//        }
-
-        public TextView getTvBookDescription() {
-            return tvBookDescription;
-        }
-
-        public void setTvBookDescription(TextView tvBookDescription) {
-            this.tvBookDescription = tvBookDescription;
         }
 
         public TextView getTvPrice() {
             return tvPrice;
         }
 
-        public void setTvPrice(TextView tvPrice) {
-            this.tvPrice = tvPrice;
-        }
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder viewHolder = null;
-        Context context = parent.getContext();
+        Context context = getmContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View v1 = inflater.inflate(R.layout.bookshelf_recycler_view_item, parent, false);
@@ -148,8 +117,8 @@ public class BookShelfRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        BookViewHolder vh1 = (BookViewHolder) holder;
-        final BookModel book = (BookModel) mBook.get(position);
+        final BookViewHolder vh1 = (BookViewHolder) holder;
+        final BookModel book = mBook.get(position);
         if (book != null) {
             vh1.getTvBookTitle().setText(book.getTitle());
             String author = "by " + book.getAuthor();
@@ -157,44 +126,26 @@ public class BookShelfRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             String price = "$" + book.getPrice().toString();
             vh1.getTvPrice().setText(price);
             vh1.getTvRating().setRating((float) book.getAverageRating().doubleValue());
-//            try {
-//                vh1.getSellerName().setText(book.getSeller().fetchIfNeeded().getUsername());
-//                Glide.with(mContext)
-//                        .load(book.getSeller().fetchIfNeeded().getString("profilePic"))
-//                        .into(vh1.getCvSeller());
-//            } catch (ParseException e) {
-//                e.printStackTrace();
-//            }
 
+            int ratingsCount = book.getRatingsCount();
+            String ratingsCountFormattedString = "(" + String.valueOf(ratingsCount) + ")";
+            vh1.getTvRatingsCount().setText(ratingsCountFormattedString);
 
             if (book.getBookCover() != null) {
                 vh1.getIvBookCover().setVisibility(View.VISIBLE);
-                Glide.with(mContext).load(book.getBookCover()).into(vh1.ivBookCover);
+                Glide.with(mContext).
+                        load(book.getBookCover()).override(128, 72).into(vh1.ivBookCover);
             } else {
                 vh1.ivBookCover.setVisibility(View.GONE);
             }
 
-            vh1.getView().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(getmContext(),"details",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(getmContext(), DetailsActivity.class);
-                    intent.putExtra("title", book.getTitle());
-                    intent.putExtra("author",book.getAuthor());
-//                    intent.putExtra("description",book.getDescription());
-                    intent.putExtra("price",book.getPrice().toString());
-                    intent.putExtra("cover",book.getBookCover());
-                    intent.putExtra("isbn",String.valueOf(book.getISBN()));
-                    intent.putExtra("condition",book.getCondition());
-                    try {
-                        intent.putExtra("ownerEmail",book.getSeller().fetchIfNeeded().getEmail());
-                        intent.putExtra("bookOwner",book.getSeller().fetchIfNeeded().getUsername());
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    getmContext().startActivity(intent);
-                }
-            });
+            if (book.getIsListed()){
+                vh1.getTvListingStatus().setText("Unlist");
+                vh1.getIvListingIcon().setImageResource(R.drawable.ic_unlist);
+            } else {
+                vh1.getTvListingStatus().setText("List");
+                vh1.getIvListingIcon().setImageResource(R.drawable.ic_unlist);
+            }
         }
     }
 
@@ -203,26 +154,4 @@ public class BookShelfRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     public int getItemCount() {
         return mBook.size();
     }
-
-    private void setBuyer(BookModel book){
-
-//        ParseQuery<ParseObject> query = ParseQuery.getQuery("BookModel");
-//        query.whereEqualTo("_id", book.getObjectId());
-
-        final ParseUser user = ParseUser.getCurrentUser();
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("BookModel");
-        query.whereEqualTo("objectId",book.getObjectId());
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject object, ParseException e) {
-                object.put("isListed", false);
-                object.put("buyer", user);
-                object.saveEventually();
-
-            }
-        });
-
-
-    }
-
 }

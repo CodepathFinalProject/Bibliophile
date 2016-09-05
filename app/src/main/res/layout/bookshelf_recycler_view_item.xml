@@ -24,7 +24,7 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-                    android:id="@+id/buy_button"
+                    android:id="@+id/edit"
                     android:layout_width="90dp"
                     android:layout_height="match_parent"
 
@@ -42,14 +42,14 @@
 
                         <ImageView
 
-                            android:id="@+id/edit"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:src="@android:drawable/ic_menu_edit"
+                            android:id="@+id/edit_image"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_mode_edit_white_24dp"
                             android:tint="@color/colorAccent" />
 
                         <TextView
-                            android:id="@+id/buy_text"
+                            android:id="@+id/edit_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Edit"
@@ -66,7 +66,7 @@
                     android:id="@+id/delete"
                     android:layout_width="90dp"
                     android:layout_height="match_parent"
-                    android:background="@color/colorPrimary"
+                    android:background="@color/colorsSwipeItem1"
                     android:clickable="true"
                     android:focusable="true"
                     android:orientation="vertical">
@@ -80,10 +80,12 @@
                         android:orientation="vertical">
 
                         <ImageView
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:src="@android:drawable/ic_menu_delete"
-                             />
+
+                            android:id="@+id/delete_image"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@drawable/ic_delete_white_24dp"
+                            android:tint="@color/colorCardView" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -95,16 +97,6 @@
                             android:textColor="@color/colorCardView"
                             android:textStyle="bold" />
 
-                        <!--<TextView-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_gravity="center"-->
-                            <!--android:id="@+id/seller_name"-->
-                            <!--android:ellipsize="end"-->
-                            <!--android:maxLines="1"-->
-                            <!--android:text="Seller Name"-->
-                            <!--android:textColor="@color/colorCardView"-->
-                            <!--android:textStyle="bold" />-->
 
                         <!--<TextView-->
                         <!--android:layout_width="wrap_content"-->
@@ -122,7 +114,7 @@
                 </RelativeLayout>
 
                 <RelativeLayout
-                    android:id="@+id/unlist"
+                    android:id="@+id/toggle_listing"
                     android:layout_width="90dp"
                     android:layout_height="match_parent"
                     android:background="@color/colorsSwipeItem2"
@@ -141,20 +133,18 @@
 
                         <ImageView
 
-                            android:id="@+id/map_icon"
-                            android:layout_width="48dp"
-                            android:layout_height="48dp"
-                            android:src="@drawable/ic_map_white_24dp"
+                            android:id="@+id/listing_icon"
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
                             android:tint="@color/colorCardView" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:id="@+id/tv_listing_status"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:id="@+id/unlist_textView"
-                            android:text="Unlist"
                             android:textColor="@color/colorCardView"
                             android:textStyle="bold" />
 
@@ -183,10 +173,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:adjustViewBounds="true"
-                        android:background="@drawable/background"
                         android:maxHeight="128dp"
                         android:maxWidth="72dp"
-
                         android:scaleType="fitXY"
                         android:src="@mipmap/ic_launcher" />
 
@@ -213,9 +201,8 @@
                         android:layout_marginTop="4dp"
                         android:gravity="top"
                         android:text="Book Title"
-                        android:textColor="@android:color/black"
-                        android:textSize="18sp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/tvAuthorName"
@@ -233,33 +220,10 @@
                         android:textColor="@color/colorPrimary" />
 
                     <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp">
-
-                        <ImageView
-                            android:id="@+id/distance_marker"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:src="@drawable/ic_place_white_24dp"
-                            android:tint="@color/colorIcon" />
-
-                        <TextView
-                            android:id="@+id/tvLocation"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_toRightOf="@+id/distance_marker"
-                            android:text="1.5 miles away"
-                            android:textColor="@color/colorTextLight" />
-
-                    </RelativeLayout>
-
-                    <RelativeLayout
                         android:id="@+id/ratings_container"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
                         android:layout_marginTop="4dp">
 
                         <RatingBar
@@ -338,7 +302,6 @@
 
 
     </RelativeLayout>
-
 
 
 </RelativeLayout>

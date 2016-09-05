@@ -200,7 +200,7 @@
             <!--TODO currently does not adjust ratings-->
 
             <TextView
-                android:id="@+id/tvLocation"
+                android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/tvPrice"
@@ -215,7 +215,7 @@
                 android:id="@+id/tvSeller"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvLocation"
+                android:layout_below="@+id/tv_location"
                 android:layout_toEndOf="@+id/ivBookCover"
                 android:layout_toRightOf="@+id/ivBookCover"
                 android:text="Seller:" />
@@ -224,7 +224,7 @@
                 android:id="@+id/tvBookOwner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tvLocation"
+                android:layout_below="@+id/tv_location"
                 android:layout_toEndOf="@+id/tvAuthor"
                 android:layout_toRightOf="@+id/tvAuthor"
                 android:text="Supriya Premkumar" />

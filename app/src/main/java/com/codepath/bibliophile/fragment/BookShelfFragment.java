@@ -1,20 +1,25 @@
 package com.codepath.bibliophile.fragment;
 
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.activity.DetailsActivity;
 import com.codepath.bibliophile.adapter.BookShelfRecyclerViewAdapter;
-import com.codepath.bibliophile.adapter.HomeRecyclerViewAdapter;
 import com.codepath.bibliophile.model.BookModel;
 import com.nikhilpanju.recyclerviewenhanced.RecyclerTouchListener;
 import com.parse.FindCallback;
@@ -30,55 +35,59 @@ public class BookShelfFragment extends Fragment {
     public BookShelfRecyclerViewAdapter adapter;
     public ArrayList<BookModel> books;
     public RecyclerView rvItem;
+
     private RecyclerTouchListener onTouchListener;
-    private HomeRecyclerViewAdapter homeRecyclerView;
 
 
+    private ParseQuery<BookModel> finalQuery;
 
     public BookShelfFragment() {
-
+        // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent,
                              Bundle savedInstanceState) {
-        final View v = inflater.inflate(R.layout.home_fragment, container, false);
-
+        final View v = inflater.inflate(R.layout.home_fragment, parent, false);
         rvItem = (RecyclerView) v.findViewById(R.id.rvHomePage);
+        FloatingActionButton myFab = (FloatingActionButton) v.findViewById(R.id.fabAdd);
+        myFab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new PostFragment()).commit();
+            }
+        });
+
         StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         gridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
         rvItem.setLayoutManager(gridLayoutManager);
 
-
         rvItem.setAdapter(adapter);
+
         onTouchListener = new RecyclerTouchListener(getActivity(), rvItem);
-        onTouchListener.setSwipeOptionViews(R.id.edit, R.id.delete, R.id.unlist)
-                .setClickable(new RecyclerTouchListener.OnRowClickListener(){
+        onTouchListener.setSwipeOptionViews(R.id.edit, R.id.delete, R.id.toggle_listing)
+                .setClickable(new RecyclerTouchListener.OnRowClickListener() {
                     @Override
                     public void onRowClicked(int position) {
-                        Log.d("SUPRIYA", "ROW Clickesh");
+
                         final BookModel book = books.get(position);
+
+                        Log.d("SUPRIYA", "ROW Clickesh");
                         Intent intent = new Intent(getContext(), DetailsActivity.class);
                         intent.putExtra("title", book.getTitle());
-                        intent.putExtra("author",book.getAuthor());
-                        intent.putExtra("description",book.getDescription());
-                        intent.putExtra("price",book.getPrice().toString());
-                        intent.putExtra("cover",book.getBookCover());
-                        intent.putExtra("isbn",String.valueOf(book.getISBN()));
-                        intent.putExtra("condition",book.getCondition());
+                        intent.putExtra("author", book.getAuthor());
+                        intent.putExtra("description", book.getDescription());
+                        intent.putExtra("price", book.getPrice().toString());
+                        intent.putExtra("cover", book.getBookCover());
+                        intent.putExtra("isbn", String.valueOf(book.getISBN()));
+                        intent.putExtra("condition", book.getCondition());
                         try {
-                            intent.putExtra("bookOwner",book.getSeller().fetchIfNeeded().getUsername());
-                            intent.putExtra("ownerEmail",book.getSeller().fetchIfNeeded().getEmail());
+                            intent.putExtra("bookOwner", book.getSeller().fetchIfNeeded().getUsername());
+                            intent.putExtra("ownerEmail", book.getSeller().fetchIfNeeded().getEmail());
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
                         getContext().startActivity(intent);
-                        //RecyclerTouchListener tmp = onTouchListener;
-//                        onTouchListener.setUnSwipeableRows(position);
-
-                        //rvItem.addOnItemTouchListener(tmp);
-
                     }
 
                     @Override
@@ -88,51 +97,75 @@ public class BookShelfFragment extends Fragment {
                 })
                 .setSwipeable(R.id.swipe_foreground, R.id.swipe_background, new RecyclerTouchListener.OnSwipeOptionsClickListener() {
                     @Override
-                    public void onSwipeOptionClicked(int viewID, int position) {
+                    public void onSwipeOptionClicked(int viewID, final int position) {
                         if (viewID == R.id.edit) {
-                            Log.d("onSwipeOptionClicked: ", "Clicked edit");
-                            final BookModel book = books.get(position);
-//                            Intent intent = new Intent(getContext(), DetailsActivity.class);
-//                            intent.putExtra("title", book.getTitle());
-//                            intent.putExtra("author",book.getAuthor());
-//                            intent.putExtra("description",book.getDescription());
-//                            intent.putExtra("price",book.getPrice().toString());
-//                            intent.putExtra("cover",book.getBookCover());
-//                            intent.putExtra("isbn",String.valueOf(book.getISBN()));
-//                            intent.putExtra("condition",book.getCondition());
-//                            intent.putExtra("bookOwner",book.getBookOwner());
-//                            intent.putExtra("ownerEmail",book.getContactEmail());
-//                            getContext().startActivity(intent);
+                            BookModel book = books.get(position);
+                            String objectId = book.getObjectId();
+                            String title = "Edit Book Details";
+                            FragmentManager fm = getFragmentManager();
+                            EditBookFragment editBook = EditBookFragment.newInstance(title, objectId);
+                            editBook.show(fm, "edit_book_details");
 
                         } else if (viewID == R.id.delete) {
-                            // Do something
-                            Log.d("onSwipeOptionClicked: ", "Clicked delete");
-                            books.remove(position).deleteEventually();
-                            adapter.notifyItemRemoved(position);
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                            alertDialogBuilder.setTitle("Confirm");
+                            alertDialogBuilder.setMessage("Do you wish to delete the book from your bookshelf?");
+                            alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    BookModel book = books.remove(position);
+                                    book.deleteEventually();
+                                    adapter.notifyItemRemoved(position);
+                                }
+                            });
 
-                        }else if (viewID == R.id.unlist){
-                            Boolean isListed = true;
-                            TextView unlistText = (TextView)v.findViewById(R.id.unlist_textView);
 
-                            if(isListed == true){
-                                Log.d("onSwipeOptionClicked: ", "Clicked unlist");
-                                BookModel book = books.get(position);
-                                book.setIsListed(false);
-                                unlistText.setText("List");
-                                isListed = false;
-                                book.saveEventually();
-                            }else{
-                                BookModel book = books.get(position);
-                                book.setIsListed(true);
-                                unlistText.setText("Unlist");
-                                book.saveEventually();
-                                isListed = true;
+                            alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+                        } else if (viewID == R.id.toggle_listing) {
+                            BookModel book = books.get(position);
+                            boolean isListed = book.getIsListed();
+                            RecyclerView.ViewHolder itemView = rvItem.findViewHolderForAdapterPosition(position);
+                            TextView tvListingStatus = (TextView) itemView.itemView.findViewById(R.id.tv_listing_status);
+                            ImageView ivListingIcon = (ImageView) itemView.itemView.findViewById(R.id.listing_icon);
+                            try {
+                                BookModel myBook = book.fetch();
+                                if (myBook.getBuyer() == null) {
+                                    if (isListed) {
+                                        book.setIsListed(false);
+                                        tvListingStatus.setText("List");
+                                        ivListingIcon.setImageResource(R.drawable.ic_list);
+                                        book.saveEventually();
+                                    } else {
+                                        book.setIsListed(true);
+                                        ivListingIcon.setImageResource(R.drawable.ic_unlist);
+                                        tvListingStatus.setText("Unlist");
+                                        book.saveEventually();
+                                    }
+
+                                } else {
+                                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                                    alertDialogBuilder.setTitle("Action Unavailable");
+                                    String message = "Current buyer is: " + myBook.getBuyer().fetchIfNeeded().getUsername() +"\nCancel the transaction prior to Listing/Unlisting.";
+                                    alertDialogBuilder.setMessage(message);
+                                    alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            dialog.dismiss();
+                                        }
+                                    });
+                                    AlertDialog alertDialog = alertDialogBuilder.create();
+                                    alertDialog.show();
+                                }
+                            } catch (ParseException e) {
+                                e.printStackTrace();
                             }
-
-
-                            //Add List Toggle idea here.
-
-
                         }
                     }
                 });
@@ -140,42 +173,89 @@ public class BookShelfFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        rvItem.addOnItemTouchListener(onTouchListener);
-        super.onResume();
-    }
-    @Override
-    public void onPause(){
-        rvItem.removeOnItemTouchListener(onTouchListener);
-        super.onPause();
-    }
-
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         books = new ArrayList<>();
         //construct the adapter from data source
         adapter = new BookShelfRecyclerViewAdapter(getActivity(), books);
-        populateTimeline();
 
+
+        String qValue = "";
+        if ((getArguments() != null) && getArguments().containsKey("query")) {
+            qValue = getArguments().getString("query");
+            getBooksUsingQuery(qValue);
+        } else {
+            getBooks();
+        }
     }
+
+    @Override
+    public void onResume() {
+        finalQuery.findInBackground(new FindCallback<BookModel>() {
+            public void done(List<BookModel> itemList, ParseException e) {
+                updateList(itemList, e);
+            }
+        });
+        rvItem.addOnItemTouchListener(onTouchListener);
+        super.onResume();
+    }
+
+    private void getBooks() {
+        finalQuery = ParseQuery.getQuery(BookModel.class);
+        finalQuery.whereEqualTo("seller", ParseUser.getCurrentUser());
+
+
+        // Final query is executed during onResume
+    }
+
+    private void getBooksUsingQuery(String q) {
+        // Check if the query is contained within the title or author fields
+        ParseQuery<BookModel> queryTitle = ParseQuery.getQuery(BookModel.class);
+        queryTitle.whereContains("title", q);
+        ParseQuery<BookModel> queryAuthor = ParseQuery.getQuery(BookModel.class);
+        queryAuthor.whereContains("author", q);
+
+        List<ParseQuery<BookModel>> clauses = new ArrayList<>();
+        clauses.add(queryTitle);
+        clauses.add(queryAuthor);
+
+        // If query can be parsed into a long, it might be an ISBN
+        try {
+            long isbn = Long.parseLong(q);
+            ParseQuery<BookModel> queryISBN = ParseQuery.getQuery(BookModel.class);
+            queryISBN.whereEqualTo("ISBN", isbn);
+            clauses.add(queryISBN);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+        }
+
+        // Create the final query and exclude books posted by the user
+        finalQuery = ParseQuery.or(clauses);
+        finalQuery.whereNotEqualTo("owner", ParseUser.getCurrentUser());
+
+        // Final query is executed during onResume
+    }
+
     public void addAll(List<BookModel> books) {
         this.books.addAll(books);
         adapter.notifyDataSetChanged();
     }
 
-    private void populateTimeline() {
-        ParseQuery<BookModel> query = ParseQuery.getQuery(BookModel.class);
-        query.whereEqualTo("seller", ParseUser.getCurrentUser());
-        query.findInBackground(new FindCallback<BookModel>() {
-            public void done(List<BookModel> itemList, ParseException e) {
-                if (e == null) {
-                    addAll(itemList);
-                } else {
-                    Log.d("item", "Error: " + e.getMessage());
-                }
-            }
-        });
+    private void updateList(List<BookModel> itemList, ParseException e) {
+        if (e == null) {
+            books.clear();
+            books.addAll(itemList);
+            Log.d("BLAH1", books.toString());
+            adapter.notifyDataSetChanged();
+        } else {
+            e.printStackTrace();
+        }
     }
+
+    @Override
+    public void onPause() {
+        rvItem.removeOnItemTouchListener(onTouchListener);
+        super.onPause();
+    }
+
 }

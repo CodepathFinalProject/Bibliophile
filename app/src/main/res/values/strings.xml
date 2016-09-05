@@ -57,4 +57,16 @@
     <string name="by">by</string>
     <string name="authorname">AuthorName</string>
     <string name="map_view_close">Close</string>
+    <string name="price">Price $:</string>
+    <string name="new_price">New Price</string>
+    <string name="condition">Condition:</string>
+
+    <string-array name="condition_array">
+        <item>New</item>
+        <item>Used - Like New</item>
+        <item>Used - Very Good</item>
+        <item>Used - Good</item>
+        <item>Used - Acceptable</item>
+        <item>Unacceptable</item>
+    </string-array>
 </resources>

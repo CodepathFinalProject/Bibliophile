@@ -28,9 +28,7 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class HomeFragment extends Fragment {
     public HomeRecyclerViewAdapter adapter;
     public ArrayList<BookModel> books;
@@ -73,7 +71,6 @@ public class HomeFragment extends Fragment {
                         final BookModel book = books.get(position);
 
 
-
                         Log.d("SUPRIYA", "ROW Clickesh");
                         Intent intent = new Intent(getContext(), DetailsActivity.class);
                         intent.putExtra("title", book.getTitle());
@@ -101,7 +98,7 @@ public class HomeFragment extends Fragment {
                 .setSwipeable(R.id.swipe_foreground, R.id.swipe_background, new RecyclerTouchListener.OnSwipeOptionsClickListener() {
                     @Override
                     public void onSwipeOptionClicked(int viewID, int position) {
-                        if (viewID == R.id.buy_button){
+                        if (viewID == R.id.buy_button) {
                             BookModel book = books.get(position);
                             book.setBuyer(ParseUser.getCurrentUser());
                             book.setIsListed(false);
@@ -111,14 +108,13 @@ public class HomeFragment extends Fragment {
                             adapter.notifyItemRemoved(position);
 
 
-                        }
-                        else if (viewID == R.id.seller_contact) {
+                        } else if (viewID == R.id.seller_contact) {
                             Intent sendIntent = new Intent(Intent.ACTION_SEND);
                             BookModel book = books.get(position);
 
                             try {
                                 String sellerEmail = book.getSeller().fetchIfNeeded().getEmail();
-                                sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { sellerEmail});
+                                sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{sellerEmail});
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
@@ -144,10 +140,6 @@ public class HomeFragment extends Fragment {
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
-
-
-//                            editTask.show(fm, "fragment_alert");
-
 
                         }
                     }
@@ -242,18 +234,5 @@ public class HomeFragment extends Fragment {
         rvItem.removeOnItemTouchListener(onTouchListener);
         super.onPause();
     }
-
-//    private void fetchBooks(){
-//        ParseQuery query = ParseQuery.getQuery(BookModel.class);
-//        query.whereEqualTo("isListed", true);
-//        query.whereNotEqualTo("seller", ParseUser.getCurrentUser());
-//        query.findInBackground(new FindCallback<BookModel>() {
-//            public void done(List<BookModel> itemList, ParseException e) {
-//                updateList(itemList, e);
-//            }
-//        });
-//
-//
-//    }
 
 }
