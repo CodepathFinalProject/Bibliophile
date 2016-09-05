@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,9 +68,6 @@ public class HomeFragment extends Fragment {
                     public void onRowClicked(int position) {
 
                         final BookModel book = books.get(position);
-
-
-                        Log.d("SUPRIYA", "ROW Clickesh");
                         Intent intent = new Intent(getContext(), DetailsActivity.class);
                         intent.putExtra("title", book.getTitle());
                         intent.putExtra("author", book.getAuthor());
@@ -222,7 +218,6 @@ public class HomeFragment extends Fragment {
         if (e == null) {
             books.clear();
             books.addAll(itemList);
-            Log.d("BLAH1", books.toString());
             adapter.notifyDataSetChanged();
         } else {
             e.printStackTrace();

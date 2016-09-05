@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,8 +29,8 @@ import com.codepath.bibliophile.fragment.HomeFragment;
 import com.codepath.bibliophile.fragment.PostFragment;
 import com.codepath.bibliophile.fragment.ProfileFragment;
 import com.codepath.bibliophile.fragment.TransactionFragment;
-import com.codepath.bibliophile.model.GoogleBookModel;
 import com.codepath.bibliophile.model.BookModel;
+import com.codepath.bibliophile.model.GoogleBookModel;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.parse.ParseException;
@@ -97,7 +96,6 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
                 HomeFragment homeFragment = new HomeFragment();
                 Bundle args = new Bundle();
                 args.putString("query", query);
-                Log.d("searchQuery", "onQueryTextSubmit: " + query);
                 homeFragment.setArguments(args);
 
                 frameManager.replace(R.id.flContent, homeFragment);
@@ -191,7 +189,6 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
                 fragmentClass = HomeFragment.class;
                 break;
             case R.id.nav_bookshelf:
-                Log.d("bookshelf", "selectDrawerItem: ");
                 fragmentClass = BookShelfFragment.class;  // TODO replace with other fragments
                 break;
             case R.id.nav_transaction:

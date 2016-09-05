@@ -51,7 +51,6 @@ public class TransactionFragment extends Fragment {
                 .setClickable(new RecyclerTouchListener.OnRowClickListener() {
                     @Override
                     public void onRowClicked(int position) {
-                        Log.d("SUPRIYA", "ROW Clickesh");
                         final BookModel book = books.get(position);
                         Intent intent = new Intent(getContext(), DetailsActivity.class);
                         intent.putExtra("title", book.getTitle());

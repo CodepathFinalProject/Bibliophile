@@ -13,9 +13,6 @@ import org.parceler.Parcel;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by bobbywei on 8/20/16.
- */
 @Parcel
 public class GoogleBookModel {
     // Making all instance variables public to avoid Reflection from Parceler library

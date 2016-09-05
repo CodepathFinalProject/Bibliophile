@@ -23,9 +23,6 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
-/**
- * Created by supriya on 9/5/16.
- */
 public class EditBookFragment extends DialogFragment {
 //    private TextView title;
     public BookModel book;

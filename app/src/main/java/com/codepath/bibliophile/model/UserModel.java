@@ -2,9 +2,6 @@ package com.codepath.bibliophile.model;
 
 import com.google.android.gms.maps.model.LatLng;
 
-/**
- * Created by supriya on 8/28/16.
- */
 public class UserModel {
     String name;
     String emailAddress;

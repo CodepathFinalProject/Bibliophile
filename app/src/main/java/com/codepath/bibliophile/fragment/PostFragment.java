@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,7 +94,6 @@ public class PostFragment extends Fragment implements View.OnClickListener {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                    Log.d("API", Integer.toString(statusCode));
                 }
             });
         }
@@ -134,14 +132,11 @@ public class PostFragment extends Fragment implements View.OnClickListener {
                     Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
                     etISBN.setText(barcode.displayValue);
                     Toast.makeText(getActivity(), R.string.scan_barcode_success, Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "Barcode read: " + barcode.displayValue);
                 } else {
                     Toast.makeText(getActivity(), R.string.scan_barcode_failure, Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "No barcode captured, intent data is null");
                 }
             } else {
                 Toast.makeText(getActivity(), R.string.scan_barcode_error, Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "Error scanning barcode");
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
