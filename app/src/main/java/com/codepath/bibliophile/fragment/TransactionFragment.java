@@ -98,9 +98,9 @@ public class TransactionFragment extends Fragment {
                         } else if (viewID == R.id.decline_transaction) {
                             // Do something
 
-                            book.setIsListed(true);
-                            book.setBuyer(null);
-                            book.saveEventually();
+//                            book.setIsListed(true);
+//                            //book.setBuyer(null);
+//                            book.saveEventually();
 
 
                         }
