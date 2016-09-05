@@ -1,8 +1,11 @@
 package com.codepath.bibliophile.activity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.TextView;
 
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.model.UserModel;
+import com.codepath.bibliophile.utils.Utils;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -74,7 +78,9 @@ public class SignUpActivity extends AppCompatActivity {
         final UserModel user = new UserModel();
         final Bundle parameters = new Bundle();
         parameters.putString("fields", "id,name,email,picture.type(large)");
-        new GraphRequest(AccessToken.getCurrentAccessToken(), "/me", parameters, HttpMethod.GET, new GraphRequest.Callback() {
+        if(Utils.isNetworkAvailable(this)) {
+
+            new GraphRequest(AccessToken.getCurrentAccessToken(), "/me", parameters, HttpMethod.GET, new GraphRequest.Callback() {
             @Override
             public void onCompleted(final GraphResponse response) {
                 if (response != null) {
@@ -84,11 +90,10 @@ public class SignUpActivity extends AppCompatActivity {
                             String profilePic = data.getJSONObject("picture").getJSONObject("data").getString("url");
                             user.setProfilePicUrl(profilePic);
                         }
-                        Log.d("3764", "onCompleted: " + response.getJSONObject().toString());
                         String email = response.getJSONObject().getString("email");
                         etEmail.setText(email);
                         user.setEmailAddress(email);
-
+                        etEmail.setSelection(etEmail.length());
                         String name = response.getJSONObject().getString("name");
                         welcomeMsg.setText("Welcome " + name + "!");
 
@@ -101,21 +106,61 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         }).executeAsync();
+        } else {
+            final Context context = this;
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+            alertDialog.setTitle("");
+            alertDialog
+                    .setMessage("NO INTERNET CONNECTION")
+                    .setCancelable(true)
+                    .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            // if this button is clicked, close
+                            // current activity
+                            dialog.cancel();
+                        }
+                    });
+            // create alert dialog
+            AlertDialog   dialog = alertDialog.create();
 
+            dialog.show();
+
+        }
         return user;
 
     }
 
 
     private void saveToParse(UserModel user) {
-        ParseUser parseUser = ParseUser.getCurrentUser();
-        parseUser.setEmail(user.getEmailAddress());
-        parseUser.setUsername(user.getName());
-        parseUser.put("address", user.getAddress());
-        parseUser.put("profilePic", user.getProfilePicUrl());
-        parseUser.put("coordinates", new ParseGeoPoint(user.getCoord().latitude, user.getCoord().longitude));
-        parseUser.saveEventually();
-        Intent intent = new Intent(SignUpActivity.this,HomeMainActivity.class);
-        startActivity(intent);
+        if(Utils.isNetworkAvailable(this)) {
+            ParseUser parseUser = ParseUser.getCurrentUser();
+            parseUser.setEmail(user.getEmailAddress());
+            parseUser.setUsername(user.getName());
+            parseUser.put("address", user.getAddress());
+            parseUser.put("profilePic", user.getProfilePicUrl());
+            parseUser.put("coordinates", new ParseGeoPoint(user.getCoord().latitude, user.getCoord().longitude));
+            parseUser.saveEventually();
+            Intent intent = new Intent(SignUpActivity.this,HomeMainActivity.class);
+            startActivity(intent);
+        } else {
+            final Context context = this;
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
+            alertDialog.setTitle("");
+            alertDialog
+                    .setMessage("Couldn't save the information because of no internet connection !")
+                    .setCancelable(true)
+                    .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            // if this button is clicked, close
+                            // current activity
+                            dialog.cancel();
+                        }
+                    });
+            // create alert dialog
+            AlertDialog   dialog = alertDialog.create();
+
+            dialog.show();
+
+        }
     }
 }
