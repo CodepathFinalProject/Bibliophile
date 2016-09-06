@@ -23,7 +23,6 @@
     <string name="book_add_price_prompt">Please enter a googleBookModel price!</string>
 
 
-
     <string name="addressOptional">Address</string>
     <string name="city">City</string>
     <string name="state">State</string>
@@ -62,6 +61,8 @@
     <string name="condition">Condition:</string>
     <string name="confirm_transaction">Confirm Transaction</string>
     <string name="decline_transaction">Decline Transaction</string>
+    <string name="message_hint">Say Anything</string>
+    <string name="send">Send</string>
 
     <string-array name="condition_array">
         <item>New</item>

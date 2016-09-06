@@ -2,7 +2,6 @@ package com.codepath.bibliophile.fragment;
 
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -14,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.codepath.bibliophile.R;
+import com.codepath.bibliophile.activity.ChatActivity;
 import com.codepath.bibliophile.activity.DetailsActivity;
 import com.codepath.bibliophile.adapter.HomeRecyclerViewAdapter;
 import com.codepath.bibliophile.model.BookModel;
@@ -105,22 +105,26 @@ public class HomeFragment extends Fragment {
 
 
                         } else if (viewID == R.id.seller_contact) {
-                            Intent sendIntent = new Intent(Intent.ACTION_SEND);
-                            BookModel book = books.get(position);
+                            Intent intent = new Intent(getContext(), ChatActivity.class);
+                            startActivity(intent);
 
-                            try {
-                                String sellerEmail = book.getSeller().fetchIfNeeded().getEmail();
-                                sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{sellerEmail});
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            String bookTitle = book.getTitle();
 
-                            sendIntent.setData(Uri.parse("mailto:"));
-                            sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Interested in buying the book \"" + bookTitle + "\"");
-                            sendIntent.setType("plain/text");
-                            sendIntent.putExtra(Intent.EXTRA_TEXT, "");
-                            startActivity(sendIntent);
+//                            Intent sendIntent = new Intent(Intent.ACTION_SEND);
+//                            BookModel book = books.get(position);
+//
+//                            try {
+//                                String sellerEmail = book.getSeller().fetchIfNeeded().getEmail();
+//                                sendIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{sellerEmail});
+//                            } catch (ParseException e) {
+//                                e.printStackTrace();
+//                            }
+//                            String bookTitle = book.getTitle();
+//
+//                            sendIntent.setData(Uri.parse("mailto:"));
+//                            sendIntent.putExtra(Intent.EXTRA_SUBJECT, "Interested in buying the book \"" + bookTitle + "\"");
+//                            sendIntent.setType("plain/text");
+//                            sendIntent.putExtra(Intent.EXTRA_TEXT, "");
+//                            startActivity(sendIntent);
                         } else if (viewID == R.id.map_view) {
                             // Do something
                             BookModel book = books.get(position);
