@@ -1,28 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!--<item android:title="Bibliophile"-->
+    <!--android:icon="@drawable/ic_local_library_white_24dp"-->
+    <!--&gt;-->
+    <!--<menu>-->
+
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/home"
+            android:icon="@drawable/ic_home_white_24dp"
             android:title="@string/fragment_home" />
         <item
             android:id="@+id/nav_bookshelf"
-            android:icon="@drawable/ic_one"
-            android:title="@string/fragment_bookshelf" /> <!-- TODO replace with new icons -->
+            android:icon="@drawable/ic_library_books_white_24dp"
+            android:title="@string/fragment_bookshelf" />
         <item
             android:id="@+id/nav_transaction"
-            android:icon="@drawable/ic_one"
+            android:icon="@drawable/ic_monetization_on_white_24dp"
             android:title="@string/fragment_transaction" />
         <item
             android:id="@+id/nav_profile"
-            android:icon="@drawable/ic_one"
+            android:icon="@drawable/ic_account_circle_white_24dp"
             android:title="@string/fragment_profile" />
-
-        <item
-            android:id="@+id/nav_logout"
-            android:icon="@drawable/ic_one"
-            android:title="@string/fragment_logout" />
-
     </group>
+    <!--</menu>-->
+    <!--</item>-->
+
+    <item
+        android:icon="@drawable/ic_settings_white_24dp"
+        android:title="Settings">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_logout"
+                    android:title="Log out"
+                    android:icon="@drawable/ic_power_settings_new_white_24dp"
+                    />
+                <item
+                    android:id="@+id/nav_deactivate"
+                    android:title="Deactivate account"
+                    android:icon="@drawable/ic_not_interested_white_24dp"
+                    />
+                <item
+                    android:id="@+id/nav_about"
+                    android:icon="@drawable/ic_info_white_24dp"
+                    android:title="About" />
+
+            </group>
+        </menu>
+    </item>
+
 </menu>

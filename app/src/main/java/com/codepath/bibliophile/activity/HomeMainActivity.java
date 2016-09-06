@@ -20,8 +20,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.fragment.AddBookFragment;
 import com.codepath.bibliophile.fragment.BookShelfFragment;
@@ -38,6 +40,8 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeMainActivity extends AppCompatActivity implements PostFragment.OnSearchBookListener, AddBookFragment.OnPostBookListener {
     private DrawerLayout mDrawer;
@@ -66,6 +70,44 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
 
         // Find our drawer view
         nvDrawer = (NavigationView) findViewById(R.id.nvView);
+        View headerLayout = nvDrawer.getHeaderView(0);
+
+        CircleImageView profilePic = (CircleImageView) headerLayout.findViewById(R.id.profile_image);
+        TextView userName = (TextView) headerLayout.findViewById(R.id.user_name);
+        TextView userEmail = (TextView) headerLayout.findViewById(R.id.user_email);
+        ParseUser me = ParseUser.getCurrentUser();
+        try {
+            Glide.with(HomeMainActivity.this)
+                    .load(me.fetchIfNeeded().getString("profilePic"))
+                    .into(profilePic);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        userName.setText(me.getUsername());
+        userEmail.setText(me.getEmail());
+        profilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = null;
+                Class fragmentClass;
+                fragmentClass = ProfileFragment.class;
+                try {
+                    fragment = (Fragment) fragmentClass.newInstance();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                // Insert the fragment by replacing any existing fragment
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
+                // Highlight the selected item has been done by NavigationView
+                // Close the navigation drawer
+                mDrawer.closeDrawers();
+
+
+            }
+        });
 
 
         // Setup drawer view
@@ -75,6 +117,7 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
 
 
         }
+
 //
     }
 
