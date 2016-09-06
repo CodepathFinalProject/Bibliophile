@@ -1,6 +1,7 @@
 package com.codepath.bibliophile.fragment;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,11 +15,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.codepath.bibliophile.R;
-import com.codepath.bibliophile.camera.BarcodeCaptureActivity;
+import com.codepath.bibliophile.activity.BarcodeScannerActivity;
 import com.codepath.bibliophile.client.GoogleBooksClient;
 import com.codepath.bibliophile.model.GoogleBookModel;
-import com.google.android.gms.common.api.CommonStatusCodes;
-import com.google.android.gms.vision.barcode.Barcode;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONObject;
@@ -30,7 +29,7 @@ import cz.msebera.android.httpclient.Header;
  */
 public class PostFragment extends Fragment implements View.OnClickListener {
 
-    private static final int RC_BARCODE_CAPTURE = 9001;
+    private static final int RC_BARCODE_CAPTURE = 1;
     private static final String TAG = "BarcodeMain";
 
     private Button btnSearchByISBN;
@@ -113,11 +112,12 @@ public class PostFragment extends Fragment implements View.OnClickListener {
         btnSearchBarcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), BarcodeCaptureActivity.class);
-                intent.putExtra(BarcodeCaptureActivity.AutoFocus, true);
-                intent.putExtra(BarcodeCaptureActivity.UseFlash, false);
-
+                Intent intent = new Intent(getActivity(), BarcodeScannerActivity.class);
                 startActivityForResult(intent, RC_BARCODE_CAPTURE);
+//                intent.putExtra(BarcodeCaptureActivity.AutoFocus, true);
+//                intent.putExtra(BarcodeCaptureActivity.UseFlash, false);
+//
+//                startActivityForResult(intent, RC_BARCODE_CAPTURE);
             }
         });
 
@@ -126,22 +126,37 @@ public class PostFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == RC_BARCODE_CAPTURE) {
-            if (resultCode == CommonStatusCodes.SUCCESS) {
-                if (data != null) {
-                    Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
-                    etISBN.setText(barcode.displayValue);
-                    Toast.makeText(getActivity(), R.string.scan_barcode_success, Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getActivity(), R.string.scan_barcode_failure, Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(getActivity(), R.string.scan_barcode_error, Toast.LENGTH_SHORT).show();
+            if(resultCode == Activity.RESULT_OK){
+                String barcode = data.getStringExtra("barcode");
+                etISBN.setText(barcode);
             }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
+
         }
     }
+
+
+
+
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == RC_BARCODE_CAPTURE) {
+//            if (resultCode == CommonStatusCodes.SUCCESS) {
+//                if (data != null) {
+//                    Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
+//                    etISBN.setText(barcode.displayValue);
+//                    Toast.makeText(getActivity(), R.string.scan_barcode_success, Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(getActivity(), R.string.scan_barcode_failure, Toast.LENGTH_SHORT).show();
+//                }
+//            } else {
+//                Toast.makeText(getActivity(), R.string.scan_barcode_error, Toast.LENGTH_SHORT).show();
+//            }
+//        } else {
+//            super.onActivityResult(requestCode, resultCode, data);
+//        }
+//    }
 
     private boolean isParseableIntoLong(String text) {
         boolean isParseable = true;
