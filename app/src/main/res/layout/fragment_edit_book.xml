@@ -42,7 +42,7 @@
             android:layout_gravity="start"
             android:background="@drawable/back"
             android:text="Book Title"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorCardView"
             android:textSize="22sp"
             android:textStyle="bold" />
 

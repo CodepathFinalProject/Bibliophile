@@ -1,62 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <EditText
+    <ScrollView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/etAddress"
-        android:layout_below="@+id/textView"
-        android:layout_toRightOf="@+id/ivProfileImage"
-        android:layout_alignRight="@+id/etName"
-        android:layout_alignEnd="@+id/etName"
-        android:text="Address" />
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:id="@+id/ivProfileImage"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <EditText
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/etName"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/ivProfileImage"
-        android:layout_toEndOf="@+id/ivProfileImage"
-        android:text="Name" />
+        <ImageView
+            android:id="@+id/ivCoverPic"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/header_image_book_edit" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Address"
-        android:id="@+id/textView"
-        android:layout_below="@+id/etEmail"
-        android:layout_toRightOf="@+id/ivProfileImage"
-        android:layout_toEndOf="@+id/ivProfileImage" />
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:ems="10"
-        android:id="@+id/etEmail"
-        android:layout_below="@+id/etName"
-        android:layout_toRightOf="@+id/ivProfileImage"
-        android:layout_toEndOf="@+id/ivProfileImage"
-        android:text="Email" />
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/etName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:text="sample text"
+            android:textSize="22sp"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_marginTop="64dp"
+            android:layout_below="@+id/ivCoverPic"
+            android:layout_alignParentStart="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:id="@+id/btnSaveProfile"
-        android:layout_below="@+id/ivProfileImage"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="73dp" />
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/etEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:ems="10"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="sample text"
+            android:textSize="18sp"
+            android:layout_below="@+id/etName"
+            android:layout_alignStart="@+id/etName" />
+
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address:"
+            android:textSize="18sp"
+            android:layout_below="@+id/etEmail"
+            android:layout_alignStart="@+id/etEmail" />
+
+        <EditText
+            android:id="@+id/etAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Medium Text"
+            android:ems="10"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:layout_below="@+id/address"
+            android:layout_alignStart="@+id/address" />
+
+        <Button
+            android:id="@+id/btnSaveProfile"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etAddress"
+            android:layout_centerHorizontal="true"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:text="Save"
+            android:textColor="@color/colorCardView"/>
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivProfileImage"
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:src="@android:mipmap/sym_def_app_icon"
+            app:civ_border_color="@color/colorCardView"
+            app:civ_border_width="2dp"
+            app:layout_anchor="@+id/ivHeader"
+            app:layout_anchorGravity="bottom|center"
+            android:layout_above="@+id/etEmail"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="41dp" />
+
+    </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

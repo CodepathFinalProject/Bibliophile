@@ -77,16 +77,36 @@ public class SignUpActivity extends AppCompatActivity {
     private UserModel getUserInfoFromFB(final EditText etEmail, final TextView welcomeMsg) {
         final UserModel user = new UserModel();
         final Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,name,email,picture.type(large)");
+        parameters.putString("fields", "id,name,email,cover.type(large),picture.type(large)");
             new GraphRequest(AccessToken.getCurrentAccessToken(), "/me", parameters, HttpMethod.GET, new GraphRequest.Callback() {
             @Override
             public void onCompleted(final GraphResponse response) {
+                String coverPic;
                 if (response != null) {
                     try {
                         JSONObject data = response.getJSONObject();
                         if (data.has("picture")) {
                             String profilePic = data.getJSONObject("picture").getJSONObject("data").getString("url");
                             user.setProfilePicUrl(profilePic);
+                        }
+                        if (data.has("cover")) {
+                            coverPic = data.getString("cover");
+
+                            if (coverPic.equals("null")) {
+                                coverPic = null;
+                            } else {
+                                JSONObject JOCover = data.optJSONObject("cover");
+
+                                if (JOCover.has("source"))  {
+                                    coverPic = JOCover.getString("source");
+                                    Log.d("CoverPicURL", coverPic);
+                                    user.setCoverPicUrl(coverPic);
+                                } else {
+                                    coverPic = null;
+                                }
+                            }
+                        } else {
+                            coverPic = null;
                         }
                         String email = response.getJSONObject().getString("email");
                         etEmail.setText(email);
@@ -117,6 +137,7 @@ public class SignUpActivity extends AppCompatActivity {
             parseUser.setUsername(user.getName());
             parseUser.put("address", user.getAddress());
             parseUser.put("profilePic", user.getProfilePicUrl());
+            parseUser.put("coverPic", user.getCoverPicUrl());
             parseUser.put("coordinates", new ParseGeoPoint(user.getCoord().latitude, user.getCoord().longitude));
             parseUser.saveEventually();
             Intent intent = new Intent(SignUpActivity.this,HomeMainActivity.class);
