@@ -23,6 +23,7 @@ import com.codepath.bibliophile.model.BookModel;
 import com.nikhilpanju.recyclerviewenhanced.RecyclerTouchListener;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -78,9 +79,14 @@ public class BookShelfFragment extends Fragment {
                         intent.putExtra("cover", book.getBookCover());
                         intent.putExtra("isbn", String.valueOf(book.getISBN()));
                         intent.putExtra("condition", book.getCondition());
+                        intent.putExtra("ratingsCount", book.getRatingsCount());
                         try {
-                            intent.putExtra("bookOwner", book.getSeller().fetchIfNeeded().getUsername());
-                            intent.putExtra("ownerEmail", book.getSeller().fetchIfNeeded().getEmail());
+                            intent.putExtra("bookSeller", book.getSeller().fetchIfNeeded().getUsername());
+                            intent.putExtra("sellerEmail", book.getSeller().fetchIfNeeded().getEmail());
+                            intent.putExtra("address", book.getSeller().fetchIfNeeded().getString("address"));
+                            ParseGeoPoint location = book.getSeller().fetchIfNeeded().getParseGeoPoint("coordinates");
+                            intent.putExtra("latitude", location.getLatitude());
+                            intent.putExtra("longitude", location.getLongitude());
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }

@@ -1,131 +1,283 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:background="@drawable/background"
-    android:layout_height="wrap_content">
-<RelativeLayout
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.codepath.bibliophile.activity.DetailsActivity">
+    android:layout_height="match_parent">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:id="@+id/ivDCover"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        />
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Author"
-        android:id="@+id/tvDAuthor"
-        android:layout_marginTop="85dp"
-        android:layout_below="@+id/ivDCover"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+            android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Book Title"
-        android:id="@+id/tvDTitle"
-        android:layout_alignBottom="@+id/tvDAuthor"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="29dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Description"
-        android:id="@+id/tvDDescription"
-        android:layout_below="@+id/tvDAuthor"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="25dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+            </LinearLayout>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Price"
-        android:id="@+id/tvDPrice"
-        android:layout_marginTop="43dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvDDescription"
-        android:layout_alignRight="@+id/tvDAuthor"
-        android:layout_alignEnd="@+id/tvDAuthor" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Condition"
-        android:id="@+id/tvCondition"
-        android:layout_below="@+id/tvDPrice"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+            <ImageView
+                android:id="@+id/ivHeader"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/edit_book_toolbar"
+                android:adjustViewBounds="true"
+                android:alpha="0.8"
+                android:scaleType="fitXY"
+                android:src="@drawable/header_image_book_edit" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ISBN"
-        android:id="@+id/tvISBN"
-        android:layout_below="@+id/tvCondition"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/book_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edit_book_toolbar"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="start"
+                android:background="@drawable/back"
+                android:text="Book Title"
+                android:textColor="@color/colorCardView"
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Seller:"
-        android:id="@+id/tvOwner"
-        android:layout_below="@+id/tvISBN"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+            <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/book_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/ivHeader"
+                android:layout_gravity="start"
+                android:layout_marginLeft="4dp"
+                android:text="Book Author"
+                android:textSize="12sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/tvDOwnerName"
-        android:layout_alignTop="@+id/tvOwner"
-        android:layout_toRightOf="@+id/SellerEmail"
-        android:layout_toEndOf="@+id/SellerEmail" />
+            <RatingBar
+                android:id="@+id/rating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/book_author"
+                android:layout_marginLeft="4dp"
+                android:numStars="5"
+                android:rating="2.0"
+                android:stepSize="1.0" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Owner Email"
-        android:backgroundTint="@color/colorAccent"
-        android:id="@+id/tvDOwnerEmail"
-        android:layout_below="@+id/tvDOwnerName"
-        android:layout_alignLeft="@+id/tvDOwnerName"
-        android:layout_alignStart="@+id/tvDOwnerName" />
+            <TextView
+                android:id="@+id/ratings_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/book_author"
+                android:layout_marginLeft="4dp"
+                android:layout_toRightOf="@+id/rating"
+                android:text="(25)"
+                android:textColor="@color/colorTextLight" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:text="Seller Email: "
-        android:id="@+id/SellerEmail"
-        android:layout_marginTop="14dp"
-        android:layout_below="@+id/tvOwner"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+            <TextView
+                android:id="@+id/description"
 
-</RelativeLayout>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/book_image"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="4dp"
+                android:ellipsize="end"
+                android:text="Description"
+                android:textColor="@color/colorTextLight" />
+
+            <LinearLayout
+                android:id="@+id/price_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/description"
+                android:layout_marginLeft="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/price"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvBookPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:hint="@string/new_price"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/conditions_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/price_container"
+                android:layout_marginLeft="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/condition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/condition"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/condition_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:text="Condition" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/isbn_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/conditions_container"
+                android:layout_marginLeft="4dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/isbn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/isbn"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvIsbn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:text="Condition" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/seller_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/isbn_container"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/seller_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/seller_name"
+                    android:textColor="@color/colorTextLight"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/seller_email"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+
+                    android:layout_marginLeft="4dp"
+                    android:src="@drawable/ic_email_white_24dp"
+                    android:tint="@color/colorAccent" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/map_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/seller_container"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <com.google.android.gms.maps.MapView
+
+                    android:id="@+id/book_location"
+                    android:layout_width="match_parent"
+                    android:layout_height="256dp"
+                    map:zOrderOnTop="true">
+
+                </com.google.android.gms.maps.MapView>
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/book_image"
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:layout_below="@+id/book_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="58dp"
+                android:adjustViewBounds="true"
+                app:layout_anchor="@+id/ivHeader"
+                app:layout_anchorGravity="bottom|center" />
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
 </ScrollView>
+
+    <!--<?xml version="1.0" encoding="utf-8"?>--><!--<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"--><!--xmlns:app="http://schemas.android.com/apk/res-auto"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content">-->
+
+    <!--<RelativeLayout--><!--android:layout_width="match_parent"--><!--android:layout_height="wrap_content"--><!--&gt;-->
+
+    <!--<android.support.v7.widget.Toolbar--><!--android:id="@+id/detais_book_toolbar"--><!--android:layout_width="match_parent"--><!--android:layout_height="?attr/actionBarSize"--><!--android:background="?attr/colorPrimary"--><!--app:popupTheme="@style/AppTheme.PopupOverlay" />-->
+
+
+    <!--<ImageView--><!--android:id="@+id/bookCover"--><!--android:layout_width="match_parent"--><!--android:layout_height="150dp"--><!--android:layout_alignParentEnd="true"--><!--android:layout_alignParentRight="true"--><!--android:layout_below="@+id/detais_book_toolbar"--><!--android:adjustViewBounds="true"--><!--android:alpha="0.8"--><!--android:scaleType="fitXY"--><!--android:src="@drawable/header_image_book_edit" />-->
+
+    <!--<ImageView--><!--android:id="@+id/ivDCover"--><!--android:layout_width="128dp"--><!--android:layout_height="128dp"--><!--android:adjustViewBounds="true"--><!--app:layout_anchor="@+id/ivHeader"--><!--app:layout_anchorGravity="bottom|center"--><!--android:layout_below="@+id/detais_book_toolbar"--><!--android:layout_centerHorizontal="true"--><!--android:layout_marginTop="76dp" />-->
+
+    <!--<TextView--><!--android:id="@+id/tvDAuthor"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:text="Author"--><!--android:paddingLeft="6dp"--><!--android:layout_below="@+id/bookCover"--><!--android:layout_alignParentStart="true" />-->
+
+    <!--<TextView--><!--android:id="@+id/tvDTitle"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:textColor="@color/colorCardView"--><!--android:text="Book Title"--><!--android:paddingLeft="6dp"--><!--android:textSize="22sp"-->
+
+    <!--android:layout_alignParentTop="true"--><!--android:layout_centerHorizontal="true" />-->
+
+    <!--<TextView--><!--android:id="@+id/tvDDescription"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:text="Description"--><!--android:layout_marginRight="10dp"--><!--android:layout_marginLeft="10dp"--><!--android:gravity="center"--><!--android:layout_marginTop="23dp"--><!--android:layout_below="@+id/ivDCover"--><!--android:layout_alignParentStart="true" />-->
+
+
+    <!--<TextView--><!--android:id="@+id/tvDPrice"--><!--android:layout_toRightOf="@+id/price"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_alignEnd="@+id/tvDAuthor"--><!--android:layout_alignParentLeft="true"--><!--android:layout_alignParentStart="true"--><!--android:layout_alignRight="@+id/tvDAuthor"--><!--android:layout_below="@+id/tvDDescription"--><!--android:layout_marginTop="43dp"--><!--android:text="Price" />-->
+
+    <!--<TextView--><!--android:id="@+id/tvCondition"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_alignParentLeft="true"--><!--android:layout_alignParentStart="true"--><!--android:layout_below="@+id/tvDPrice"--><!--android:text="Condition" />-->
+
+    <!--<TextView--><!--android:id="@+id/tvISBN"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_alignParentLeft="true"--><!--android:layout_alignParentStart="true"--><!--android:layout_below="@+id/tvCondition"--><!--android:text="ISBN" />-->
+
+    <!--<TextView--><!--android:id="@+id/tvOwner"-->
+
+    <!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_alignParentLeft="true"--><!--android:layout_alignParentStart="true"--><!--android:layout_below="@+id/tvISBN"--><!--android:text="Seller:" />-->
+
+    <!--<TextView--><!--android:id="@+id/tvDOwnerName"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_alignTop="@+id/tvOwner"--><!--android:layout_toEndOf="@+id/SellerEmail"--><!--android:layout_toRightOf="@+id/SellerEmail"--><!--android:text="New Text" />-->
+
+    <!--<Button--><!--android:id="@+id/tvDOwnerEmail"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_alignLeft="@+id/tvDOwnerName"--><!--android:layout_alignStart="@+id/tvDOwnerName"--><!--android:layout_below="@+id/tvDOwnerName"--><!--android:backgroundTint="@color/colorAccent"--><!--android:text="Owner Email" />-->
+
+    <!--<TextView--><!--android:id="@+id/SellerEmail"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:layout_alignParentLeft="true"--><!--android:layout_alignParentStart="true"--><!--android:layout_below="@+id/tvOwner"--><!--android:layout_marginTop="14dp"--><!--android:text="Seller Email: "--><!--android:textAppearance="?android:attr/textAppearanceSmall" />-->
+
+    <!--</RelativeLayout>--><!--</ScrollView>-->
