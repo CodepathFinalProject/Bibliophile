@@ -82,6 +82,7 @@ public class HomeFragment extends Fragment {
                         intent.putExtra("cover", book.getBookCover());
                         intent.putExtra("isbn", String.valueOf(book.getISBN()));
                         intent.putExtra("condition", book.getCondition());
+                        intent.putExtra("averageRating", book.getAverageRating());
                         intent.putExtra("ratingsCount", book.getRatingsCount());
                         try {
                             intent.putExtra("bookSeller", book.getSeller().fetchIfNeeded().getUsername());
