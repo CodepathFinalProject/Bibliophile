@@ -3,6 +3,7 @@ package com.codepath.bibliophile.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -31,6 +32,7 @@ public class TransactionFragment extends Fragment {
     public TransactionRecyclerViewAdapter adapter;
     public ArrayList<BookModel> books;
     public RecyclerView rvItem;
+    private SwipeRefreshLayout swipeContainer;
 
     public TransactionFragment() {
 
@@ -111,6 +113,17 @@ public class TransactionFragment extends Fragment {
                         }
                     }
                 });
+
+        swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
+
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                populateTransaction();
+                swipeContainer.setRefreshing(false);
+            }
+        });
         return v;
     }
 
@@ -165,6 +178,7 @@ public class TransactionFragment extends Fragment {
                             e1.printStackTrace();
                         }
                     }
+                    books.clear();
                     addAll(transactionsList);
                 } else {
                     Log.d("item", "Error: " + e.getMessage());

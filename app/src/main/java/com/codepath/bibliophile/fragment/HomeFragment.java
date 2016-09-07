@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -37,6 +38,8 @@ public class HomeFragment extends Fragment {
 
 
     private ParseQuery<BookModel> finalQuery;
+
+    private SwipeRefreshLayout swipeContainer;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -145,6 +148,18 @@ public class HomeFragment extends Fragment {
                         }
                     }
                 });
+
+        swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getBooks();
+                onResume();
+                swipeContainer.setRefreshing(false);
+            }
+        });
+
         return v;
     }
 
@@ -154,7 +169,6 @@ public class HomeFragment extends Fragment {
         books = new ArrayList<>();
         //construct the adapter from data source
         adapter = new HomeRecyclerViewAdapter(getActivity(), books);
-
 
         String qValue = "";
         if ((getArguments() != null) && getArguments().containsKey("query")) {
