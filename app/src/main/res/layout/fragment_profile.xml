@@ -93,7 +93,8 @@
                 android:layout_centerHorizontal="true"
                 android:backgroundTint="@color/colorPrimaryDark"
                 android:text="Save"
-                android:textColor="@color/colorCardView" />
+                android:textColor="@color/colorCardView"
+                android:layout_marginTop="10dp"/>
 
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -106,7 +107,9 @@
                 app:civ_border_color="@color/colorCardView"
                 app:civ_border_width="2dp"
                 app:layout_anchor="@+id/ivHeader"
-                app:layout_anchorGravity="bottom|center" />
+                app:layout_anchorGravity="bottom|center"
+                android:layout_alignBottom="@+id/etName"
+                android:layout_marginBottom="45dp" />
 
         </RelativeLayout>
     </ScrollView>
