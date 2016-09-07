@@ -79,6 +79,8 @@ public class EditBookFragment extends DialogFragment {
                 description.setText(book.getDescription());
 
                 price.setText(String.valueOf(book.getPrice()));
+                price.setSelection(price.length());
+
             }
 
         });
@@ -118,7 +120,6 @@ public class EditBookFragment extends DialogFragment {
         toolbar.setTitle(title);
         toolbar.setTitleTextColor(0xFFFFFFFF);
         this.setHasOptionsMenu(true);
-
         return v;
     }
 
