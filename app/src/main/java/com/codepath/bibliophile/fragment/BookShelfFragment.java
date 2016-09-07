@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -37,6 +38,7 @@ public class BookShelfFragment extends Fragment {
     public RecyclerView rvItem;
 
     private RecyclerTouchListener onTouchListener;
+    private SwipeRefreshLayout swipeContainer;
 
 
     private ParseQuery<BookModel> finalQuery;
@@ -172,6 +174,18 @@ public class BookShelfFragment extends Fragment {
                         }
                     }
                 });
+
+        swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getBooks();
+                onResume();
+                swipeContainer.setRefreshing(false);
+            }
+        });
+
         return v;
     }
 
