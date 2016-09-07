@@ -64,6 +64,7 @@ public class DetailsActivity extends AppCompatActivity {
         tvISBN.setText(args.getString("isbn"));
         String formattedSeller = "Email " + args.getString("bookSeller");
         tvSellerName.setText(formattedSeller);
+        ratingBar.setRating((float) args.getDouble("averageRating"));
         int ratingsCount = args.getInt("ratingsCount");
         final String formattedRatingsCount = "(" + String.valueOf(ratingsCount) + ")";
         tvRatingsCount.setText(formattedRatingsCount);
