@@ -64,6 +64,7 @@
     <string name="decline_transaction">Decline Transaction</string>
     <string name="isbn">ISBN:</string>
     <string name="seller_name">Email Seller</string>
+    <string name="isbn_hint">Enter the Book ISBN.</string>
 
     <string-array name="condition_array">
         <item>New</item>

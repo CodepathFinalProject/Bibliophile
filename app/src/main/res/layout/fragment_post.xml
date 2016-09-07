@@ -1,38 +1,73 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    tools:context=".fragment.PostFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-
-    <TextView
-        android:id="@+id/tvSearchInstructions"
-        android:layout_width="match_parent"
-        android:layout_height="196dp"
-        android:layout_gravity="left|top"
-        android:text="@string/search_instructions"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <Button
-        android:id="@+id/btnSearchISBN"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:text="@string/button_search_ISBN" />
+    android:layout_centerInParent="true"
+    android:background="@color/colorsSwipeItem1">
 
     <EditText
         android:id="@+id/etISBN"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="left|center_vertical"
-        android:hint="@string/hint_ISBN" />
+        android:layout_above="@+id/icon_container"
+        android:hint="@string/isbn_hint"
+        android:textColorHint="@color/colorsSwipeItem3"
+        android:visibility="gone"
+        android:imeOptions="actionDone"
+        android:inputType="number"
+        android:textColor="@color/colorCardView" />
 
-    <Button
-        android:id="@+id/btnSearchBarcode"
+    <LinearLayout
+        android:id="@+id/icon_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="left|bottom"
-        android:text="@string/button_scan_barcode" />
-</FrameLayout>
+        android:layout_centerInParent="true"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/barcode_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/barcode_icon"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_barcode_scanner"
+                android:tint="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/barcode_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Scan a book"
+                android:textColor="@color/colorCardView" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/isbn_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="32dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/isbn_icon"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:src="@drawable/ic_keyboard_white_24dp"
+                android:tint="@color/colorAccent" />
+
+            <TextView
+                android:id="@+id/isbn_hint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter ISBN"
+                android:textColor="@color/colorCardView" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

@@ -7,12 +7,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.activity.BarcodeScannerActivity;
@@ -27,14 +30,14 @@ import cz.msebera.android.httpclient.Header;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PostFragment extends Fragment implements View.OnClickListener {
+public class PostFragment extends Fragment {
 
     private static final int RC_BARCODE_CAPTURE = 1;
     private static final String TAG = "BarcodeMain";
 
-    private Button btnSearchByISBN;
-    private Button btnSearchBarcode;
-    private EditText etISBN;
+    private ImageView searchISBN;
+    private ImageView scanBarcode;
+    private EditText isbnEntryText;
 
     private GoogleBooksClient client;
 
@@ -46,7 +49,7 @@ public class PostFragment extends Fragment implements View.OnClickListener {
 
     // Tell the parent activity to dynamically embed a new fragment
     public interface OnSearchBookListener {
-        public void onSearchBookClicked(GoogleBookModel googleBookModel);
+        void onSearchBookClicked(GoogleBookModel googleBookModel);
     }
 
     @Override
@@ -68,56 +71,45 @@ public class PostFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
-    public void onClick(View view) {
-        // If users don't enter an ISBN, complain
-        if (etISBN.getText() == null || etISBN.getText().toString().equals("")) {
-            Toast.makeText(getContext(), R.string.ISBN_validation_none, Toast.LENGTH_SHORT).show();
-
-        // If users enter a non-long ISBN, complain
-        } else if (!isParseableIntoLong(etISBN.getText().toString())) {
-            Toast.makeText(getContext(), R.string.ISBN_validation_long, Toast.LENGTH_SHORT).show();
-
-        // If ISBN is well-formed long, send API call
-        } else {
-            client.getBookDetailsFromISBN(etISBN.getText().toString(), new JsonHttpResponseHandler() {
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    long ISBN = Long.parseLong(etISBN.getText().toString());
-                    GoogleBookModel googleBookModel = GoogleBookModel.fromJsonResponse(getContext(), ISBN, response);
-
-                    // If at least one book is returned, go to AddBook fragment
-                    if (googleBookModel != null) {
-                        listener.onSearchBookClicked(googleBookModel);
-                    }
-                }
-
-                @Override
-                public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                }
-            });
-        }
-    }
-
-    @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         // Get references
         client = GoogleBooksClient.getClient();
 
-        etISBN = (EditText) view.findViewById(R.id.etISBN);
-        btnSearchBarcode = (Button) view.findViewById(R.id.btnSearchBarcode);
-        btnSearchByISBN = (Button) view.findViewById(R.id.btnSearchISBN);
+        scanBarcode = (ImageView) view.findViewById(R.id.barcode_icon);
+        searchISBN = (ImageView) view.findViewById(R.id.isbn_icon);
+        isbnEntryText = (EditText) view.findViewById(R.id.etISBN);
 
-        btnSearchByISBN.setOnClickListener(this);
-
-        btnSearchBarcode.setOnClickListener(new View.OnClickListener() {
+        scanBarcode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), BarcodeScannerActivity.class);
                 startActivityForResult(intent, RC_BARCODE_CAPTURE);
-//                intent.putExtra(BarcodeCaptureActivity.AutoFocus, true);
-//                intent.putExtra(BarcodeCaptureActivity.UseFlash, false);
-//
-//                startActivityForResult(intent, RC_BARCODE_CAPTURE);
+            }
+        });
+
+        searchISBN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isbnEntryText.setVisibility(View.VISIBLE);
+                isbnEntryText.requestFocus();
+                InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(isbnEntryText, InputMethodManager.SHOW_IMPLICIT);
+                isbnEntryText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                        if (i == EditorInfo.IME_ACTION_DONE) {
+                            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(isbnEntryText.getWindowToken(), 0);
+                            String isbn = isbnEntryText.getText().toString();
+                            displayBookDetails(isbn);
+                            return true;
+                        }
+                        return false;
+
+                    }
+                });
+
+
             }
         });
 
@@ -128,45 +120,30 @@ public class PostFragment extends Fragment implements View.OnClickListener {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == RC_BARCODE_CAPTURE) {
-            if(resultCode == Activity.RESULT_OK){
-                String barcode = data.getStringExtra("barcode");
-                etISBN.setText(barcode);
+            if (resultCode == Activity.RESULT_OK) {
+                final String barcode = data.getStringExtra("barcode");
+                displayBookDetails(barcode);
             }
 
         }
     }
 
+    private void displayBookDetails(final String isbn) {
+        client.getBookDetailsFromISBN(isbn, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                long ISBN = Long.parseLong(isbn);
+                GoogleBookModel googleBookModel = GoogleBookModel.fromJsonResponse(getContext(), ISBN, response);
 
+                // If at least one book is returned, go to AddBook fragment
+                if (googleBookModel != null) {
+                    listener.onSearchBookClicked(googleBookModel);
+                }
+            }
 
-
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == RC_BARCODE_CAPTURE) {
-//            if (resultCode == CommonStatusCodes.SUCCESS) {
-//                if (data != null) {
-//                    Barcode barcode = data.getParcelableExtra(BarcodeCaptureActivity.BarcodeObject);
-//                    etISBN.setText(barcode.displayValue);
-//                    Toast.makeText(getActivity(), R.string.scan_barcode_success, Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(getActivity(), R.string.scan_barcode_failure, Toast.LENGTH_SHORT).show();
-//                }
-//            } else {
-//                Toast.makeText(getActivity(), R.string.scan_barcode_error, Toast.LENGTH_SHORT).show();
-//            }
-//        } else {
-//            super.onActivityResult(requestCode, resultCode, data);
-//        }
-//    }
-
-    private boolean isParseableIntoLong(String text) {
-        boolean isParseable = true;
-        try {
-            final long ISBN = Long.parseLong(text);
-        } catch (NumberFormatException e) {
-            isParseable = false;
-            e.printStackTrace();
-        }
-
-        return isParseable;
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+            }
+        });
     }
 }
