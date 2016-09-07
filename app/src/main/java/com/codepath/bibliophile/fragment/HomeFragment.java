@@ -21,6 +21,7 @@ import com.codepath.bibliophile.activity.DetailsActivity;
 import com.codepath.bibliophile.adapter.HomeRecyclerViewAdapter;
 import com.codepath.bibliophile.model.BookModel;
 import com.codepath.bibliophile.utils.Utils;
+import com.github.florent37.tutoshowcase.TutoShowcase;
 import com.nikhilpanju.recyclerviewenhanced.RecyclerTouchListener;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -36,6 +37,7 @@ public class HomeFragment extends Fragment {
     public HomeRecyclerViewAdapter adapter;
     public ArrayList<BookModel> books;
     public RecyclerView rvItem;
+    public StaggeredGridLayoutManager gridLayoutManager;
 
     private RecyclerTouchListener onTouchListener;
 
@@ -60,12 +62,13 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        StaggeredGridLayoutManager gridLayoutManager =
+        gridLayoutManager =
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         gridLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
         rvItem.setLayoutManager(gridLayoutManager);
 
         rvItem.setAdapter(adapter);
+
 
         onTouchListener = new RecyclerTouchListener(getActivity(), rvItem);
         onTouchListener.setSwipeOptionViews(R.id.buy_button, R.id.seller_contact, R.id.map_view)
@@ -191,26 +194,28 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
 
-        if(Utils.isNetworkAvailable(getContext())) {
+        if (Utils.isNetworkAvailable(getContext())) {
 
             finalQuery.findInBackground(new FindCallback<BookModel>() {
                 public void done(List<BookModel> itemList, ParseException e) {
                     updateList(itemList, e);
+
                 }
             });
+
         } else {
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
             alertDialog.setTitle("");
             alertDialog
                     .setMessage("Couldn't get books data since no internet connection!")
                     .setCancelable(true)
-                    .setPositiveButton("OK",new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog,int id) {
+                    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
                             dialog.cancel();
                         }
                     });
             // create alert dialog
-            AlertDialog   dialog = alertDialog.create();
+            AlertDialog dialog = alertDialog.create();
 
             dialog.show();
 
@@ -256,16 +261,21 @@ public class HomeFragment extends Fragment {
         // Final query is executed during onResume
     }
 
-    public void addAll(List<BookModel> books) {
-        this.books.addAll(books);
-        adapter.notifyDataSetChanged();
-    }
 
     private void updateList(List<BookModel> itemList, ParseException e) {
         if (e == null) {
             books.clear();
             books.addAll(itemList);
             adapter.notifyDataSetChanged();
+
+
+            TutoShowcase.from(getActivity())
+                    .setContentView(R.layout.tutorial)
+                    .on(rvItem)
+                    .displaySwipableLeft()
+                    .animated(true)
+                    .showOnce("Help");
+
         } else {
             e.printStackTrace();
         }

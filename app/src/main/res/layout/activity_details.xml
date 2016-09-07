@@ -225,12 +225,11 @@
                 android:id="@+id/book_image"
                 android:layout_width="192dp"
                 android:layout_height="192dp"
-                android:layout_below="@+id/book_title"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="58dp"
                 android:adjustViewBounds="true"
                 app:layout_anchor="@+id/ivHeader"
-                app:layout_anchorGravity="bottom|center" />
+                app:layout_anchorGravity="bottom|center"
+                android:layout_below="@+id/book_title"
+                android:layout_centerHorizontal="true" />
 
         </RelativeLayout>
     </RelativeLayout>

@@ -2,17 +2,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.codepath.bibliophile.fragment.AboutFragment"
-    android:padding="10dp">
+    android:background="@color/colorCardView"
+    android:padding="10dp"
+    tools:context="com.codepath.bibliophile.fragment.AboutFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/tvAbout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|top"
-        android:textSize="20sp"
-        />
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+    />
+
+    <TextView
+        android:id="@+id/tvVersion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:text="@string/VERSION"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="16sp" />
 
 </FrameLayout>

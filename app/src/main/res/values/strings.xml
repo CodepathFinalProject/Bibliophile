@@ -65,6 +65,10 @@
     <string name="isbn">ISBN:</string>
     <string name="seller_name">Email Seller</string>
     <string name="isbn_hint">Enter the Book ISBN.</string>
+    <string name="app_intro">Bibiliophile is a mobile first peer to peer books marketplace</string>
+    <string name="swipe_helper">You can swipe left on all books to reveal more options</string>
+    <string name="app_welcome">Welcome to Bibliophile</string>
+    <string name="VERSION">Version: 1.0</string>
 
     <string-array name="condition_array">
         <item>New</item>

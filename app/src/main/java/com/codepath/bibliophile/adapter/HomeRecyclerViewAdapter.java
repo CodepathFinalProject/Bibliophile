@@ -35,7 +35,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     public static class BookViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView ivBookCover;
+        public ImageView ivBookCover;
         private TextView tvBookTitle;
         private TextView tvBookAuthor;
         private RatingBar tvRating;

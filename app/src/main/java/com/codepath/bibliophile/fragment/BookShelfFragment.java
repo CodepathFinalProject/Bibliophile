@@ -68,6 +68,7 @@ public class BookShelfFragment extends Fragment {
 
         rvItem.setAdapter(adapter);
 
+
         onTouchListener = new RecyclerTouchListener(getActivity(), rvItem);
         onTouchListener.setSwipeOptionViews(R.id.edit, R.id.delete, R.id.toggle_listing)
                 .setClickable(new RecyclerTouchListener.OnRowClickListener() {

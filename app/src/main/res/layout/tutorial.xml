@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:background="#000000"
+    >
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/app_welcome"
+        android:textColor="@android:color/white"
+        android:textSize="24sp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title"
+        android:layout_marginBottom="30dp"
+        android:padding="6dp"
+        android:layout_marginTop="5dp"
+        android:weightSum="2"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/app_intro"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                android:textAllCaps="false"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/swipe_item"
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="80dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:padding="6dp"
+                android:text="@string/swipe_helper"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"/>
+
+            <!--<TextView-->
+                <!--android:id="@+id/swipable"-->
+                <!--android:background="#333"-->
+                <!--android:layout_below="@+id/display"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:text="this view is swipable"-->
+                <!--android:gravity="center"-->
+                <!--android:textColor="#AFFF"-->
+                <!--android:layout_height="200dp"-->
+                <!--android:layout_margin="50dp" />-->
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

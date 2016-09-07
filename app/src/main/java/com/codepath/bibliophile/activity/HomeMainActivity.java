@@ -61,6 +61,13 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+//        findViewById(R.id.item_container).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                displayTuto();
+//            }
+//        });
+
 
         // Find our drawer view
         mDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -120,6 +127,27 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
         }
 
 //
+    }
+
+    protected void displayTuto() {
+//        TutoShowcase.from(this)
+//                .setContentView(R.layout.tutorial)
+//
+//                .on(R.id.toolbar)
+//                .addCircle()
+//                .withBorder()
+//                .onClick(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//
+//                    }
+//                })
+//
+//                .on(R.id.swipe_item)
+//                .displayScrollable()
+//                .animated(true)
+//
+//                .show();
     }
 
     @Override
