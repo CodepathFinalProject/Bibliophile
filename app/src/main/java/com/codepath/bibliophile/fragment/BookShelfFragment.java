@@ -20,6 +20,7 @@ import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.activity.DetailsActivity;
 import com.codepath.bibliophile.adapter.BookShelfRecyclerViewAdapter;
 import com.codepath.bibliophile.model.BookModel;
+import com.codepath.bibliophile.utils.Utils;
 import com.nikhilpanju.recyclerviewenhanced.RecyclerTouchListener;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -194,11 +195,30 @@ public class BookShelfFragment extends Fragment {
 
     @Override
     public void onResume() {
-        finalQuery.findInBackground(new FindCallback<BookModel>() {
-            public void done(List<BookModel> itemList, ParseException e) {
-                updateList(itemList, e);
-            }
-        });
+        if(Utils.isNetworkAvailable(getContext())) {
+            finalQuery.findInBackground(new FindCallback<BookModel>() {
+                public void done(List<BookModel> itemList, ParseException e) {
+                    updateList(itemList, e);
+                }
+            });
+
+        } else {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+            alertDialog.setTitle("");
+            alertDialog
+                    .setMessage("Couldn't get books data since no internet connection!")
+                    .setCancelable(true)
+                    .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            dialog.cancel();
+                        }
+                    });
+            // create alert dialog
+            AlertDialog   dialog = alertDialog.create();
+
+            dialog.show();
+
+        }
         rvItem.addOnItemTouchListener(onTouchListener);
         super.onResume();
     }
