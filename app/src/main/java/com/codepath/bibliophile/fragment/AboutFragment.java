@@ -17,6 +17,7 @@ public class AboutFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.fragment_about, parent, false);
+        getActivity().setTitle(R.string.fragment_about);
         return v;
     }
 }

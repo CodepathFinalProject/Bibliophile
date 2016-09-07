@@ -54,11 +54,12 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent,
                              Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.home_fragment, parent, false);
+        getActivity().setTitle(R.string.fragment_home);
         rvItem = (RecyclerView) v.findViewById(R.id.rvHomePage);
         FloatingActionButton myFab = (FloatingActionButton) v.findViewById(R.id.fabAdd);
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new PostFragment()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new PostFragment()).addToBackStack("add").commit();
             }
         });
 
@@ -68,7 +69,6 @@ public class HomeFragment extends Fragment {
         rvItem.setLayoutManager(gridLayoutManager);
 
         rvItem.setAdapter(adapter);
-
 
         onTouchListener = new RecyclerTouchListener(getActivity(), rvItem);
         onTouchListener.setSwipeOptionViews(R.id.buy_button, R.id.seller_contact, R.id.map_view)
