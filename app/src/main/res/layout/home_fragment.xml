@@ -38,6 +38,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:src="@android:drawable/ic_input_add"
+            android:tint="@color/colorAccent"
             app:backgroundTint="@color/colorPrimaryDark" />
 
         <android.support.design.widget.NavigationView
