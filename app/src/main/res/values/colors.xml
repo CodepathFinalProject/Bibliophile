@@ -15,6 +15,7 @@
     <color name="colorsSwipeItem1">#124559</color>
     <color name="colorsSwipeItem2">#598392</color>
     <color name="colorsSwipeItem3">#EFF6E0</color>
+    <color name="colorsFacebookButton">#39579b</color>
     <!--<color name="colorMenuItem">#ffffff</color>-->
     <!--<color name="colorFragmentBackground">#eeeeee</color>-->
 </resources>

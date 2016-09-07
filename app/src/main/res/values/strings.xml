@@ -12,7 +12,7 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="facebook_app_id">193595797722570</string>
-    <string name="facebook_login_text">Login with Facebook</string>
+    <string name="facebook_login_text">Log in with Facebook</string>
 
     <string name="book_condition_label">Condition</string>
     <string name="book_condition_prompt">Pick a condition</string>
