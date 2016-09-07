@@ -1,12 +1,14 @@
 package com.codepath.bibliophile.fragment;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.activity.DetailsActivity;
 import com.codepath.bibliophile.adapter.HomeRecyclerViewAdapter;
 import com.codepath.bibliophile.model.BookModel;
+import com.codepath.bibliophile.utils.Utils;
 import com.nikhilpanju.recyclerviewenhanced.RecyclerTouchListener;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -168,20 +171,42 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
 
+        if(Utils.isNetworkAvailable(getContext())) {
 
-        finalQuery.findInBackground(new FindCallback<BookModel>() {
-            public void done(List<BookModel> itemList, ParseException e) {
-                updateList(itemList, e);
-            }
-        });
+            finalQuery.findInBackground(new FindCallback<BookModel>() {
+                public void done(List<BookModel> itemList, ParseException e) {
+                    updateList(itemList, e);
+                }
+            });
+        } else {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+            alertDialog.setTitle("");
+            alertDialog
+                    .setMessage("Couldn't get books data since no internet connection!")
+                    .setCancelable(true)
+                    .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            // if this button is clicked, close
+                            // current activity
+                            dialog.cancel();
+                        }
+                    });
+            // create alert dialog
+            AlertDialog   dialog = alertDialog.create();
+
+            dialog.show();
+
+        }
         rvItem.addOnItemTouchListener(onTouchListener);
         super.onResume();
     }
 
     private void getBooks() {
-        finalQuery = ParseQuery.getQuery(BookModel.class);
-        finalQuery.whereNotEqualTo("seller", ParseUser.getCurrentUser());
-        finalQuery.whereEqualTo("isListed", true);
+
+            finalQuery = ParseQuery.getQuery(BookModel.class);
+            finalQuery.whereNotEqualTo("seller", ParseUser.getCurrentUser());
+            finalQuery.whereEqualTo("isListed", true);
+
 
         // Final query is executed during onResume
     }

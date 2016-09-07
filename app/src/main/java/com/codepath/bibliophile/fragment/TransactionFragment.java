@@ -1,8 +1,10 @@
 package com.codepath.bibliophile.fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -14,6 +16,7 @@ import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.activity.DetailsActivity;
 import com.codepath.bibliophile.adapter.TransactionRecyclerViewAdapter;
 import com.codepath.bibliophile.model.BookModel;
+import com.codepath.bibliophile.utils.Utils;
 import com.nikhilpanju.recyclerviewenhanced.OnActivityTouchListener;
 import com.nikhilpanju.recyclerviewenhanced.RecyclerTouchListener;
 import com.parse.FindCallback;
@@ -151,26 +154,47 @@ public class TransactionFragment extends Fragment {
         final ArrayList<BookModel> transactionsList = new ArrayList<>();
         final ParseUser me = ParseUser.getCurrentUser();
 
-        query.findInBackground(new FindCallback<BookModel>() {
-            public void done(List<BookModel> itemList, ParseException e) {
-                if (e == null) {
-                    for (BookModel book : itemList) {
-                        try {
-                            if (book.getBuyer().fetchIfNeeded().getEmail().equals(me.getEmail())) {
-                                transactionsList.add(book);
-                            } else if (book.getSeller().fetchIfNeeded().getEmail().equals(me.getEmail())) {
-                                transactionsList.add(book);
+        if(Utils.isNetworkAvailable(getContext())) {
+
+            query.findInBackground(new FindCallback<BookModel>() {
+                public void done(List<BookModel> itemList, ParseException e) {
+                    if (e == null) {
+                        for (BookModel book : itemList) {
+                            try {
+                                if (book.getBuyer().fetchIfNeeded().getEmail().equals(me.getEmail())) {
+                                    transactionsList.add(book);
+                                } else if (book.getSeller().fetchIfNeeded().getEmail().equals(me.getEmail())) {
+                                    transactionsList.add(book);
+                                }
+                            } catch (ParseException e1) {
+                                e1.printStackTrace();
                             }
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
                         }
+                        addAll(transactionsList);
+                    } else {
+                        Log.d("item", "Error: " + e.getMessage());
                     }
-                    addAll(transactionsList);
-                } else {
-                    Log.d("item", "Error: " + e.getMessage());
                 }
-            }
-        });
+            });
+        } else {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+            alertDialog.setTitle("");
+            alertDialog
+                    .setMessage("Couldn't get transactions data since no internet connection!")
+                    .setCancelable(true)
+                    .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            // if this button is clicked, close
+                            // current activity
+                            dialog.cancel();
+                        }
+                    });
+            // create alert dialog
+            AlertDialog   dialog = alertDialog.create();
+
+            dialog.show();
+
+        }
     }
 
 }
