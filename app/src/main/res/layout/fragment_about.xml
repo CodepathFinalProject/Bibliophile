@@ -1,29 +1,85 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorCardView"
+    android:orientation="vertical"
     android:padding="10dp"
     tools:context="com.codepath.bibliophile.fragment.AboutFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:text="@string/about_tag"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tvAbout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="12dp"
+        android:text="@string/about"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp"
-    />
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="6dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/colorPrimary">
+
+    </View>
+
+    <TextView
+        android:id="@+id/privacy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="32dp"
+        android:text="@string/privacy_tag"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvPrivacy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/privacy_notice"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginBottom="6dp"
+        android:layout_marginTop="6dp"
+        android:background="@color/colorPrimary">
+
+    </View>
+
+    <TextView
+        android:id="@+id/version"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_marginTop="32dp"
+        android:text="@string/version_tag"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/tvVersion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
-        android:text="@string/VERSION"
+        android:layout_marginTop="12dp"
+        android:text="@string/version"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
-</FrameLayout>
+</LinearLayout>

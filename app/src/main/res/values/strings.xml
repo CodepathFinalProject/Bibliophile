@@ -23,7 +23,6 @@
     <string name="book_add_price_prompt">Please enter a googleBookModel price!</string>
 
 
-
     <string name="addressOptional">Address</string>
     <string name="city">City</string>
     <string name="state">State</string>
@@ -68,7 +67,12 @@
     <string name="app_intro">Bibiliophile is a mobile first peer to peer books marketplace</string>
     <string name="swipe_helper">You can swipe left on all books to reveal more options</string>
     <string name="app_welcome">Welcome to Bibliophile</string>
-    <string name="VERSION">Version: 1.0</string>
+    <string name="version_tag">Version:</string>
+    <string name="privacy_tag">Privacy:</string>
+    <string name="about_tag">About:</string>
+    <string name="about">Bibliophile is a mobile-first peer to peer app, where we provide a fully functional marketplace heavily optimized for buying and selling books.</string>
+    <string name="privacy_notice">We care about privacy and believe it should not be pages and pages long.\nHere are the things we have access to:\n\t1. Your facebook email address.\n\t2. Facebook Auth details.\n\t3. Your home address.\n\nWe won\'t sell your emails or post to facebook or serve ads.</string>
+    <string name="version">Bibliophile 1.0</string>
 
     <string-array name="condition_array">
         <item>New</item>
