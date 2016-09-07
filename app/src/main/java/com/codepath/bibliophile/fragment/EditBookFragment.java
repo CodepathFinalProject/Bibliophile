@@ -1,14 +1,19 @@
 package com.codepath.bibliophile.fragment;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -19,7 +24,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.model.BookModel;
-import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
@@ -51,39 +55,33 @@ public class EditBookFragment extends DialogFragment {
         final RatingBar ratingBar = (RatingBar) v.findViewById(R.id.rating);
         final TextView ratingsCount = (TextView) v.findViewById(R.id.ratings_count);
         final TextView description = (TextView) v.findViewById(R.id.description);
-        final EditText price = (EditText) v.findViewById(R.id.etBookPrice);
+        final EditText price = (EditText) v.findViewById(R.id.et_book_price);
         final Spinner conditionSpinner = (Spinner) v.findViewById(R.id.condition_spinner);
-
-
         final String title = getArguments().getString("title");
         final String objectId = getArguments().getString("objectId");
-
-
-
         ParseQuery query = ParseQuery.getQuery(BookModel.class);
         query.whereEqualTo("objectId", objectId);
-        query.getFirstInBackground(new GetCallback<BookModel>() {
-            @Override
-            public void done(BookModel object, ParseException e) {
-                book = object;
-                bookTitle.setText(book.getTitle());
-                bookAuthor.setText(book.getAuthor());
-                Glide.with(getContext()).
-                        load(book.getBookCover()).into(bookImage);
+        try {
+            book = (BookModel) query.getFirst();
+            bookTitle.setText(book.getTitle());
+            bookAuthor.setText(book.getAuthor());
+            Glide.with(getContext()).
+                    load(book.getBookCover()).into(bookImage);
 
-                ratingBar.setRating((float) book.getAverageRating().doubleValue());
+            ratingBar.setRating((float) book.getAverageRating().doubleValue());
 
-                String ratingsCountFormattedString = "(" + String.valueOf(book.getRatingsCount()) + ")";
-                ratingsCount.setText(ratingsCountFormattedString);
+            String ratingsCountFormattedString = "(" + String.valueOf(book.getRatingsCount()) + ")";
+            ratingsCount.setText(ratingsCountFormattedString);
 
-                description.setText(book.getDescription());
+            description.setText(book.getDescription());
 
-                price.setText(String.valueOf(book.getPrice()));
-                price.setSelection(price.length());
-
-            }
-
-        });
+            price.setText(String.valueOf(book.getPrice()));
+            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(price, InputMethodManager.SHOW_IMPLICIT);
+            price.setSelection(price.length());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         Toolbar toolbar = (Toolbar) v.findViewById(R.id.edit_book_toolbar);
         toolbar.inflateMenu(R.menu.menu_edit_book);
@@ -108,8 +106,13 @@ public class EditBookFragment extends DialogFragment {
 
                         book.saveEventually();
                         dismiss();
+                        break;
 
                     case R.id.clear:
+                        String tag = getTag();
+                        if (tag.equals("upload_book")){
+                            book.deleteEventually();
+                        }
                         dismiss();
                         return true;
                 }
@@ -123,6 +126,24 @@ public class EditBookFragment extends DialogFragment {
         return v;
     }
 
+    @Override
+    public void onDismiss(final DialogInterface dialog) {
+        super.onDismiss(dialog);
+        Fragment fragment = null;
+        Class fragmentClass;
+
+        fragmentClass = BookShelfFragment.class;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (java.lang.InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
+    }
 
     @Override
     public void onResume() {

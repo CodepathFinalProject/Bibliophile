@@ -133,7 +133,7 @@
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <EditText
-                    android:id="@+id/etBookPrice"
+                    android:id="@+id/et_book_price"
                     android:layout_width="@dimen/book_input"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
