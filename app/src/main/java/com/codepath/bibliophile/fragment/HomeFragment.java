@@ -189,9 +189,10 @@ public class HomeFragment extends Fragment {
     private void getBooksUsingQuery(String q) {
         // Check if the query is contained within the title or author fields
         ParseQuery<BookModel> queryTitle = ParseQuery.getQuery(BookModel.class);
-        queryTitle.whereContains("title", q);
+        queryTitle.whereMatches("title", q, "i");
+
         ParseQuery<BookModel> queryAuthor = ParseQuery.getQuery(BookModel.class);
-        queryAuthor.whereContains("author", q);
+        queryAuthor.whereMatches("author", q, "i");
 
         List<ParseQuery<BookModel>> clauses = new ArrayList<>();
         clauses.add(queryTitle);
