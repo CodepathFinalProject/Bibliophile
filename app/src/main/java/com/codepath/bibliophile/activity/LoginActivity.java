@@ -82,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             AlertDialog.Builder alertDialog = new AlertDialog.Builder(context);
             alertDialog.setTitle("");
             alertDialog
-                    .setMessage("NO INTERNET CONNECTION")
+                    .setMessage("No Internet Connection")
                     .setCancelable(true)
                     .setPositiveButton("OK",new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog,int id) {
