@@ -89,30 +89,41 @@ public class TransactionFragment extends Fragment {
                     @Override
                     public void onSwipeOptionClicked(int viewID, int position) {
                         BookModel book = books.get(position);
-
                         if (viewID == R.id.confirm_transaction) {
                             try {
+                                synchronized (this){
+                                    ParseUser me = ParseUser.getCurrentUser();
+                                    book = book.fetch();
+                                    if (me.getEmail().equals(book.getSeller().fetchIfNeeded().getEmail())) {
+                                        book.setSellerConfirmed(true);
+                                    } else if (me.getEmail().equals(book.getBuyer().fetchIfNeeded().getEmail())) {
+                                        book.setBuyerConfirmed(true);
+                                    }
+                                    if (book.getSellerConfirmed() && book.getBuyerConfirmed()) {
+                                        book.setIsTransactionComplete(true);
+                                        book.setIsListed(false);
+                                        ParseUser buyer = book.getBuyer();
+                                        book.setSeller(buyer);
+                                        book.remove("buyer");
+                                        books.remove(position);
+                                        adapter.notifyItemRemoved(position);
+                                    }
 
-                                ParseUser me = ParseUser.getCurrentUser();
-                                book = book.fetch();
-                                if (me.getEmail().equals(book.getSeller().fetchIfNeeded().getEmail())) {
-                                    book.setSellerConfirmed(true);
-                                } else if (me.getEmail().equals(book.getBuyer().fetchIfNeeded().getEmail())) {
-                                    book.setBuyerConfirmed(true);
-                                }
-                                book.saveEventually();
+                                    book.saveEventually();
+                                                                   }
+
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
 
                         } else if (viewID == R.id.decline_transaction) {
-                            // Do something
 
-//                            book.setIsListed(true);
-//                            //book.setBuyer(null);
-//                            book.saveEventually();
-
-
+                            book.setIsListed(true);
+                            book.setIsTransactionComplete(false);
+                            book.remove("buyer");
+                            book.saveEventually();
+                            books.remove(position);
+                            adapter.notifyItemRemoved(position);
                         }
                     }
                 });

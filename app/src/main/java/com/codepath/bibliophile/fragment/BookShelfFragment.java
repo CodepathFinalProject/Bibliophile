@@ -151,6 +151,7 @@ public class BookShelfFragment extends Fragment {
                                         book.saveEventually();
                                     } else {
                                         book.setIsListed(true);
+                                        book.setIsTransactionComplete(false);
                                         ivListingIcon.setImageResource(R.drawable.ic_unlist);
                                         tvListingStatus.setText("Unlist");
                                         book.saveEventually();
