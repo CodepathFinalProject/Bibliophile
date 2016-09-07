@@ -184,8 +184,6 @@ public class TransactionFragment extends Fragment {
                     .setCancelable(true)
                     .setPositiveButton("OK",new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog,int id) {
-                            // if this button is clicked, close
-                            // current activity
                             dialog.cancel();
                         }
                     });
