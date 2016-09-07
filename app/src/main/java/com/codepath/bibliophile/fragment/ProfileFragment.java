@@ -51,6 +51,7 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view;
         view = inflater.inflate(R.layout.fragment_profile, container, false);
+        getActivity().setTitle(R.string.fragment_profile);
         etName = (TextView) view.findViewById(R.id.etName);
         etName.setText(ParseUser.getCurrentUser().getString("username"));
 //        etName.setSelection(etName.length());

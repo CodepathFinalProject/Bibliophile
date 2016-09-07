@@ -52,11 +52,13 @@ public class BookShelfFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup parent,
                              Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.home_fragment, parent, false);
+        getActivity().setTitle(R.string.fragment_bookshelf);
+
         rvItem = (RecyclerView) v.findViewById(R.id.rvHomePage);
         FloatingActionButton myFab = (FloatingActionButton) v.findViewById(R.id.fabAdd);
         myFab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new PostFragment()).commit();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new PostFragment()).addToBackStack("add").commit();
             }
         });
 

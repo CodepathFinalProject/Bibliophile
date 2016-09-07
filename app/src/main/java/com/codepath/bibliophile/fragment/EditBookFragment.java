@@ -141,7 +141,7 @@ public class EditBookFragment extends DialogFragment {
             e.printStackTrace();
         }
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack("edit").commit();
 
     }
 

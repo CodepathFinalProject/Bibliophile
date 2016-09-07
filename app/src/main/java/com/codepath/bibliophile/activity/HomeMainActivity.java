@@ -107,7 +107,7 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
 
                 // Insert the fragment by replacing any existing fragment
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack("profile").commit();
 
                 // Highlight the selected item has been done by NavigationView
                 // Close the navigation drawer
@@ -121,7 +121,7 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
         // Setup drawer view
         setupDrawerContent(nvDrawer);
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new HomeFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.flContent, new HomeFragment()).addToBackStack("home").commit();
 
 
         }
@@ -288,7 +288,7 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
 
         // Insert the fragment by replacing any existing fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack("home").commit();
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
@@ -341,7 +341,7 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
         });
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, new HomeFragment()).commit(); // TODO would like to use Bookshelf Fragment but the POST call does not finish before the GET call
+        fragmentManager.beginTransaction().replace(R.id.flContent, new HomeFragment()).addToBackStack("post").commit(); // TODO would like to use Bookshelf Fragment but the POST call does not finish before the GET call
     }
 
     @Override
@@ -353,6 +353,5 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
             fragmentManager.popBackStack();
         }
     }
-
 }
 
