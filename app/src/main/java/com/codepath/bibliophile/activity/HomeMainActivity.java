@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.codepath.bibliophile.R;
+import com.codepath.bibliophile.fragment.AboutFragment;
 import com.codepath.bibliophile.fragment.AddBookFragment;
 import com.codepath.bibliophile.fragment.BookShelfFragment;
 import com.codepath.bibliophile.fragment.HomeFragment;
@@ -244,7 +245,9 @@ public class HomeMainActivity extends AppCompatActivity implements PostFragment.
                 ParseUser.logOut();
                 Intent intent = new Intent(HomeMainActivity.this, LoginActivity.class);
                 startActivity(intent);
-
+            case R.id.nav_about:
+                fragmentClass = AboutFragment.class;
+                break;
             default:
                 fragmentClass = HomeFragment.class;
         }
