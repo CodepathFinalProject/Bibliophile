@@ -1,6 +1,7 @@
 package com.codepath.bibliophile.fragment;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -18,6 +20,7 @@ import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.activity.DetailsActivity;
 import com.codepath.bibliophile.adapter.HomeRecyclerViewAdapter;
 import com.codepath.bibliophile.model.BookModel;
+import com.codepath.bibliophile.utils.Utils;
 import com.nikhilpanju.recyclerviewenhanced.RecyclerTouchListener;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -154,8 +157,13 @@ public class HomeFragment extends Fragment {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getBooks();
-                onResume();
+                String qValue = "";
+                if ((getArguments() != null) && getArguments().containsKey("query")) {
+                    qValue = getArguments().getString("query");
+                    getBooksUsingQuery(qValue);
+                } else {
+                    getBooks();
+                }
                 swipeContainer.setRefreshing(false);
             }
         });
@@ -182,12 +190,30 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
 
+        if(Utils.isNetworkAvailable(getContext())) {
 
-        finalQuery.findInBackground(new FindCallback<BookModel>() {
-            public void done(List<BookModel> itemList, ParseException e) {
-                updateList(itemList, e);
-            }
-        });
+            finalQuery.findInBackground(new FindCallback<BookModel>() {
+                public void done(List<BookModel> itemList, ParseException e) {
+                    updateList(itemList, e);
+                }
+            });
+        } else {
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+            alertDialog.setTitle("");
+            alertDialog
+                    .setMessage("Couldn't get books data since no internet connection!")
+                    .setCancelable(true)
+                    .setPositiveButton("OK",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog,int id) {
+                            dialog.cancel();
+                        }
+                    });
+            // create alert dialog
+            AlertDialog   dialog = alertDialog.create();
+
+            dialog.show();
+
+        }
         rvItem.addOnItemTouchListener(onTouchListener);
         super.onResume();
     }
@@ -203,9 +229,10 @@ public class HomeFragment extends Fragment {
     private void getBooksUsingQuery(String q) {
         // Check if the query is contained within the title or author fields
         ParseQuery<BookModel> queryTitle = ParseQuery.getQuery(BookModel.class);
-        queryTitle.whereContains("title", q);
+        queryTitle.whereMatches("title", q, "i");
+
         ParseQuery<BookModel> queryAuthor = ParseQuery.getQuery(BookModel.class);
-        queryAuthor.whereContains("author", q);
+        queryAuthor.whereMatches("author", q, "i");
 
         List<ParseQuery<BookModel>> clauses = new ArrayList<>();
         clauses.add(queryTitle);
