@@ -3,23 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.codepath.bibliophile.activity.LoginActivity">
+    tools:context="com.codepath.bibliophile.activity.LoginActivity"
+    android:background="@color/colorPrimaryDark">
 
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/login_screen"
-        android:scaleType="fitXY"
-        android:src="@drawable/login_screen" />
+    <ImageView
+        android:layout_width="128dp"
+        android:layout_height="128dp"
+        android:layout_above="@+id/tvLoginAppName"
+        android:id="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/colorAccent"
+        android:src="@mipmap/ic_launcher"/>
 
 
     <TextView
         android:id="@+id/tvLoginAppName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnFacebookLogin"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
+        android:layout_centerInParent="true"
+
         android:text="@string/app_name"
         android:textColor="@color/colorCardView"
         android:textSize="64sp" />
@@ -28,11 +30,13 @@
         android:id="@+id/btnFacebookLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tvLoginAppName"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:backgroundTint="@color/colorsFacebookButton"
         android:drawableLeft="@drawable/com_facebook_button_icon_blue"
         android:drawablePadding="20sp"
+        android:layout_marginTop="48dp"
         android:text="@string/facebook_login_text"
         android:textAllCaps="false"
         android:textColor="@color/colorCardView" />
