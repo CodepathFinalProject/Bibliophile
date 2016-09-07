@@ -173,7 +173,7 @@ public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private String calculateDistanceBetween(ParseGeoPoint myLocation, ParseGeoPoint bookLocation) {
         Double distance = myLocation.distanceInMilesTo(bookLocation);
-        return String.format("%.2f", distance) + " miles away.";
+        return String.format("%.2f", distance) + " miles away";
 
     }
 
