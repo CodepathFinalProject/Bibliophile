@@ -181,11 +181,17 @@ public class BookShelfFragment extends Fragment {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getBooks();
-                onResume();
+                String qValue = "";
+                if ((getArguments() != null) && getArguments().containsKey("query")) {
+                    qValue = getArguments().getString("query");
+                    getBooksUsingQuery(qValue);
+                } else {
+                    getBooks();
+                }
                 swipeContainer.setRefreshing(false);
             }
         });
+
 
         return v;
     }

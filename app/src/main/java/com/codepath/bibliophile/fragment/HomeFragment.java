@@ -153,7 +153,6 @@ public class HomeFragment extends Fragment {
                 });
 
         swipeContainer = (SwipeRefreshLayout) v.findViewById(R.id.swipeContainer);
-
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -167,6 +166,7 @@ public class HomeFragment extends Fragment {
                 swipeContainer.setRefreshing(false);
             }
         });
+
 
         return v;
     }
