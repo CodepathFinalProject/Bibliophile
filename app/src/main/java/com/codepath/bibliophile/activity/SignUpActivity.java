@@ -9,8 +9,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.codepath.bibliophile.R;
@@ -36,17 +36,19 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_address);
-        EditText etEmail = (EditText) findViewById(R.id.etEmail);
-        Button saveBtn = (Button) findViewById(R.id.btnSave);
+        TextView tvEmail = (TextView) findViewById(R.id.tvEmail);
+        ImageView saveIcon = (ImageView) findViewById(R.id.saveIcon);
         TextView welcomeMsg = (TextView) findViewById(R.id.welcome_msg);
 
-        final UserModel user = getUserInfoFromFB(etEmail, welcomeMsg);
+        final UserModel user = getUserInfoFromFB(tvEmail, welcomeMsg);
 
         final PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
         autocompleteFragment.setHint("Enter your Address");
         ((EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
                 .setTextColor(Color.parseColor("#ffffff"));
+        ((EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
+                .setHintTextColor(Color.parseColor("#ffffff"));
         ((EditText)autocompleteFragment.getView().findViewById(R.id.place_autocomplete_search_input))
                 .setTextSize(22.0f);
 
@@ -63,18 +65,26 @@ public class SignUpActivity extends AppCompatActivity {
             public void onError(Status status) {
                 // TODO: Handle the error.
                 Log.i("DEBUG", "An error occurred: " + status);
+                alertOnInvalidAddress();
             }
         });
-        saveBtn.setOnClickListener(new View.OnClickListener() {
+        saveIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                saveToParse(user);
+                if (user.getCoord() == null){
+                    alertOnInvalidAddress();
+
+
+                }else{
+                    saveToParse(user);
+                }
+
             }
         });
     }
 
 
-    private UserModel getUserInfoFromFB(final EditText etEmail, final TextView welcomeMsg) {
+    private UserModel getUserInfoFromFB(final TextView tvEmail, final TextView welcomeMsg) {
         final UserModel user = new UserModel();
         final Bundle parameters = new Bundle();
         parameters.putString("fields", "id,name,email,cover.type(large),picture.type(large)");
@@ -109,9 +119,8 @@ public class SignUpActivity extends AppCompatActivity {
                             coverPic = null;
                         }
                         String email = response.getJSONObject().getString("email");
-                        etEmail.setText(email);
+                        tvEmail.setText(email);
                         user.setEmailAddress(email);
-                        etEmail.setSelection(etEmail.length());
                         String name = response.getJSONObject().getString("name");
                         welcomeMsg.setText("Welcome " + name + "!");
 
@@ -137,6 +146,10 @@ public class SignUpActivity extends AppCompatActivity {
             parseUser.setUsername(user.getName());
             parseUser.put("address", user.getAddress());
             parseUser.put("profilePic", user.getProfilePicUrl());
+            if (user.getCoverPicUrl() == null){
+                String defautCoverPic = "http://i.imgur.com/MJHgcby.png";
+                user.setCoverPicUrl(defautCoverPic);
+            }
             parseUser.put("coverPic", user.getCoverPicUrl());
             parseUser.put("coordinates", new ParseGeoPoint(user.getCoord().latitude, user.getCoord().longitude));
             parseUser.saveEventually();
@@ -162,5 +175,20 @@ public class SignUpActivity extends AppCompatActivity {
             dialog.show();
 
         }
+    }
+
+    private void alertOnInvalidAddress(){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(SignUpActivity.this);
+        alertDialogBuilder.setTitle("Action Unavailable");
+        String message = "Address cannot be empty or invalid. Please entering it again.";
+        alertDialogBuilder.setMessage(message);
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }
