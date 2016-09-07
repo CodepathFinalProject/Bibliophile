@@ -17,9 +17,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.codepath.bibliophile.R;
 import com.codepath.bibliophile.model.GoogleBookModel;
-import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
@@ -97,7 +97,7 @@ public class AddBookFragment extends Fragment {
         btnPostBook = (Button) view.findViewById(R.id.btnPostBook);
         setButtonListeners();
 
-        Picasso.with(getContext()).load(googleBookModel.getThumbnailUrl()).into(ivBookThumbnail);
+        Glide.with(getContext()).load(googleBookModel.getThumbnailUrl()).into(ivBookThumbnail);
         tvBookTitle.setText(googleBookModel.getTitle());
         tvBookSubtitle.setText(googleBookModel.getSubtitle());
         tvBookAuthor.setText(googleBookModel.getPrimaryAuthor());
