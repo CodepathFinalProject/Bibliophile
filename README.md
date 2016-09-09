@@ -18,7 +18,7 @@ Bookshelf
 
 Details
 * [x] Selecting a book on his bookshelf takes User to the Details page, which displays book name, author, ISBN, description, cover picture, rating, owner's name and email id
-* [ ] User can edit the condition of his book or delete the book from his bookshelf
+* [x] User can edit the condition of his book or delete the book from his bookshelf
 * [x] Buyer can send an email to the seller to show interest in the book from details page
 
 Search
@@ -27,9 +27,8 @@ Search
 
 Purchase
 * [x] Buyer can express interest in buying a book by clicking "BUY", thus creating an Inquiry.
-* [ ] Sellers can find inquiries in a Transactions tab. If Seller agrees to sell the book, Seller clicks "ACCEPT"
-* [ ] After accepting an inquiry, Seller and Buyer will be taken into Facebook messenger where a conversation will be started
-* [ ] Once Buyer has received the book, Buyer can click "CONFIRMED" and the transaction will take place
+* [x] Sellers can find inquiries in a Transactions tab. If Seller agrees to sell the book, Seller clicks "CONFIRM"
+* [x] Once Buyer has received the book, Buyer can click "CONFIRMED" and the transaction will take place
 
 Profile
 * [x] Clicking the Profile tab will take you to the Profile activity
@@ -43,11 +42,11 @@ Adding books
 * [ ] We show you the recommended price
 
 Book details
-* [ ] Can see the profile picture of the seller
+* [x] Can see the profile picture of the seller
 
 
 Search
-* [ ] Users will see nearby books upon navigating to the Search page
+* [x] Users will see nearby books upon navigating to the Search page
 * [ ] Filters
 			Star/favorites the book	
 			Location
@@ -60,19 +59,19 @@ Search
 
 Purchase
 * [ ] Seller will receive a push notification when he gets a book Inquiry
-* [ ] Automatic removal of book from buyer's bookshelf after buyer clicks CONFIRM
+* [x] Automatic removal of book from buyer's bookshelf after buyer clicks CONFIRM
 * [ ] User can connect or disconnect his Venmo account
 
 Transactions Page:
 * [x] On clicking buy the book will move to the transactions page for buyer
-* [ ] When somebody else clicks seller's book will move to the transactions page for seller
+* [x] When somebody else clicks seller's book will move to the transactions page for seller
 * [ ] Add appropriate transaction pending labels in buyer and seller mode
 
 Transactions history activity
 * [ ] Inquiries
 * [ ] Complete transactions
 	
-* [ ] About page in the menu
+* [x] About page in the menu
 
 ## Mock - Up Link:
 https://popapp.in/projects/57b3a53562e5f4df209ee1e2/preview
