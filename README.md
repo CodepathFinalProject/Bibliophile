@@ -73,9 +73,6 @@ Transactions history activity
 	
 * [x] About page in the menu
 
-## Mock - Up Link:
-https://popapp.in/projects/57b3a53562e5f4df209ee1e2/preview
-
 Here's a walkthrough of implemented user stories:
 
 https://www.youtube.com/watch?v=VSsxgQ8bVHU
