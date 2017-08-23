@@ -75,4 +75,4 @@ Transactions history activity
 
 
 ## Demo
-<img src='https://media.giphy.com/media/eeCTDJHQYfreE/giphy.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+https://www.youtube.com/watch?v=VSsxgQ8bVHU
