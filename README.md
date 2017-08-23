@@ -73,6 +73,6 @@ Transactions history activity
 	
 * [x] About page in the menu
 
-Here's a walkthrough of implemented user stories:
 
-https://www.youtube.com/watch?v=VSsxgQ8bVHU
+## Demo
+<img src='https://media.giphy.com/media/eeCTDJHQYfreE/giphy.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
